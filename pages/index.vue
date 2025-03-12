@@ -2,7 +2,7 @@
   <div>
     <!--PROJEKTE-BEREICH -->
     <section id="projects" class="w-full p-10">
-      <h2 class="text-5xl italic mb-6 text-green-600">Projekte</h2>
+      <h2 class="text-5xl italic mb-6 text-black-600">Projekte</h2>
 
       <!-- Responsives Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
