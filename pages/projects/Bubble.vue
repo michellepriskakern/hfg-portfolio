@@ -19,9 +19,9 @@
     <br>
     <p><span class="text-gray-400 font-semibold">Strategy</span><br>Concept, interaction, video, digital application <br> UI/UX Design</p>
     <br>
-    <p><span class="text-gray-400 font-semibold">Tools:</span><br>Figma, After Effects, Premiere, Miro, Notion</p>
+    <p><span class="text-gray-400 font-semibold">Tools</span><br>Figma, After Effects, Premiere, Miro, Notion</p>
     <br>
-    <p><span class="text-gray-400 font-semibold">Team:</span><br>Lea Ullman, Vanessa Hiller, Yasmin Hähnel</p>
+    <p><span class="text-gray-400 font-semibold">Team</span><br>Lea Ullman, Vanessa Hiller, Yasmin Hähnel</p>
   </div>
 
   <!-- Rechter Bereich -->

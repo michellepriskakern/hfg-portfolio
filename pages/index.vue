@@ -5,7 +5,6 @@
       <div class="relative space-y-8">
         <div v-for="(project, index) in projects" :key="project.slug"
           class="transition-opacity duration-500">
-          <!-- Flexbox für Titel & Untertitel in einer Reihe -->
           <div class="flex items-start">
             <h2 class="text-6xl font-bold transition-colors duration-500"
               :class="{ 
@@ -29,20 +28,18 @@
       </div>
     </div>
 
-    <!-- Rechte Spalte: Scrollbarer Bereich für Projekte -->
-    <div ref="scrollContainer" class="w-2/3 h-screen overflow-y-scroll snap-y snap-mandatory flex flex-col items-center">
-      <div v-for="(project, index) in projects" :key="project.slug"
-        class="relative flex items-center justify-center h-screen snap-center transition-transform duration-500"
-        :class="{
-          'scale-100 blur-0 opacity-100': index === activeIndex, 
-          'scale-90 blur-sm opacity-50': index !== activeIndex
-        }">
+    <!-- Rechte Spalte: Unendlich scrollende Bilder -->
+    <div ref="scrollContainer" class="w-2/3 h-screen overflow-y-scroll relative hide-scrollbar" @scroll="handleInfiniteScroll">
+      <div ref="scrollContent" class="scroll-content">
+        <div v-for="(project, index) in [...projects, ...projects, ...projects]" 
+          :key="index"
+          class="relative flex items-center justify-center snap-center project-card">
+          
+          <NuxtLink :to="project.slug" class="w-[600px] max-w-[600px] transition-all duration-500">
+            <img :src="project.image" :alt="project.title" class="w-full h-auto object-cover rounded-lg shadow-lg">
+          </NuxtLink>
 
-        <!-- ✅ Hier wird die Größe der Karte angepasst -->
-        <NuxtLink :to="project.slug" class="w-[600px] max-w-[600px] transition-all duration-500">
-          <img :src="project.image" :alt="project.title" class="w-full h-auto object-cover rounded-lg shadow-lg">
-        </NuxtLink>
-
+        </div>
       </div>
     </div>
   </div>
@@ -58,8 +55,8 @@ const projects = ref([
   { title: "Bubble", subtitle: "Alltagsunterstützung für Borderline", image: "/images/bubble.jpg", slug: "/projects/bubble" }
 ]);
 
-const activeIndex = ref(0);
 const scrollContainer = ref(null);
+const scrollContent = ref(null);
 
 const formatSubtitle = (subtitle) => {
   if (!subtitle) return ["", "", ""]; 
@@ -68,7 +65,7 @@ const formatSubtitle = (subtitle) => {
   const wordCount = words.length;
 
   if (wordCount === 3) {
-    return words;
+    return words; 
   } else {
     return [
       words.slice(0, Math.ceil(wordCount / 3)).join(" "),
@@ -78,46 +75,65 @@ const formatSubtitle = (subtitle) => {
   }
 };
 
-const handleScroll = () => {
-  if (!scrollContainer.value) return;
+// Funktion für das nahtlose Endlos-Scrolling
+const handleInfiniteScroll = () => {
+  if (!scrollContainer.value || !scrollContent.value) return;
 
-  const items = document.querySelectorAll(".snap-center");
-  let closestIndex = 0;
-  let closestDistance = Infinity;
+  const scrollTop = scrollContainer.value.scrollTop;
+  const scrollHeight = scrollContent.value.scrollHeight / 3; // 3-fache Kopie der Liste
 
-  items.forEach((item, index) => {
-    const rect = item.getBoundingClientRect();
-    const distanceToCenter = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
+  if (scrollTop >= scrollHeight * 2) {
+    scrollContainer.value.scrollTop = scrollHeight;
+  }
 
-    if (distanceToCenter < closestDistance) {
-      closestDistance = distanceToCenter;
-      closestIndex = index;
-    }
-  });
-
-  activeIndex.value = closestIndex;
+  if (scrollTop <= 0) {
+    scrollContainer.value.scrollTop = scrollHeight;
+  }
 };
 
 onMounted(() => {
   if (scrollContainer.value) {
-    scrollContainer.value.addEventListener("scroll", handleScroll);
+    scrollContainer.value.scrollTop = scrollContent.value.scrollHeight / 3;
+    scrollContainer.value.addEventListener("scroll", handleInfiniteScroll);
   }
 });
 
 onUnmounted(() => {
   if (scrollContainer.value) {
-    scrollContainer.value.removeEventListener("scroll", handleScroll);
+    scrollContainer.value.removeEventListener("scroll", handleInfiniteScroll);
   }
 });
 </script>
 
 <style scoped>
-html, body {
-  overflow: hidden;
-  height: 100%;
+/* ✅ Scroll-Container exakt so breit wie die Bilder */
+.scroll-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Abstand zwischen den Bildern */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 600px; /* Exakt so breit wie die Bilder */
+  max-width: 600px; /* Falls die Größe angepasst wird */
+  margin-left: auto;  
+  margin-right: 50px; /* 50px Abstand zum rechten Rand */
+
+  /* 🏆 Snap-Scrolling aktivieren */
+  scroll-snap-type: y mandatory;
 }
 
-.scroll-smooth {
-  scroll-behavior: smooth;
+/* 🏆 Jedes Bild wird mittig gesnappt */
+.project-card {
+  scroll-snap-align: center;
+}
+
+/* Scrollbar verstecken */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
 }
 </style>
