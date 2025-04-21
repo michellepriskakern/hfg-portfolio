@@ -1,26 +1,44 @@
 <template>
-  <div class="h-screen flex overflow-hidden">
-    <!-- Linke Spalte: Projektliste -->
-    <div class="w-1/3 flex flex-col justify-center pl-12">
-      <div class="relative space-y-8">
-        <div v-for="(project, index) in projects" :key="project.slug"
-          class="transition-opacity duration-500">
-          <div class="flex items-start">
-            <h2 class="text-6xl font-bold transition-colors duration-500"
-              :class="{ 
-                'text-black opacity-100': index === activeIndex, 
-                'text-gray-400 opacity-50': index !== activeIndex 
-              }">
+  <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
+    <!-- Linke Spalte (Titel) -->
+    <div
+      ref="textScrollContainer"
+      class="w-full lg:w-1/3 flex flex-col justify-center px-6 py-12 lg:pl-12 overflow-hidden relative"
+    >
+      <div class="relative h-full lg:h-screen flex items-center justify-center overflow-hidden">
+        <div
+          v-for="(project, i) in projects.slice(activeIndex)"
+          :key="`title-${activeIndex + i}`"
+          class="absolute transition-all duration-300 w-full flex flex-col items-start"
+          :style="{
+            transform: `translateY(${i * 100}%)`,
+            opacity: i === 0 ? 1 : 0.2,
+            pointerEvents: i === 0 ? 'auto' : 'none'
+          }"
+        >
+          <div class="flex flex-col sm:flex-row items-start sm:items-center">
+            <h2
+              class="text-3xl sm:text-4xl lg:text-6xl font-bold transition-colors duration-300 mt-4 sm:mt-10 relative z-10"
+              :class="{
+                'text-black opacity-100': i === 0,
+                'text-gray-400 opacity-80': i !== 0
+              }"
+            >
               {{ project.title }}
             </h2>
-
-            <div class="ml-4 text-sm text-gray-500 font-light leading-snug max-w-[150px] flex flex-col"
-              :class="{ 
-                'opacity-100': index === activeIndex, 
-                'opacity-50': index !== activeIndex 
-              }">
-              <span v-for="line in formatSubtitle(project.subtitle)" :key="line">
-                {{ line }}
+            <div
+              v-if="i === 0"
+              class="sm:ml-4 text-sm text-gray-600 font-light leading-snug max-w-xs flex flex-col opacity-100 transition-opacity duration-500 mt-4 sm:mt-12"
+            >
+              <span class="subtitle">
+                <span
+                  v-for="(word, index) in project.subtitle.split(' ')" 
+                  :key="index" 
+                  class="word"
+                  :style="{ animationDelay: `${index * 0.1}s` }"
+                >
+                  {{ word }}
+                </span>
               </span>
             </div>
           </div>
@@ -28,18 +46,27 @@
       </div>
     </div>
 
-    <!-- Rechte Spalte: Unendlich scrollende Bilder -->
-    <div ref="scrollContainer" class="w-2/3 h-screen overflow-y-scroll relative hide-scrollbar" @scroll="handleInfiniteScroll">
-      <div ref="scrollContent" class="scroll-content">
-        <div v-for="(project, index) in [...projects, ...projects, ...projects]" 
-          :key="index"
-          class="relative flex items-center justify-center snap-center project-card">
-          
-          <NuxtLink :to="project.slug" class="w-[600px] max-w-[600px] transition-all duration-500">
-            <img :src="project.image" :alt="project.title" class="w-full h-auto object-cover rounded-lg shadow-lg">
-          </NuxtLink>
-
-        </div>
+    <!-- Rechte Spalte (scrollbare Cards) -->
+    <div
+      ref="scrollContainer"
+      class="w-full lg:w-2/3 h-full lg:h-screen overflow-y-auto snap-y snap-mandatory flex flex-col items-center"
+    >
+      <div
+        v-for="(project, index) in projects"
+        :key="`card-${index}-${project.slug}`"
+        class="relative flex items-center justify-center min-h-[90vh] lg:h-screen snap-center transition-transform duration-300"
+        :class="{
+          'scale-100 blur-0 opacity-100': index === activeIndex,
+          'scale-95 blur-sm opacity-60': index !== activeIndex
+        }"
+      >
+        <NuxtLink :to="project.slug" class="w-11/12 sm:w-[600px] lg:w-[800px] max-w-[800px] transition-all duration-300">
+          <img
+            :src="project.image"
+            :alt="project.title"
+            class="w-full h-auto object-cover rounded-lg shadow-lg"
+          />
+        </NuxtLink>
       </div>
     </div>
   </div>
@@ -48,92 +75,122 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
-const projects = ref([
-  { title: "ZenZone", subtitle: "Entspannung im Alltag", image: "/images/zenzone.png", slug: "/projects/zenzone" },
-  { title: "Human Head", subtitle: "Interaktive Ausstellungs Gestaltung", image: "/images/thehumanhead.jpg", slug: "/projects/thehumanhead" },
-  { title: "Phlib", subtitle: "Finde was du wirklich lesen willst", image: "/images/phlib.jpg", slug: "/projects/phlib" },
-  { title: "Bubble", subtitle: "Alltagsunterstützung für Borderline", image: "/images/bubble.jpg", slug: "/projects/bubble" }
-]);
+const originalProjects = [
+  {
+    title: 'ZenZone',
+    subtitle: 'Entspannung im Alltag',
+    image: '/images/zenzone.png',
+    slug: '/projects/zenzone'
+  },
+  {
+    title: 'Human Head',
+    subtitle: 'Interaktive Ausstellungs Gestaltung',
+    image: '/images/humanhead.png',
+    slug: '/projects/thehumanhead'
+  },
+  {
+    title: 'Phlib',
+    subtitle: 'Finde was du wirklich lesen willst',
+    image: '/images/phlib.png',
+    slug: '/projects/phlib'
+  },
+  {
+    title: 'Bubble',
+    subtitle: 'Alltagsunterstützung für Borderline',
+    image: '/images/bubble.jpg',
+    slug: '/projects/bubble'
+  }
+];
 
+const projects = ref(Array(100).fill(originalProjects).flat());
+const activeIndex = ref(originalProjects.length * 10);
 const scrollContainer = ref(null);
-const scrollContent = ref(null);
+const leftScrollOffset = ref(0);
+let isAdjusting = false;
 
-const formatSubtitle = (subtitle) => {
-  if (!subtitle) return ["", "", ""]; 
+const handleScroll = () => {
+  if (isAdjusting) return;
+  const container = scrollContainer.value;
+  if (!container) return;
 
-  const words = subtitle.split(" ");
-  const wordCount = words.length;
+  const items = container.querySelectorAll('.snap-center');
+  let closestIndex = 0;
+  let closestDistance = Infinity;
 
-  if (wordCount === 3) {
-    return words; 
-  } else {
-    return [
-      words.slice(0, Math.ceil(wordCount / 3)).join(" "),
-      words.slice(Math.ceil(wordCount / 3), Math.ceil((2 * wordCount) / 3)).join(" "),
-      words.slice(Math.ceil((2 * wordCount) / 3)).join(" "),
-    ];
-  }
-};
+  items.forEach((item, index) => {
+    const rect = item.getBoundingClientRect();
+    const distanceToCenter = Math.abs(
+      rect.top + rect.height / 2 - window.innerHeight / 2
+    );
+    if (distanceToCenter < closestDistance) {
+      closestDistance = distanceToCenter;
+      closestIndex = index;
+    }
+  });
 
-// Funktion für das nahtlose Endlos-Scrolling
-const handleInfiniteScroll = () => {
-  if (!scrollContainer.value || !scrollContent.value) return;
+  activeIndex.value = closestIndex;
 
-  const scrollTop = scrollContainer.value.scrollTop;
-  const scrollHeight = scrollContent.value.scrollHeight / 3; // 3-fache Kopie der Liste
+  // Invertiere Scroll für linke Seite
+  leftScrollOffset.value = -container.scrollTop;
 
-  if (scrollTop >= scrollHeight * 2) {
-    scrollContainer.value.scrollTop = scrollHeight;
-  }
+  const scrollTop = container.scrollTop;
+  const sectionHeight = container.scrollHeight / 3;
 
-  if (scrollTop <= 0) {
-    scrollContainer.value.scrollTop = scrollHeight;
+  if (scrollTop >= sectionHeight * 2.5) {
+    isAdjusting = true;
+    requestAnimationFrame(() => {
+      container.scrollTop -= sectionHeight;
+      isAdjusting = false;
+    });
   }
 };
 
 onMounted(() => {
-  if (scrollContainer.value) {
-    scrollContainer.value.scrollTop = scrollContent.value.scrollHeight / 3;
-    scrollContainer.value.addEventListener("scroll", handleInfiniteScroll);
-  }
+  const container = scrollContainer.value;
+  if (!container) return;
+
+  container.addEventListener('scroll', handleScroll);
+
+  container.style.scrollBehavior = 'auto';
+  setTimeout(() => {
+    container.scrollTop = container.scrollHeight / 2;
+    container.style.scrollBehavior = 'smooth';
+    leftScrollOffset.value = -container.scrollTop;
+  }, 50);
 });
 
 onUnmounted(() => {
-  if (scrollContainer.value) {
-    scrollContainer.value.removeEventListener("scroll", handleInfiniteScroll);
+  const container = scrollContainer.value;
+  if (container) {
+    container.removeEventListener('scroll', handleScroll);
   }
 });
 </script>
 
 <style scoped>
-/* ✅ Scroll-Container exakt so breit wie die Bilder */
-.scroll-content {
+html,
+body {
+  overflow: hidden;
+  height: 100%;
+}
+
+.subtitle {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px; /* Abstand zwischen den Bildern */
-  padding-top: 10px;
-  padding-bottom: 10px;
-  width: 600px; /* Exakt so breit wie die Bilder */
-  max-width: 600px; /* Falls die Größe angepasst wird */
-  margin-left: auto;  
-  margin-right: 50px; /* 50px Abstand zum rechten Rand */
-
-  /* 🏆 Snap-Scrolling aktivieren */
-  scroll-snap-type: y mandatory;
+  flex-wrap: wrap;
 }
 
-/* 🏆 Jedes Bild wird mittig gesnappt */
-.project-card {
-  scroll-snap-align: center;
+.word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideIn 0.2s forwards;
+  margin-right: 5px;
 }
 
-/* Scrollbar verstecken */
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE & Edge */
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 </style>
