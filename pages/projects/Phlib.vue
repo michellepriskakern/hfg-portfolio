@@ -18,7 +18,11 @@
         <br>
         <p><span class="text-gray-400 font-semibold">Tools</span><br>Figma, Premiere, Miro, Notion</p>
         <br>
-        <p><span class="text-gray-400 font-semibold">Team</span><br>Hope Sikuade, Vanessa Hiller</p>
+        <p>
+  <span class="text-gray-400 font-semibold">Team</span><br>
+  <a href="https://yasminhaehnel.com" target="_blank" class="text-black-500 hover:underline">yasminhaehnel.com</a>, 
+  <a href="https://leaullmann.de" target="_blank" class="text-black-500 hover:underline">Lea Ullmann</a>
+</p>
       </div>
       <div>
         <p class="text-4xl font-semibold">
