@@ -23,6 +23,7 @@
   <span class="text-gray-400 font-semibold">Team</span><br>
   <a href="https://yasminhaehnel.com" target="_blank" class="text-black-500 hover:underline">yasminhaehnel.com</a>, 
   <a href="https://leaullmann.de" target="_blank" class="text-black-500 hover:underline">Lea Ullmann</a>
+  <a href="vanessahiller.de" target="_blank" class="text-black-500 hover:underline">Vanessa Hiller</a>
 </p>
       </div>
 
@@ -97,3 +98,4 @@ const sections = [
   max-width: 1200px;
 }
 </style>
+ 
