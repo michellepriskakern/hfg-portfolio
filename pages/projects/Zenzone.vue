@@ -21,8 +21,10 @@
         <p><span class="text-gray-400 font-semibold">Team</span><br>Yasmin Hähnel, Lea Ullmann</p>
       </div>
       <div>
-        <p class="text-5xl font-semibold">
-          Im Kurs Interface 1 xx
+        <p class="text-4xl font-semibold">
+          Unser Semesterprojekt im Kurs Interface Design 1 beschäftigte sich mit dem Thema Haptic User Interfaces im Alltag. Ziel war es, ein Gerät zu entwerfen, das sich über ein haptisches Interface bedienen lässt.
+
+In vielen Bereichen des Alltags werden haptische Rückmeldungen zunehmend durch Touchscreens ersetzt – was jedoch häufig zu Einschränkungen in der Barrierefreiheit führt. Unser Projekt setzte genau hier an und suchte nach alternativen, taktil erfahrbaren Bedienkonzepten.
         </p>
       </div>
     </section>
@@ -33,8 +35,12 @@
       <div>
         <h2 class="text-3xl font-bold mb-4">Concept</h2>
         <p class="text-lg leading-relaxed">
-          Unser Ziel ist es, eine App zu entwickeln, die das Finden von Büchern vereinfacht und personalisierte Empfehlungen bietet, die genau auf die individuellen Vorlieben der Nutzer:innen zugeschnitten sind. Um dieses Ziel zu erreichen, haben wir eine umfassende Recherche durchgeführt, die sich aus verschiedenen Methoden zusammensetzt: Neben einer detaillierten Konkurrenzanalyse haben wir Interviews geführt, Umfragen erstellt und Desk Research betrieben. Die daraus gewonnenen Erkenntnisse haben wir genutzt, um eine solide Grundlage für unser Konzept zu schaffen und Personas entwickelt, die die Bedürfnisse und Wünsche unserer Zielgruppe der Gen Z repräsentiert.
-          <br><br> Unser Konzept baut auf diesen Erkenntnissen auf: Es vereint die Stärken existierender Apps und ergänzt sie durch innovative Ansätze. Wir wollen personalisierte Empfehlungen auf Basis von Emotionen, Stimmungen und Lesehistorie anbieten und dabei die Möglichkeit schaffen, Empfehlungen mit Freund:innen zu teilen. 
+          Das Smartphone ist für viele zum ständigen Begleiter geworden – auch abends im Bett. Doch genau dort steht es echter Entspannung oft im Weg. Eingehende Nachrichten, grelles Licht oder der Impuls, noch einmal schnell auf Social Media zu schauen, stören den Einschlafprozess und führen zu innerer Unruhe.
+<br><br>
+          Dabei ist es gerade abends wichtig, den Kopf freizubekommen und den Tag hinter sich zu lassen. Das Handy ist zwar ein praktisches Tool, um den Alltag zu organisieren, doch es kann auch zur Ablenkung werden. Viele Menschen haben Schwierigkeiten, abends abzuschalten und zur Ruhe zu kommen. Das Smartphone wird oft als letzte Beschäftigung genutzt, bevor
+Zwar gibt es Funktionen wie den „Nicht stören“-Modus oder Schlaf-Timer in Apps, doch das Problem bleibt: Das Handy liegt griffbereit – und damit auch die Ablenkung. Viele nutzen zudem YouTube, Spotify oder andere Plattformen, um mit Musik, Geräuschen oder Hörspielen einzuschlafen. Doch Werbung, Bildschirmlicht oder ständige Verfügbarkeit stören die eigentlich gewünschte Ruhe.
+<br><br>
+zenzone wurde entwickelt, um genau hier anzusetzen: ein eigenständiges Gerät, das beruhigende Klänge abspielt – ganz ohne aktives Smartphone. Es schafft eine ablenkungsfreie Atmosphäre für echte Entspannung und unterstützt so einen natürlichen Einschlafprozess.
         </p>
       </div>
     </section>
@@ -133,6 +139,11 @@ const sections = [
     title: "Website",
     text: "Die Web-Ansicht von Phlib bietet dieselben Kernfunktionen wie die App – in einem auf größere Bildschirme optimierten Layout. Nutzer:innen können ihre Bibliothek verwalten, BookMatch nutzen, Buchempfehlungen entdecken und Buddyreads verfolgen. Damit wird Phlib zur plattformübergreifenden Lösung für alle, die ihre Leseerfahrung flexibel gestalten möchten.",
     image: "/images/phlibWeb.png"
+  },
+  {
+    title: "App",
+    text: "Eine der Hauptfunktionen ist die Entdecken-Seite mit täglich wechselndem Match des Tages, individuellen Listen wie Top-Bücher der Woche oder Empfehlungen von Freunden und dem innovativen BookMatch-Feature. Dieses funktioniert ähnlich wie Tinder – Nutzer:innen entscheiden auf einen Blick, ob sie ein Buch interessiert oder nicht. Durch anpassbare Filter bietet BookMatch eine besonders schnelle und einfache Möglichkeit, neue Literatur zu finden. Zusätzlich ermöglicht Phlib das gemeinsame Lesen durch Buddyreads, das Teilen von Leseupdates im Feed und eine persönliche Lesestatistik mit Streaks und Jahres-Challenges. Visuell ansprechend und intuitiv gestaltet, bringt Phlib Übersicht, Motivation und Inspiration in den Lesealltag.",
+    image: "/images/Entdecken.jpg"
   },
 ]
 </script>

@@ -21,7 +21,7 @@
         <p><span class="text-gray-400 font-semibold">Team</span><br>Hope Sikuade, Vanessa Hiller</p>
       </div>
       <div>
-        <p class="text-5xl font-semibold">
+        <p class="text-4xl font-semibold">
           Im Kurs Applicationdesign 1 entwickeln wir ein Softwareprodukt von Grund auf – von der ersten Idee über Konzeption und
           Gestaltung bis hin zum fertigen, nutzbaren Endprodukt. Im Fokus stehen dabei die Benutzerfreundlichkeit („Wie gut lässt
           sich die App nutzen?“), das visuelle Erscheinungsbild sowie die Umsetzung.
