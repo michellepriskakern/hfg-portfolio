@@ -77,13 +77,13 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 const originalProjects = [
   {
-    title: 'ZenZone',
+    title: 'zenzone',
     subtitle: 'Entspannung im Alltag',
     image: '/images/zenzone.png',
     slug: '/projects/zenzone'
   },
   {
-    title: 'Human Head',
+    title: 'human head',
     subtitle: 'Interaktive Ausstellungs Gestaltung',
     image: '/images/humanhead.png',
     slug: '/projects/thehumanhead'
