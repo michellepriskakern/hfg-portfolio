@@ -15,24 +15,22 @@
       <div class="text-xl">
         <p><span class="text-gray-400 font-semibold">Duration</span><br>1 semester,  study project</p>
         <br>
-        <p><span class="text-gray-400 font-semibold">Strategy</span><br>Concept, interaction, video, digital application <br> UI/UX Design</p>
+        <p><span class="text-gray-400 font-semibold">Strategy</span><br>Research, concept, prototype, <br>  UI design, animation, video editing</p>
         <br>
-        <p><span class="text-gray-400 font-semibold">Tools</span><br>Figma, After Effects, Premiere, Miro, Notion</p>
+        <p><span class="text-gray-400 font-semibold">Tools</span><br>Figma, Miro, Notion, <br>  Premiere Pro, After Effects</p>
         <br>
         <p>
   <span class="text-gray-400 font-semibold">Team</span><br>
-  <a href="https://yasminhaehnel.com" target="_blank" class="text-black-500 hover:underline">yasminhaehnel.com</a>, 
-  <a href="https://leaullmann.de" target="_blank" class="text-black-500 hover:underline">Lea Ullmann</a>
-  <a href="vanessahiller.de" target="_blank" class="text-black-500 hover:underline">Vanessa Hiller</a>
+  <a href="https://yasminhaehnel.com" target="_blank" class="text-black-500 hover:underline">yasminhaehnel.com</a>, <br> 
+  <a href="https://leaullmann.de" target="_blank" class="text-black-500 hover:underline">leaullmann.de</a>,  <br> 
+<a href="https://vanessahiller.de" target="_blank" class="text-black-500 hover:underline">vanessahiller.de</a> <br> 
 </p>
       </div>
 
       <!-- Rechter Bereich -->
       <div>
         <p class="text-4xl font-semibold">
-          Our project shows how digital technologies can be used specifically to support people with borderline personality disorder. 
-          By combining reflection, biometric data and AI-supported counselling, we want to help those affected, 
-          better understand their emotions and deal with critical moments.
+          Im Kurs Invention Design 1 werden neue Produkte und Werkzeuge mit einer stark zukunftsorientierten Perspektive entworfen. Technologische Entwicklungen werden kritisch hinterfragt, um durch forschend-experimentelle Ansätze sinnvolle und innovative Anwendungsmöglichkeiten zu gestalten.
         </p>
       </div>
     </section>
@@ -43,11 +41,13 @@
       <div>
         <h2 class="text-3xl font-bold mb-4">Concept</h2>
         <p class="text-lg leading-relaxed">
-          Our project shows how digital technologies can be used specifically to support people with borderline personality disorder.
+          People with borderline often experience intense emotions that are difficult to grasp. The topic is very sensitive, which is why we have invested a lot of time in our research and worked with various experts from different fields, all of whom work with borderline sufferers.
           <br><br>
+          Our project shows how digital technologies can be used specifically to support people with borderline personality disorder.
+          
           By combining reflection, biometric data and AI-supported support, we want to help those affected to better understand their emotions and deal with critical moments.
           <br><br>
-          It was particularly important to us to develop an application that can be seamlessly integrated into everyday life and supports both the therapeutic process and personal well-being.
+          It was particularly important to us to develop an application that can be seamlessly integrated into everyday life and supports both the therapeutic process and personal well-being.<br> It is a fictitious future-oriented project.
         </p>
       </div>
     </section>
