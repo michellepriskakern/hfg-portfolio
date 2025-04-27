@@ -29,7 +29,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const phrases = [
-  { text: 'new adventures', color: '#FDD835' },
+  { text: 'meaningful expierences', color: '#FDD835' },
   { text: 'better interactions', color: '#FB8C00' },
   { text: 'new ideas', color: '#AB47BC' },
 ]
