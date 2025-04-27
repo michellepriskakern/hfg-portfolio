@@ -15,12 +15,44 @@
 
     <!-- About Text Section -->
     <section class="about-text-section py-12 px-6 sm:px-16 bg-white text-black text-lg leading-relaxed max-w-3xl mx-auto">
-      <p>
-        Hier ist ein <strong>Platzhaltertext</strong> über mich. Du kannst diesen Bereich nutzen, um deine Geschichte zu erzählen, deine Werte oder deine Projekte vorzustellen. 
-      </p>
-      <p class="mt-6">
-        Alles, was dich ausmacht, kann hier seinen Platz finden – sei es kreativ, professionell oder ganz persönlich.
-      </p>
+      <div class="section">
+        <h3 class="text-2xl font-bold mb-4">Wer ich bin</h3>
+        <p>
+          Hi, ich bin Michelle und studiere derzeit im 4. Semester Interaktionsgestaltung in Schwäbisch Gmünd. Derzeit bin ich auf der Suche nach einem Praktikum, um meine praktischen Erfahrungen weiter auszubauen, insbesondere interessieren mich die Bereiche UI/UX Design, Ausstellungsgestaltung, Interfacedesign und Usability Testing.
+        </p>
+        <p class="mt-6">
+          Neben dem Studium findet man mich oft mit einem Buch in der Hand, auf Skiern oder in Museen – überall dort, wo es etwas Neues zu entdecken gibt. Gestaltung begleitet mich dabei immer: Ich liebe es, Eindrücke aufzusaugen, Neues auszuprobieren und daraus kreative Verbindungen zu schaffen.
+        </p>
+        <p class="mt-6">
+          Außerdem bin ich eine echte Nachteule – abends kommen mir oft die besten Ideen. Deshalb liegt immer ein Notizbuch neben meinem Bett, damit kein Geistesblitz verloren geht.
+        </p>
+      </div>
+
+      <div class="section mt-12">
+        <h3 class="text-2xl font-bold mb-4">Wie ich denke</h3>
+        <p>
+          Mich interessiert bei der Entwicklung eines neuen Produktes die Frage, warum wir Produkte auf eine bestimmte Art nutzen, wie unser Verhalten dadurch beeinflusst wird und wieso wir sie so nutzen wie wir es tun.
+        </p>
+        <p class="mt-6">
+          Dabei ist es mir wichtig, mit Intention zu gestalten – bewusst Erfahrungen zu schaffen, die über das eigentliche Produkt hinausgehen.
+        </p>
+        <p class="mt-6">
+          Design bedeutet für mich, Funktion, Material, Nutzung und Kontext zusammenzudenken und daraus Erlebnisse zu entwickeln, bei denen der Nutzer im Mittelpunkt steht und ein einheitliches Gesamtbild zu schaffen.
+        </p>
+      </div>
+
+      <div class="section mt-12">
+        <h3 class="text-2xl font-bold mb-4">Wie ich arbeite</h3>
+        <p>
+          Ich arbeite gerne strukturiert und mit einem Plan – auch wenn das in der Praxis mal besser und mal schlechter funktioniert.
+        </p>
+        <p class="mt-6">
+          Besonders wichtig ist mir die Arbeit im Team. Man lernt unglaublich viel voneinander, bekommt neue Perspektiven und kann gemeinsam bessere Lösungen entwickeln. Ein gutes Produkt entsteht aus guter Zusammenarbeit, bei der jeder seine Perspektive einbringt.
+        </p>
+        <p class="mt-6">
+          Ein gutes Team, ein positives Mindset und ein respektvoller, freundlicher Umgang sind für mich genauso wichtig wie das Ergebnis – denn genau diese Haltung spiegelt sich später auch im Produkt wider.
+        </p>
+      </div>
     </section>
   </div>
 </template>
@@ -81,5 +113,21 @@ onUnmounted(() => {
 
 .about-text-section {
   background: #fff;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+h3 {
+  color: #333;
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
 }
 </style>
