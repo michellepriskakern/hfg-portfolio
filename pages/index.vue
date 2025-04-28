@@ -17,15 +17,32 @@
           }"
         >
           <div class="flex flex-col sm:flex-row items-start sm:items-center">
-            <h2
-              class="text-3xl sm:text-4xl lg:text-6xl font-bold transition-colors duration-300 mt-4 sm:mt-10 relative z-10"
-              :class="{
-                'text-black opacity-100': i === 0,
-                'text-gray-400 opacity-80': i !== 0
-              }"
+            <NuxtLink
+              :to="project.slug"
+              class="group"
             >
-              {{ project.title }}
-            </h2>
+              <h2
+                class="rolling-text text-3xl sm:text-4xl lg:text-6xl font-bold mt-4 sm:mt-10 relative z-10"
+                :class="{
+                  'text-black opacity-100': i === 0,
+                  'text-gray-400 opacity-80': i !== 0
+                }"
+              >
+                <span class="text-wrapper">
+                  <span class="text-content">
+                    <span v-for="(letter, index) in project.title.split('')" :key="index" class="letter" :style="{ animationDelay: `${index * 0.1}s` }">
+                      {{ letter }}
+                    </span>
+                  </span>
+                  <span class="text-content hover-text">
+                    <span v-for="(letter, index) in project.title.split('')" :key="index" class="letter" :style="{ animationDelay: `${index * 0.1}s` }">
+                      {{ letter }}
+                    </span>
+                  </span>
+                </span>
+              </h2>
+            </NuxtLink>
+
             <div
               v-if="i === 0"
               class="sm:ml-4 text-sm text-gray-600 font-light leading-snug max-w-xs flex flex-col opacity-100 transition-opacity duration-500 mt-4 sm:mt-12"
@@ -71,6 +88,8 @@
     </div>
   </div>
 </template>
+
+
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
@@ -129,8 +148,6 @@ const handleScroll = () => {
   });
 
   activeIndex.value = closestIndex;
-
-  // Invertiere Scroll für linke Seite
   leftScrollOffset.value = -container.scrollTop;
 
   const scrollTop = container.scrollTop;
@@ -193,5 +210,54 @@ body {
     transform: translateX(0);
   }
 }
+
+/* --- Rolling Text Animation (angepasst) --- */
+
+.rolling-text .text-wrapper {
+  position: relative;
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+}
+
+.rolling-text .text-content {
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.rolling-text .hover-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease, top 0.3s ease;
+  z-index: 1;
+}
+
+/* --- Standardzustand: keine Bewegung der Buchstaben --- */
+.letter {
+  display: inline-block;
+  opacity: 1; /* Buchstaben sofort sichtbar */
+  transform: translateY(0); /* Keine Verschiebung */
+}
+
+/* --- Hover: Animation starten --- */
+.group:hover .letter {
+  animation: rollUp 0.5s forwards;
+}
+
+/* --- Keyframes für die Roll-Animation --- */
+@keyframes rollUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 </style>
- 
