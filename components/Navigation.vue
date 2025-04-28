@@ -6,19 +6,53 @@
           <li>
             <NuxtLink 
               to="/" 
-              class="relative inline-block no-underline after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full after:transition-all after:duration-300"
+              class="relative inline-block no-underline group"
               active-class="active-link"
             >
-              Projects
+              <span class="rolling-text text-wrapper">
+                <span class="text-content">
+                  <span v-for="(letter, index) in 'Projects'.split('')" 
+                        :key="'projects-letter-' + index" 
+                        class="letter" 
+                        :style="{ animationDelay: `${index * 0.05}s` }">
+                    {{ letter }}
+                  </span>
+                </span>
+                <span class="text-content hover-text">
+                  <span v-for="(letter, index) in 'Projects'.split('')" 
+                        :key="'projects-hover-letter-' + index" 
+                        class="letter" 
+                        :style="{ animationDelay: `${index * 0.05}s` }">
+                    {{ letter }}
+                  </span>
+                </span>
+              </span>
             </NuxtLink>
           </li>
           <li>
             <NuxtLink 
               to="/about" 
-              class="relative inline-block no-underline after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full after:transition-all after:duration-300"
+              class="relative inline-block no-underline group"
               active-class="active-link"
             >
-              About
+              <span class="rolling-text text-wrapper">
+                <span class="text-content">
+                  <span v-for="(letter, index) in 'About'.split('')" 
+                        :key="'about-letter-' + index" 
+                        class="letter" 
+                        :style="{ animationDelay: `${index * 0.05}s` }">
+                    {{ letter }}
+                  </span>
+                </span>
+                <span class="text-content hover-text">
+                  <span v-for="(letter, index) in 'About'.split('')" 
+                        :key="'about-hover-letter-' + index" 
+                        class="letter" 
+                        :style="{ animationDelay: `${index * 0.05}s` }">
+                    {{ letter }}
+                  </span>
+                </span>
+              </span>
             </NuxtLink>
           </li>
         </ul>
@@ -28,7 +62,55 @@
 </template>
 
 <style scoped>
+/* Style für aktive Links */
 .active-link::after {
   width: 100%;
+}
+
+/* Rolling Text Style */
+.rolling-text .text-wrapper {
+  position: relative;
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+}
+
+.rolling-text .text-content {
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.rolling-text .hover-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease, top 0.3s ease;
+  z-index: 1;
+}
+
+/* Buchstaben einzeln */
+.letter {
+  display: inline-block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover-Effekt */
+.group:hover .letter {
+  animation: rollUp 0.5s forwards;
+}
+
+/* Keyframes Animation */
+@keyframes rollUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>

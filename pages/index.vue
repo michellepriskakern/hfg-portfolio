@@ -3,7 +3,7 @@
     <!-- Linke Spalte (Titel) -->
     <div
       ref="textScrollContainer"
-      class="w-full lg:w-1/3 flex flex-col justify-center px-6 py-12 lg:pl-12 overflow-hidden relative"
+      class="w-full lg:w-1/3 flex flex-col justify-center px-6 py-12 lg:pl-12 overflow-hidden relative ml-0 lg:ml-[50px]"
     >
       <div class="relative h-full lg:h-screen flex items-center justify-center overflow-hidden">
         <div
@@ -22,7 +22,7 @@
               class="group"
             >
               <h2
-                class="rolling-text text-3xl sm:text-4xl lg:text-6xl font-bold mt-4 sm:mt-10 relative z-10"
+                class="rolling-text text-5xl sm:text-6xl lg:text-7xl font-bold mt-4 sm:mt-10 relative z-10"
                 :class="{
                   'text-black opacity-100': i === 0,
                   'text-gray-400 opacity-80': i !== 0
@@ -45,7 +45,7 @@
 
             <div
               v-if="i === 0"
-              class="sm:ml-4 text-sm text-gray-600 font-light leading-snug max-w-xs flex flex-col opacity-100 transition-opacity duration-500 mt-4 sm:mt-12"
+              class="sm:ml-4 text-lg sm:text-xl text-gray-600 font-light leading-snug max-w-xs flex flex-col opacity-100 transition-opacity duration-500 mt-4 sm:mt-12"
             >
               <span class="subtitle">
                 <span
@@ -63,21 +63,21 @@
       </div>
     </div>
 
-    <!-- Rechte Spalte (scrollbare Cards) -->
+    <!-- Rechte Spalte (unendlicher Scroll für Bilder) -->
     <div
       ref="scrollContainer"
-      class="w-full lg:w-2/3 h-full lg:h-screen overflow-y-auto snap-y snap-mandatory flex flex-col items-center"
+      class="right-column h-screen overflow-y-scroll snap-y snap-mandatory flex flex-col items-center lg:items-end pl-0 ml-0 lg:ml-[280px]" 
     >
       <div
         v-for="(project, index) in projects"
         :key="`card-${index}-${project.slug}`"
-        class="relative flex items-center justify-center min-h-[90vh] lg:h-screen snap-center transition-transform duration-300"
+        class="relative flex items-center justify-center h-screen snap-center transition-transform duration-300"
         :class="{
           'scale-100 blur-0 opacity-100': index === activeIndex,
-          'scale-95 blur-sm opacity-60': index !== activeIndex
+          'scale-90 blur-sm opacity-50': index !== activeIndex
         }"
       >
-        <NuxtLink :to="project.slug" class="w-11/12 sm:w-[600px] lg:w-[800px] max-w-[800px] transition-all duration-300">
+        <NuxtLink :to="project.slug" class="w-full sm:w-[1000px] max-w-[1000px] transition-all duration-300">
           <img
             :src="project.image"
             :alt="project.title"
@@ -90,9 +90,8 @@
 </template>
 
 
-
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 
 const originalProjects = [
   {
@@ -126,6 +125,16 @@ const activeIndex = ref(originalProjects.length * 10);
 const scrollContainer = ref(null);
 const leftScrollOffset = ref(0);
 let isAdjusting = false;
+
+const infiniteScrollProjects = computed(() => {
+  const visibleProjects = projects.value.length;
+  const offset = activeIndex.value % visibleProjects; // Ensure the loop behavior
+
+  return [
+    ...projects.value.slice(offset), // Slice from the activeIndex to the end
+    ...projects.value.slice(0, offset) // Slice from the start to the activeIndex
+  ];
+});
 
 const handleScroll = () => {
   if (isAdjusting) return;
@@ -211,7 +220,7 @@ body {
   }
 }
 
-/* --- Rolling Text Animation (angepasst) --- */
+/* --- Rolling Text Animation --- */
 
 .rolling-text .text-wrapper {
   position: relative;
@@ -231,7 +240,7 @@ body {
   top: 0;
   width: 100%;
   opacity: 0;
-  transition: opacity 0.3s ease, top 0.3s ease;
+  transition: opacity 0.5s ease, top 0.5s ease;
   z-index: 1;
 }
 
@@ -258,6 +267,5 @@ body {
     transform: translateY(0);
   }
 }
-
 
 </style>
