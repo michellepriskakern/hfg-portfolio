@@ -112,7 +112,7 @@
 
 
 <!-- CONTENT CAROUSEL SECTION -->
-<section class="container mx-auto px-8 py-16 select-none">
+<section class="container mx-auto px-8 py-16 select-none ">
   <div 
     class="relative"
     @touchstart="handleTouchStart"
@@ -141,6 +141,7 @@
         </div>
       </div>
     </div>
+
 
     <!-- Indikationspunkte -->
     <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
@@ -171,6 +172,8 @@ const currentView = ref('concept')
 
 let touchStartX = 0
 let touchEndX = 0
+let mouseStartX = 0
+let mouseEndX = 0
 
 const startTouch = (e) => {
   touchStartX = e.changedTouches[0].screenX
@@ -184,6 +187,26 @@ const endTouch = (e) => {
 const handleSwipeConceptProcess = () => {
   const threshold = 50 // Minimum Swipe-Abstand
   const deltaX = touchEndX - touchStartX
+
+  if (Math.abs(deltaX) > threshold) {
+    if (deltaX < 0) currentView.value = 'process' // Swipe nach links
+    else currentView.value = 'concept'           // Swipe nach rechts
+  }
+}
+
+// Mouse-Events für Swipe
+const handleMouseDown = (e) => {
+  mouseStartX = e.clientX
+}
+
+const handleMouseUp = (e) => {
+  mouseEndX = e.clientX
+  handleSwipeConceptProcessMouse()
+}
+
+const handleSwipeConceptProcessMouse = () => {
+  const threshold = 50 // Minimum Mouse Swipe-Abstand
+  const deltaX = mouseEndX - mouseStartX
 
   if (Math.abs(deltaX) > threshold) {
     if (deltaX < 0) currentView.value = 'process' // Swipe nach links
@@ -211,7 +234,7 @@ const carouselSections = ref([
   }
 ])
 
-// Swipe-Logik für Carousel (falls du auch swipen willst)
+// Swipe-Logik für Carousel
 let startX = 0
 
 function handleTouchStart(e) {
@@ -223,23 +246,20 @@ function handleTouchEnd(e) {
   handleSwipeCarousel(endX - startX)
 }
 
-function handleMouseDown(e) {
+function handleMouseDownCarousel(e) {
   startX = e.clientX
 }
 
-function handleMouseUp(e) {
+function handleMouseUpCarousel(e) {
   const endX = e.clientX
   handleSwipeCarousel(endX - startX)
 }
 
 function handleSwipeCarousel(deltaX) {
-  const threshold = 50
+  const threshold = 50 // Minimum Swipe-Abstand
   if (Math.abs(deltaX) > threshold) {
-    if (deltaX < 0 && currentSlide.value < carouselSections.value.length - 1) {
-      currentSlide.value++
-    } else if (deltaX > 0 && currentSlide.value > 0) {
-      currentSlide.value--
-    }
+    if (deltaX < 0) currentSlide.value = Math.min(currentSlide.value + 1, carouselSections.value.length - 1) // Swipe nach links
+    else currentSlide.value = Math.max(currentSlide.value - 1, 0) // Swipe nach rechts
   }
 }
 </script>
