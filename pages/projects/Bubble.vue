@@ -38,7 +38,10 @@
    <!-- CONCEPT / PROZESS Umschalter -->
     <section
       class="container mx-auto px-8 py-16 grid grid-cols-1 md:grid-cols-2 gap-10 select-none"
-      @touchstart="startTouch" @touchend="endTouch"
+      @touchstart="startTouch"
+      @touchend="endTouch"
+      @mousedown="handleMouseDown"
+      @mouseup="handleMouseUp"
     >
       <div></div>
       <div>
