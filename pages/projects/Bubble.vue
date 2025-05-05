@@ -112,13 +112,13 @@
 
 
 <!-- CONTENT CAROUSEL SECTION -->
-<section class="container mx-auto px-8 py-16 select-none ">
+<section class="container mx-auto px-8 py-16 select-none">
   <div 
     class="relative"
     @touchstart="handleTouchStart"
     @touchend="handleTouchEnd"
-    @mousedown="handleMouseDown"
-    @mouseup="handleMouseUp"
+    @mousedown="handleMouseDownCarousel"
+    @mouseup="handleMouseUpCarousel"
   >
     <!-- Carousel -->
     <div class="overflow-hidden">
@@ -142,7 +142,6 @@
       </div>
     </div>
 
-
     <!-- Indikationspunkte -->
     <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
       <div
@@ -155,7 +154,6 @@
     </div>
   </div>
 </section>
-
 
 
 
@@ -215,6 +213,7 @@ const handleSwipeConceptProcessMouse = () => {
 }
 
 // CAROUSEL SECTION für weitere Inhalte (z.B. App, Smartwatch usw.)
+
 const currentSlide = ref(0)
 const carouselSections = ref([
   {
@@ -237,11 +236,11 @@ const carouselSections = ref([
 // Swipe-Logik für Carousel
 let startX = 0
 
-function handleTouchStart(e) {
+function handleTouchStartCarousel(e) {
   startX = e.touches[0].clientX
 }
 
-function handleTouchEnd(e) {
+function handleTouchEndCarousel(e) {
   const endX = e.changedTouches[0].clientX
   handleSwipeCarousel(endX - startX)
 }
@@ -263,6 +262,7 @@ function handleSwipeCarousel(deltaX) {
   }
 }
 </script>
+
 
 
 <style scoped>
