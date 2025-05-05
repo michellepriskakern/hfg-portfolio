@@ -35,22 +35,58 @@
       </div>
     </section>
 
-    <!-- KONZEPT SECTION -->
-    <section class="container mx-auto px-8 py-16 grid grid-cols-1 md:grid-cols-2 gap-10">
+   <!-- CONCEPT / PROZESS Umschalter -->
+    <section
+      class="container mx-auto px-8 py-16 grid grid-cols-1 md:grid-cols-2 gap-10 select-none"
+      @touchstart="startTouch" @touchend="endTouch"
+    >
       <div></div>
       <div>
-        <h2 class="text-3xl font-bold mb-4">Concept</h2>
-        <p class="text-lg leading-relaxed">
-          People with borderline often experience intense emotions that are difficult to grasp. The topic is very sensitive, which is why we have invested a lot of time in our research and worked with various experts from different fields, all of whom work with borderline sufferers.
-          <br><br>
-          Our project shows how digital technologies can be used specifically to support people with borderline personality disorder.
-          
-          By combining reflection, biometric data and AI-supported support, we want to help those affected to better understand their emotions and deal with critical moments.
-          <br><br>
-          It was particularly important to us to develop an application that can be seamlessly integrated into everyday life and supports both the therapeutic process and personal well-being.<br> It is a fictitious future-oriented project.
-        </p>
+        <!-- Umschaltbare Überschrift -->
+        <h2 class="text-3xl font-bold mb-4 cursor-pointer">
+          <span
+            @click="currentView = 'concept'"
+            :class="currentView === 'concept' ? 'text-black' : 'text-gray-400'"
+          >
+            Concept
+          </span>
+          <span class="mx-4"></span>
+          <span
+            @click="currentView = 'process'"
+            :class="currentView === 'process' ? 'text-black' : 'text-gray-400'"
+          >
+            Prozess
+          </span>
+        </h2>
+
+
+        <!-- Animierter Textwechsel -->
+        <transition name="fade" mode="out-in">
+          <p :key="currentView" class="text-lg leading-relaxed">
+            <!-- Concept Text -->
+            <template v-if="currentView === 'concept'">
+              People with borderline often experience intense emotions that are difficult to grasp. The topic is very sensitive, which is why we have invested a lot of time in our research and worked with various experts from different fields, all of whom work with borderline sufferers.
+              <br><br>
+              Our project shows how digital technologies can be used specifically to support people with borderline personality disorder.
+              <br><br>
+              By combining reflection, biometric data and AI-supported support, we want to help those affected to better understand their emotions and deal with critical moments.
+              <br><br>
+              It was particularly important to us to develop an application that can be seamlessly integrated into everyday life and supports both the therapeutic process and personal well-being.
+              It is a fictitious future-oriented project.
+            </template>
+            <!-- Prozess Text -->
+            <template v-else>
+              Der Prozess begann mit einer tiefgreifenden Recherche zu Borderline. Interviews mit Expert:innen und Betroffenen haben unsere Sichtweise geschärft.
+              <br><br>
+              Es folgten Ideation-Workshops, das Erstellen von Personas und eine Vielzahl von Prototypen – analog wie digital.
+              <br><br>
+              Die finale Umsetzung wurde in Figma gestaltet und interaktiv mit After Effects und Premiere inszeniert.
+            </template>
+          </p>
+        </transition>
       </div>
     </section>
+
 
     <!-- CONTENT SECTIONS -->
     <section class="container mx-auto px-8 py-16">
@@ -91,11 +127,50 @@ const sections = [
     image: "/images/bubble-tablet.png"
   }
 ]
+
+import { ref } from 'vue'
+
+const currentView = ref('concept')
+
+let touchStartX = 0
+let touchEndX = 0
+
+const startTouch = (e) => {
+  touchStartX = e.changedTouches[0].screenX
+}
+
+const endTouch = (e) => {
+  touchEndX = e.changedTouches[0].screenX
+  handleSwipe()
+}
+
+const handleSwipe = () => {
+  const threshold = 50 // Minimum Swipe-Abstand
+  const deltaX = touchEndX - touchStartX
+
+  if (Math.abs(deltaX) > threshold) {
+    if (deltaX < 0) currentView.value = 'process' // Nach links → Prozess
+    else currentView.value = 'concept'           // Nach rechts → Concept
+  }
+}
+
+
+
+
 </script>
 
 <style scoped>
 .container {
   max-width: 1200px;
 }
+
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.4s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
 </style>
  
