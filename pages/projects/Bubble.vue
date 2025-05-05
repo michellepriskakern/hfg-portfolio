@@ -106,30 +106,64 @@
         </div>
       </div>
     </section>
+
+
+<!-- CONTENT CAROUSEL SECTION -->
+<section class="container mx-auto px-8 py-16 select-none">
+  <div 
+    class="relative"
+    @touchstart="handleTouchStart"
+    @touchend="handleTouchEnd"
+    @mousedown="handleMouseDown"
+    @mouseup="handleMouseUp"
+  >
+    <!-- Carousel -->
+    <div class="overflow-hidden">
+      <div
+        class="flex transition-transform duration-500 ease-in-out"
+        :style="{ transform: 'translateX(-' + currentSlide * 100 + '%)' }"
+      >
+        <div
+          v-for="(section, index) in carouselSections"
+          :key="index"
+          class="min-w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center px-4"
+        >
+          <div>
+            <h2 class="text-3xl font-bold">{{ section.title }}</h2>
+            <p class="mt-4 text-lg">{{ section.text }}</p>
+          </div>
+          <div>
+            <img :src="section.image" :alt="section.title" class="rounded-lg shadow-md" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Indikationspunkte -->
+    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <div
+        v-for="(section, index) in carouselSections"
+        :key="'dot-' + index"
+        @click="currentSlide = index"
+        class="w-3 h-3 rounded-full cursor-pointer"
+        :class="currentSlide === index ? 'bg-black' : 'bg-gray-300'"
+      ></div>
+    </div>
+  </div>
+</section>
+
+
+
+
   </div>
 </template>
 
-<script setup>
-const sections = [
-  {
-    title: "App",
-    text: "The main function of the app is reflection. Users can view measured data and critical moments and carry out an AI-supported reflection with ‘Bubble’ every day. This is documented and can be viewed again later in the journal. Anonymised critical moments can be replayed for better reflection.",
-    image: "/images/bubble-app.png"
-  },
-  {
-    title: "Smartwatch",
-    text: "The smartwatch measures bio-metric data and recognises critical moments. If the values rise, a notification is sent and you can use the ‘do not disturb’ mode to notify the saved trusted persons in your environment. ",
-    image: "/images/bubble-smartwatch.png"
-  },
-  {
-    title: "Tablet",
-    text: "Our app supports therapy by allowing users to decide for themselves in therapy mode which data is shared with therapists. They see an overview of the relevant data since the last session on their tablet. The display can be made clearly visible using a whiteboard or projector. After therapy, the mode is deactivated and the data can only be viewed by the user again.",
-    image: "/images/bubble-tablet.png"
-  }
-]
 
+
+<script setup>
 import { ref } from 'vue'
 
+// CONCEPT/PROZESS Umschalter
 const currentView = ref('concept')
 
 let touchStartX = 0
@@ -141,23 +175,72 @@ const startTouch = (e) => {
 
 const endTouch = (e) => {
   touchEndX = e.changedTouches[0].screenX
-  handleSwipe()
+  handleSwipeConceptProcess()
 }
 
-const handleSwipe = () => {
+const handleSwipeConceptProcess = () => {
   const threshold = 50 // Minimum Swipe-Abstand
   const deltaX = touchEndX - touchStartX
 
   if (Math.abs(deltaX) > threshold) {
-    if (deltaX < 0) currentView.value = 'process' // Nach links → Prozess
-    else currentView.value = 'concept'           // Nach rechts → Concept
+    if (deltaX < 0) currentView.value = 'process' // Swipe nach links
+    else currentView.value = 'concept'           // Swipe nach rechts
   }
 }
 
+// CAROUSEL SECTION für weitere Inhalte (z.B. App, Smartwatch usw.)
+const currentSlide = ref(0)
+const carouselSections = ref([
+  {
+    title: "App",
+    text: "The main function of the app is reflection. Users can view measured data and critical moments and carry out an AI-supported reflection with ‘Bubble’ every day. This is documented and can be viewed again later in the journal. Anonymised critical moments can be replayed for better reflection.",
+    image: "/images/bubble-app.png"
+  },
+  {
+    title: "Smartwatch",
+    text: "The smartwatch measures bio-metric data and recognises critical moments. If the values rise, a notification is sent and you can use the ‘do not disturb’ mode to notify the saved trusted persons in your environment.",
+    image: "/images/bubble-smartwatch.png"
+  },
+  {
+    title: "Tablet",
+    text: "Our app supports therapy by allowing users to decide for themselves in therapy mode which data is shared with therapists. They see an overview of the relevant data since the last session on their tablet. The display can be made clearly visible using a whiteboard or projector. After therapy, the mode is deactivated and the data can only be viewed by the user again.",
+    image: "/images/bubble-tablet.png"
+  }
+])
 
+// Swipe-Logik für Carousel (falls du auch swipen willst)
+let startX = 0
 
+function handleTouchStart(e) {
+  startX = e.touches[0].clientX
+}
 
+function handleTouchEnd(e) {
+  const endX = e.changedTouches[0].clientX
+  handleSwipeCarousel(endX - startX)
+}
+
+function handleMouseDown(e) {
+  startX = e.clientX
+}
+
+function handleMouseUp(e) {
+  const endX = e.clientX
+  handleSwipeCarousel(endX - startX)
+}
+
+function handleSwipeCarousel(deltaX) {
+  const threshold = 50
+  if (Math.abs(deltaX) > threshold) {
+    if (deltaX < 0 && currentSlide.value < carouselSections.value.length - 1) {
+      currentSlide.value++
+    } else if (deltaX > 0 && currentSlide.value > 0) {
+      currentSlide.value--
+    }
+  }
+}
 </script>
+
 
 <style scoped>
 .container {
