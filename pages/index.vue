@@ -3,7 +3,7 @@
     <!-- Linke Spalte (Titel) -->
     <div
       ref="textScrollContainer"
-      class="w-full lg:w-1/3 flex flex-col justify-center px-6 py-12 lg:pl-12 overflow-hidden relative ml-0 lg:ml-[50px]"
+      class="w-full lg:w-[48%] flex flex-col justify-center px-4 sm:px-6 py-8 sm:py-12 lg:pl-12 overflow-hidden relative"
     >
       <div class="relative h-full lg:h-screen flex items-center justify-center overflow-hidden">
         <div
@@ -22,7 +22,7 @@
               class="group"
             >
               <h2
-                class="rolling-text text-5xl sm:text-6xl lg:text-7xl font-bold mt-4 sm:mt-10 relative z-10"
+                class="rolling-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-4 sm:mt-10 relative z-10 leading-tight"
                 :class="{
                   'text-black opacity-100': i === 0,
                   'text-gray-400 opacity-80': i !== 0
@@ -30,12 +30,22 @@
               >
                 <span class="text-wrapper">
                   <span class="text-content">
-                    <span v-for="(letter, index) in project.title.split('')" :key="index" class="letter" :style="{ animationDelay: `${index * 0.1}s` }">
+                    <span
+                      v-for="(letter, index) in project.title.split('')"
+                      :key="index"
+                      class="letter"
+                      :style="{ animationDelay: `${index * 0.05}s` }"
+                    >
                       {{ letter }}
                     </span>
                   </span>
                   <span class="text-content hover-text">
-                    <span v-for="(letter, index) in project.title.split('')" :key="index" class="letter" :style="{ animationDelay: `${index * 0.1}s` }">
+                    <span
+                      v-for="(letter, index) in project.title.split('')"
+                      :key="index"
+                      class="letter"
+                      :style="{ animationDelay: `${index * 0.05}s` }"
+                    >
                       {{ letter }}
                     </span>
                   </span>
@@ -45,28 +55,30 @@
 
             <div
               v-if="i === 0"
-              class="sm:ml-4 text-lg sm:text-xl text-gray-600 font-light leading-snug max-w-xs flex flex-col opacity-100 transition-opacity duration-500 mt-4 sm:mt-12"
+              class="sm:ml-4 text-sm sm:text-base md:text-lg text-gray-600 font-light leading-normal max-w-[35ch] text-balance flex flex-col opacity-100 transition-opacity duration-500 mt-4 sm:mt-12"
             >
-              <span class="subtitle">
-                <span
-                  v-for="(word, index) in project.subtitle.split(' ')" 
-                  :key="index" 
-                  class="word"
-                  :style="{ animationDelay: `${index * 0.1}s` }"
-                >
-                  {{ word }}
-                </span>
-              </span>
+            <p class="subtitle">
+  <span
+    v-for="(word, index) in project.subtitle.split(' ')" 
+    :key="index" 
+    class="word inline-block"
+    :style="{ animationDelay: `${index * 0.1}s` }"
+  >
+    {{ word }}
+  </span>
+</p>
+
+
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Rechte Spalte (unendlicher Scroll für Bilder) -->
+    <!-- Rechte Spalte (Bilder) -->
     <div
       ref="scrollContainer"
-      class="right-column h-screen overflow-y-scroll snap-y snap-mandatory flex flex-col items-center lg:items-end pl-0 ml-0 lg:ml-[280px]" 
+      class="w-full lg:w-[52%] h-screen overflow-y-scroll snap-y snap-mandatory flex flex-col items-center justify-start px-4"
     >
       <div
         v-for="(project, index) in projects"
@@ -74,10 +86,13 @@
         class="relative flex items-center justify-center h-screen snap-center transition-transform duration-300"
         :class="{
           'scale-100 blur-0 opacity-100': index === activeIndex,
-          'scale-90 blur-sm opacity-50': index !== activeIndex
+          'scale-95 blur-sm opacity-50': index !== activeIndex
         }"
       >
-        <NuxtLink :to="project.slug" class="w-full sm:w-[1000px] max-w-[1000px] transition-all duration-300">
+        <NuxtLink
+          :to="project.slug"
+          class="w-full max-w-[600px] sm:max-w-[700px] md:max-w-[750px] transition-all duration-300"
+        >
           <img
             :src="project.image"
             :alt="project.title"
@@ -88,6 +103,7 @@
     </div>
   </div>
 </template>
+
 
 
 <script setup>
@@ -128,12 +144,8 @@ let isAdjusting = false;
 
 const infiniteScrollProjects = computed(() => {
   const visibleProjects = projects.value.length;
-  const offset = activeIndex.value % visibleProjects; // Ensure the loop behavior
-
-  return [
-    ...projects.value.slice(offset), // Slice from the activeIndex to the end
-    ...projects.value.slice(0, offset) // Slice from the start to the activeIndex
-  ];
+  const offset = activeIndex.value % visibleProjects;
+  return [...projects.value.slice(offset), ...projects.value.slice(0, offset)];
 });
 
 const handleScroll = () => {
@@ -147,9 +159,7 @@ const handleScroll = () => {
 
   items.forEach((item, index) => {
     const rect = item.getBoundingClientRect();
-    const distanceToCenter = Math.abs(
-      rect.top + rect.height / 2 - window.innerHeight / 2
-    );
+    const distanceToCenter = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
     if (distanceToCenter < closestDistance) {
       closestDistance = distanceToCenter;
       closestIndex = index;
@@ -176,7 +186,6 @@ onMounted(() => {
   if (!container) return;
 
   container.addEventListener('scroll', handleScroll);
-
   container.style.scrollBehavior = 'auto';
   setTimeout(() => {
     container.scrollTop = container.scrollHeight / 2;
@@ -201,26 +210,36 @@ body {
 }
 
 .subtitle {
-  display: flex;
-  flex-wrap: wrap;
+  max-height: 6em; /* Maximal 3 Zeilen */
+  line-height: 1.5; /* Abstände zwischen den Zeilen */
+  overflow: hidden; /* Verhindert, dass Text überläuft */
+  white-space: normal; /* Standard Textumbruch */
+  word-wrap: break-word; /* Sicherstellen, dass lange Worte auch umgebrochen werden */
 }
 
 .word {
-  display: inline-block;
-  opacity: 0;
-  transform: translateX(-20px);
-  animation: slideIn 0.2s forwards;
-  margin-right: 5px;
+  display: inline-block; /* Damit die Wörter im Textfluss untereinander angezeigt werden */
+  margin-right: 0.25rem;
+  opacity: 0; /* Startet als unsichtbar */
+  animation: fadeIn 0.5s forwards; /* Nur Opazität animieren */
 }
 
-@keyframes slideIn {
-  to {
+.subtitle p {
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
     opacity: 1;
-    transform: translateX(0);
   }
 }
 
-/* --- Rolling Text Animation --- */
+
+
 
 .rolling-text .text-wrapper {
   position: relative;
@@ -244,19 +263,16 @@ body {
   z-index: 1;
 }
 
-/* --- Standardzustand: keine Bewegung der Buchstaben --- */
 .letter {
   display: inline-block;
-  opacity: 1; /* Buchstaben sofort sichtbar */
-  transform: translateY(0); /* Keine Verschiebung */
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* --- Hover: Animation starten --- */
 .group:hover .letter {
   animation: rollUp 0.5s forwards;
 }
 
-/* --- Keyframes für die Roll-Animation --- */
 @keyframes rollUp {
   0% {
     opacity: 0;
@@ -267,5 +283,4 @@ body {
     transform: translateY(0);
   }
 }
-
 </style>
