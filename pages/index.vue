@@ -3,9 +3,10 @@
     <!-- Linke Spalte (Titel) -->
     <div
       ref="textScrollContainer"
-      class="w-full lg:w-[48%] flex flex-col justify-center px-4 sm:px-6 py-8 sm:py-12 lg:pl-12 overflow-hidden relative"
+      class="w-full lg:w-[48%] flex flex-col justify-center px-4 sm:px-6 py-8 sm:py-12 lg:pl-12 pb-12 overflow-hidden relative"
     >
-      <div class="relative h-full lg:h-screen flex items-center justify-center overflow-hidden">
+
+      <div class="relative h-full lg:h-screen flex items-center justify-center">
         <div
           v-for="(project, i) in projects.slice(activeIndex)"
           :key="`title-${activeIndex + i}`"
@@ -22,7 +23,7 @@
               class="group"
             >
               <h2
-                class="rolling-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-4 sm:mt-10 relative z-10 leading-tight"
+                class="rolling-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-4 sm:mt-10 relative z-10 leading-big"
                 :class="{
                   'text-black opacity-100': i === 0,
                   'text-gray-400 opacity-80': i !== 0
