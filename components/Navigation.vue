@@ -10,26 +10,18 @@
               :class="{ 'active-link': $route.path === '/' }"
               exact
             >
-              <span class="rolling-text text-wrapper">
-                <!-- Static Text -->
-                <span class="text-content default-text">
-                  <span v-for="(letter, index) in 'projects'.split('')" 
-                        :key="'projects-letter-' + index" 
-                        class="letter">
+              <span class="rolling-text">
+                <span class="line">
+                  <span v-for="(letter, index) in 'projects'.split('')" :key="'projects-line1-' + index" class="letter">
                     {{ letter }}
                   </span>
                 </span>
-                <!-- Animated Hover Text -->
-                <span class="text-content hover-text">
-                  <span v-for="(letter, index) in 'projects'.split('')" 
-                        :key="'projects-hover-letter-' + index" 
-                        class="letter hover-animate"
-                        :style="{ animationDelay: `${index * 0.05}s` }">
+                <span class="line second">
+                  <span v-for="(letter, index) in 'projects'.split('')" :key="'projects-line2-' + index" class="letter">
                     {{ letter }}
                   </span>
                 </span>
               </span>
-              <!-- Underline Indicator -->
               <span class="active-underline" />
             </NuxtLink>
           </li>
@@ -41,26 +33,18 @@
               :class="{ 'active-link': $route.path === '/about' }"
               exact
             >
-              <span class="rolling-text text-wrapper">
-                <!-- Static Text -->
-                <span class="text-content default-text">
-                  <span v-for="(letter, index) in 'about'.split('')" 
-                        :key="'about-letter-' + index" 
-                        class="letter">
+              <span class="rolling-text">
+                <span class="line">
+                  <span v-for="(letter, index) in 'about'.split('')" :key="'about-line1-' + index" class="letter">
                     {{ letter }}
                   </span>
                 </span>
-                <!-- Animated Hover Text -->
-                <span class="text-content hover-text">
-                  <span v-for="(letter, index) in 'about'.split('')" 
-                        :key="'about-hover-letter-' + index" 
-                        class="letter hover-animate"
-                        :style="{ animationDelay: `${index * 0.05}s` }">
+                <span class="line second">
+                  <span v-for="(letter, index) in 'about'.split('')" :key="'about-line2-' + index" class="letter">
                     {{ letter }}
                   </span>
                 </span>
               </span>
-              <!-- Underline Indicator -->
               <span class="active-underline" />
             </NuxtLink>
           </li>
@@ -70,70 +54,102 @@
   </nav>
 </template>
 
+
 <style scoped>
-/* Global lowercase */
+
+
 .lowercase {
   text-transform: lowercase;
 }
 
-/* Base Link Color */
 .link-item {
   color: black;
 }
 
-/* Text Wrapper */
-.rolling-text .text-wrapper {
-  position: relative;
+.rolling-text {
   display: inline-block;
-  height: 1em;
+  height: 1.4em; /* vorher 1em */
   overflow: hidden;
+  position: relative;
 }
 
-/* Default text visible */
-.default-text {
-  transition: opacity 0.3s ease;
+
+.rolling-text .line {
+  display: flex;
+  transition: transform 0.8s ease;
+  transform: translateY(0%);
 }
 
-/* Hover text hidden initially */
-.hover-text {
+.rolling-text .second {
   position: absolute;
-  top: 0;
+  top: 100%;
   left: 0;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
 }
 
-/* Hover state */
-.group:hover .default-text {
-  opacity: 0;
-}
-.group:hover .hover-text {
-  opacity: 1;
+.group:hover .rolling-text .line {
+  transform: translateY(-100%);
 }
 
-/* Letter styling */
 .letter {
   display: inline-block;
-  transform: translateY(0);
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* Ausgangszustand: Text normal sichtbar */
+.rolling-text .line .letter {
+  transform: translateY(0%);
+  opacity: 1;
+}
+.rolling-text .second .letter {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* Hover-Zustand mit Animation + Verzögerung */
+.group:hover .rolling-text .line .letter {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.group:hover .rolling-text .second .letter {
+  transform: translateY(0%);
   opacity: 1;
 }
 
-/* Animate only on hover */
-.group:hover .hover-animate {
-  animation: rollUp 0.4s forwards;
+/* NUR beim Hover die Verzögerung anwenden */
+.group:hover .rolling-text .line .letter:nth-child(1),
+.group:hover .rolling-text .second .letter:nth-child(1) {
+  transition-delay: 0s;
+}
+.group:hover .rolling-text .line .letter:nth-child(2),
+.group:hover .rolling-text .second .letter:nth-child(2) {
+  transition-delay: 0.05s;
+}
+.group:hover .rolling-text .line .letter:nth-child(3),
+.group:hover .rolling-text .second .letter:nth-child(3) {
+  transition-delay: 0.1s;
+}
+.group:hover .rolling-text .line .letter:nth-child(4),
+.group:hover .rolling-text .second .letter:nth-child(4) {
+  transition-delay: 0.15s;
+}
+.group:hover .rolling-text .line .letter:nth-child(5),
+.group:hover .rolling-text .second .letter:nth-child(5) {
+  transition-delay: 0.2s;
+}
+.group:hover .rolling-text .line .letter:nth-child(6),
+.group:hover .rolling-text .second .letter:nth-child(6) {
+  transition-delay: 0.25s;
+}
+.group:hover .rolling-text .line .letter:nth-child(7),
+.group:hover .rolling-text .second .letter:nth-child(7) {
+  transition-delay: 0.3s;
+}
+.group:hover .rolling-text .line .letter:nth-child(8),
+.group:hover .rolling-text .second .letter:nth-child(8) {
+  transition-delay: 0.35s;
 }
 
-@keyframes rollUp {
-  0% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
+
 
 /* Active underline animation */
 .active-underline {
@@ -142,12 +158,22 @@
   height: 2px;
   width: 0%;
   background-color: black;
-  transition: width 0.4s ease;
-  margin-top: 4px;
+  transition: width 0.4s ease, transform 0.4s ease;
+  margin-top: 1px;
+  transform: scaleX(0); /* Hinzufügen einer Startposition für den Unterstrich */
+  transform-origin: left center; /* Der Unterstrich wächst von links */
+}
+
+.group:hover .active-underline {
+  width: 100%;
+  transform: scaleX(1); /* Der Unterstrich wächst bei Hover */
 }
 
 /* Animate underline when active */
 .active-link .active-underline {
   width: 100%;
+  transform: scaleX(1); /* Aktiviert den Unterstrich im aktiven Zustand */
 }
+
+
 </style>
