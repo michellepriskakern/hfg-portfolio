@@ -22,36 +22,35 @@
               :to="project.slug"
               class="group"
             >
-              <h2
-                class="rolling-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-4 sm:mt-10 relative z-10 leading-big"
-                :class="{
-                  'text-black opacity-100': i === 0,
-                  'text-gray-400 opacity-80': i !== 0
-                }"
-              >
-                <span class="text-wrapper">
-                  <span class="text-content">
-                    <span
-                      v-for="(letter, index) in project.title.split('')"
-                      :key="index"
-                      class="letter"
-                      :style="{ animationDelay: `${index * 0.05}s` }"
-                    >
-                      {{ letter }}
-                    </span>
-                  </span>
-                  <span class="text-content hover-text">
-                    <span
-                      v-for="(letter, index) in project.title.split('')"
-                      :key="index"
-                      class="letter"
-                      :style="{ animationDelay: `${index * 0.05}s` }"
-                    >
-                      {{ letter }}
-                    </span>
-                  </span>
-                </span>
-              </h2>
+            <h2
+  class="rolling-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-4 sm:mt-10 relative z-10 leading-big"
+  :class="{
+    'text-black opacity-100': i === 0,
+    'text-gray-400 opacity-80': i !== 0
+  }"
+>
+  <span class="rolling-text">
+    <span class="line">
+      <span
+        v-for="(letter, index) in project.title.split('')"
+        :key="'line1-' + index"
+        class="letter"
+      >
+        {{ letter }}
+      </span>
+    </span>
+    <span class="line second">
+      <span
+        v-for="(letter, index) in project.title.split('')"
+        :key="'line2-' + index"
+        class="letter"
+      >
+        {{ letter }}
+      </span>
+    </span>
+  </span>
+</h2>
+
             </NuxtLink>
 
             <div
@@ -242,46 +241,85 @@ body {
 
 
 
-.rolling-text .text-wrapper {
-  position: relative;
+.rolling-text {
   display: inline-block;
-  height: 1em;
+  height: 1.4em;
   overflow: hidden;
+  position: relative;
 }
 
-.rolling-text .text-content {
-  display: block;
-  transition: transform 0.5s ease;
+.rolling-text .line {
+  display: flex;
+  transition: transform 0.8s ease;
+  transform: translateY(0%);
 }
 
-.rolling-text .hover-text {
+.rolling-text .second {
   position: absolute;
+  top: 100%;
   left: 0;
-  top: 0;
-  width: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease, top 0.5s ease;
-  z-index: 1;
+}
+
+.group:hover .rolling-text .line {
+  transform: translateY(-100%);
 }
 
 .letter {
   display: inline-block;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.rolling-text .line .letter {
+  transform: translateY(0%);
   opacity: 1;
-  transform: translateY(0);
 }
 
-.group:hover .letter {
-  animation: rollUp 0.5s forwards;
+.rolling-text .second .letter {
+  transform: translateY(100%);
+  opacity: 0;
 }
 
-@keyframes rollUp {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.group:hover .rolling-text .line .letter {
+  transform: translateY(-100%);
+  opacity: 0;
 }
+.group:hover .rolling-text .second .letter {
+  transform: translateY(0%);
+  opacity: 1;
+}
+
+/* Delay pro Buchstabe */
+.group:hover .rolling-text .line .letter:nth-child(1),
+.group:hover .rolling-text .second .letter:nth-child(1) {
+  transition-delay: 0s;
+}
+.group:hover .rolling-text .line .letter:nth-child(2),
+.group:hover .rolling-text .second .letter:nth-child(2) {
+  transition-delay: 0.05s;
+}
+.group:hover .rolling-text .line .letter:nth-child(3),
+.group:hover .rolling-text .second .letter:nth-child(3) {
+  transition-delay: 0.1s;
+}
+.group:hover .rolling-text .line .letter:nth-child(4),
+.group:hover .rolling-text .second .letter:nth-child(4) {
+  transition-delay: 0.15s;
+}
+.group:hover .rolling-text .line .letter:nth-child(5),
+.group:hover .rolling-text .second .letter:nth-child(5) {
+  transition-delay: 0.2s;
+}
+.group:hover .rolling-text .line .letter:nth-child(6),
+.group:hover .rolling-text .second .letter:nth-child(6) {
+  transition-delay: 0.25s;
+}
+.group:hover .rolling-text .line .letter:nth-child(7),
+.group:hover .rolling-text .second .letter:nth-child(7) {
+  transition-delay: 0.3s;
+}
+.group:hover .rolling-text .line .letter:nth-child(8),
+.group:hover .rolling-text .second .letter:nth-child(8) {
+  transition-delay: 0.35s;
+}
+
 </style>
