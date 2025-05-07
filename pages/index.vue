@@ -210,23 +210,26 @@ body {
 }
 
 .subtitle {
-  max-height: 6em; /* Maximal 3 Zeilen */
-  line-height: 1.5; /* Abstände zwischen den Zeilen */
-  overflow: hidden; /* Verhindert, dass Text überläuft */
-  white-space: normal; /* Standard Textumbruch */
-  word-wrap: break-word; /* Sicherstellen, dass lange Worte auch umgebrochen werden */
-}
-
-.word {
-  display: inline-block; /* Damit die Wörter im Textfluss untereinander angezeigt werden */
-  margin-right: 0.25rem;
-  opacity: 0; /* Startet als unsichtbar */
-  animation: fadeIn 0.5s forwards; /* Nur Opazität animieren */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Text auf 3 Zeilen beschränken */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal; /* Text darf umbrochen werden */
+  word-wrap: break-word; /* Lange Wörter werden umgebrochen */
+  line-height: 1em; /* Zeilenhöhe für den Text */
+  max-height: 4em; /* Höhe für 3 Zeilen */
 }
 
 .subtitle p {
   margin: 0;
   padding: 0;
+}
+
+.word {
+  display: block; /* Jedes Wort wird als Block behandelt, um in die nächste Zeile zu springen */
+  margin-bottom: 0.25rem; /* Leichter Abstand zwischen den Wörtern */
+  opacity: 0; /* Startet unsichtbar */
+  animation: fadeIn 0.5s forwards; /* Fade-In-Effekt für jedes Wort */
 }
 
 @keyframes fadeIn {
@@ -241,9 +244,11 @@ body {
 
 
 
+
+
 .rolling-text {
   display: inline-block;
-  height: 1.4em;
+  height: 1em;
   overflow: hidden;
   position: relative;
 }
