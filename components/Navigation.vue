@@ -1,78 +1,77 @@
 <template>
-  <nav class="fixed top-0 left-0 w-full z-50 flex items-start p-6 lowercase">
-    <div class="relative">
-      <div class="w-[360px] py-2 px-8">
-        <ul class="flex space-x-8 text-base text-black">
-          <li>
-            <NuxtLink 
-              to="/" 
-              class="relative inline-block no-underline group link-item"
-              :class="{ 'active-link': $route.path === '/' }"
-              exact
-            >
-              <span class="rolling-text">
-                <span class="line">
-                  <span v-for="(letter, index) in 'projects'.split('')" :key="'projects-line1-' + index" class="letter">
-                    {{ letter }}
-                  </span>
-                </span>
-                <span class="line second">
-                  <span v-for="(letter, index) in 'projects'.split('')" :key="'projects-line2-' + index" class="letter">
-                    {{ letter }}
-                  </span>
-                </span>
+  <nav class="fixed top-0 left-[100px] z-50 flex items-center h-[80px]">
+    <ul class="flex space-x-12 text-[1.5rem] text-black">
+      <li>
+        <NuxtLink 
+          to="/" 
+          class="relative inline-block no-underline group link-item"
+          :class="{ 'active-link': $route.path === '/' }"
+          exact
+        >
+          <span class="rolling-text">
+            <span class="line">
+              <span v-for="(letter, index) in 'projects'.split('')" :key="'projects-line1-' + index" class="letter">
+                {{ letter }}
               </span>
-              <span class="active-underline" />
-            </NuxtLink>
-          </li>
+            </span>
+            <span class="line second">
+              <span v-for="(letter, index) in 'projects'.split('')" :key="'projects-line2-' + index" class="letter">
+                {{ letter }}
+              </span>
+            </span>
+          </span>
+          <span class="active-underline" />
+        </NuxtLink>
+      </li>
 
-          <li>
-            <NuxtLink 
-              to="/about" 
-              class="relative inline-block no-underline group link-item"
-              :class="{ 'active-link': $route.path === '/about' }"
-              exact
-            >
-              <span class="rolling-text">
-                <span class="line">
-                  <span v-for="(letter, index) in 'about'.split('')" :key="'about-line1-' + index" class="letter">
-                    {{ letter }}
-                  </span>
-                </span>
-                <span class="line second">
-                  <span v-for="(letter, index) in 'about'.split('')" :key="'about-line2-' + index" class="letter">
-                    {{ letter }}
-                  </span>
-                </span>
+      <li>
+        <NuxtLink 
+          to="/about" 
+          class="relative inline-block no-underline group link-item"
+          :class="{ 'active-link': $route.path === '/about' }"
+          exact
+        >
+          <span class="rolling-text">
+            <span class="line">
+              <span v-for="(letter, index) in 'about'.split('')" :key="'about-line1-' + index" class="letter">
+                {{ letter }}
               </span>
-              <span class="active-underline" />
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
-    </div>
+            </span>
+            <span class="line second">
+              <span v-for="(letter, index) in 'about'.split('')" :key="'about-line2-' + index" class="letter">
+                {{ letter }}
+              </span>
+            </span>
+          </span>
+          <span class="active-underline" />
+        </NuxtLink>
+      </li>
+    </ul>
   </nav>
 </template>
 
-
 <style scoped>
-
-
-.lowercase {
-  text-transform: lowercase;
+nav {
+  left: 50px; /* Exakter Abstand vom linken Rand */
+  top: 0;
+  position: fixed;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
 }
 
 .link-item {
   color: black;
+  font-size: 1.0rem; /* Schriftgröße exakt 1.5rem (24px) */
 }
 
 .rolling-text {
   display: inline-block;
-  height: 1.4em; /* vorher 1em */
+  height: 1.4em;
   overflow: hidden;
   position: relative;
 }
-
 
 .rolling-text .line {
   display: flex;
@@ -115,42 +114,6 @@
   opacity: 1;
 }
 
-/* NUR beim Hover die Verzögerung anwenden */
-.group:hover .rolling-text .line .letter:nth-child(1),
-.group:hover .rolling-text .second .letter:nth-child(1) {
-  transition-delay: 0s;
-}
-.group:hover .rolling-text .line .letter:nth-child(2),
-.group:hover .rolling-text .second .letter:nth-child(2) {
-  transition-delay: 0.05s;
-}
-.group:hover .rolling-text .line .letter:nth-child(3),
-.group:hover .rolling-text .second .letter:nth-child(3) {
-  transition-delay: 0.1s;
-}
-.group:hover .rolling-text .line .letter:nth-child(4),
-.group:hover .rolling-text .second .letter:nth-child(4) {
-  transition-delay: 0.15s;
-}
-.group:hover .rolling-text .line .letter:nth-child(5),
-.group:hover .rolling-text .second .letter:nth-child(5) {
-  transition-delay: 0.2s;
-}
-.group:hover .rolling-text .line .letter:nth-child(6),
-.group:hover .rolling-text .second .letter:nth-child(6) {
-  transition-delay: 0.25s;
-}
-.group:hover .rolling-text .line .letter:nth-child(7),
-.group:hover .rolling-text .second .letter:nth-child(7) {
-  transition-delay: 0.3s;
-}
-.group:hover .rolling-text .line .letter:nth-child(8),
-.group:hover .rolling-text .second .letter:nth-child(8) {
-  transition-delay: 0.35s;
-}
-
-
-
 /* Active underline animation */
 .active-underline {
   content: "";
@@ -158,22 +121,14 @@
   height: 2px;
   width: 0%;
   background-color: black;
-  transition: width 0.4s ease, transform 0.4s ease;
-  margin-top: 1px;
-  transform: scaleX(0); /* Hinzufügen einer Startposition für den Unterstrich */
-  transform-origin: left center; /* Der Unterstrich wächst von links */
+  transition: width 0.4s ease;
 }
 
 .group:hover .active-underline {
   width: 100%;
-  transform: scaleX(1); /* Der Unterstrich wächst bei Hover */
 }
 
-/* Animate underline when active */
 .active-link .active-underline {
   width: 100%;
-  transform: scaleX(1); /* Aktiviert den Unterstrich im aktiven Zustand */
 }
-
-
 </style>
