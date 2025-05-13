@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full">
+  <div class="about-container">
     <!-- Hero Section -->
     <section class="hero-section relative h-screen w-full">
-      <img src="/images/skydiving.png" alt="Skydiving" class="hero-img absolute w-full h-full object-cover" />
-      <div class="hero-text absolute text-center z-10">
+      <img src="public/images/skydiving.png" alt="Skydiving" class="hero-img" />
+      <div class="hero-text absolute text-center">
         <h2 class="text-white text-3xl sm:text-7xl font-light">
           always searching for<br />
           <span class="font-bold" :style="{ color: currentColor }">{{ currentPhrase }}</span>
@@ -11,130 +11,137 @@
       </div>
     </section>
 
-    <!-- Hauptinhalt (unterhalb der Hero Section) -->
-    <div class="flex flex-col lg:flex-row w-full min-h-screen">
-      <!-- Linker Bereich (Text) -->
+    <!-- About Sections -->
+    <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
+      <!-- Linke Spalte -->
       <div
-        ref="textScrollContainer"
-        class="w-full lg:w-[48%] flex flex-col justify-center px-4 sm:px-6 py-8 sm:py-12 lg:pl-12 pb-12 overflow-hidden relative"
-      >
-        <div class="relative h-full lg:min-h-screen flex items-center justify-center">
-          <div
-            v-for="(project, i) in projects.slice(activeIndex)"
-            :key="`title-${activeIndex + i}`"
-            class="absolute transition-all duration-300 w-full flex flex-col items-start"
-            :style="{
-              transform: `translateY(${i * 100}%)`,
-              opacity: i === 0 ? 1 : 0.2,
-              pointerEvents: i === 0 ? 'auto' : 'none'
-            }"
-          >
-            <div class="flex flex-col sm:flex-row items-start sm:items-center">
-              <h2
-                class="rolling-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-4 sm:mt-10 relative z-10 leading-big"
-                :class="{
-                  'text-black opacity-100': i === 0,
-                  'text-gray-400 opacity-80': i !== 0
-                }"
-              >
-                <span class="rolling-text">
-                  <span class="line">
-                    <span
-                      v-for="(letter, index) in project.title.split('').map((char) => char === ' ' ? '&nbsp;' : char)"
-                      :key="'line1-' + index"
-                      class="letter"
-                      v-html="letter"
-                    ></span>
-                  </span>
-                  <span class="line second">
-                    <span
-                      v-for="(letter, index) in project.title.split('').map((char) => char === ' ' ? '&nbsp;' : char)"
-                      :key="'line2-' + index"
-                      class="letter"
-                      v-html="letter"
-                    ></span>
-                  </span>
-                </span>
-              </h2>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Rechter Bereich (Bilder + Text vollständig sichtbar) -->
-      <div
-        ref="scrollContainer"
-        class="w-full lg:w-[52%] h-screen overflow-y-scroll snap-y snap-mandatory flex flex-col items-center justify-start px-4"
-      >
-        <div
-  v-for="(project, index) in projects"
-  :key="`card-${index}-${project.slug || index}`"
-  class="relative w-full max-w-[750px] flex flex-col items-center justify-start snap-center py-12 transition-all duration-300"
-  :class="{
-    'scale-100 blur-0 opacity-100 translate-y-16': index === activeIndex,  // ← NEU
-    'scale-95 blur-sm opacity-60 translate-y-0': index !== activeIndex     // ← NEU
-  }"
+  ref="textScrollContainer"
+  class="w-full lg:w-1/3 flex flex-col justify-center px-6 py-12 lg:pl-12 relative"
 >
+  <!-- Entferne overflow-hidden -->
+  <div class="relative h-full flex items-center justify-center">
+    <div
+      v-for="(section, i) in sections"
+      :key="`title-${i}`"
+      class="absolute transition-all duration-300 w-full flex flex-col items-start"
+      :style="{
+        transform: `translateY(${(i - activeIndex) * 100}%)`,
+        opacity: i === activeIndex ? 1 : 0.2,
+        pointerEvents: i === activeIndex ? 'auto' : 'none'
+      }"
+    >
+      <h2
+        class="text-3xl sm:text-4xl lg:text-5xl font-bold transition-colors duration-300"
+        :class="{
+          'text-black opacity-100': i === activeIndex,
+          'text-gray-400 opacity-80': i !== activeIndex
+        }"
+      >
+        {{ section.title }}
+      </h2>
+    </div>
+  </div>
+</div>
 
-          <NuxtLink class="w-full transition-all duration-300">
-            <div class="w-full object-cover rounded-lg shadow-lg p-8 bg-white">
-              <p class="text-xl text-left whitespace-pre-wrap break-words">{{ project.text }}</p>
-            </div>
-          </NuxtLink>
-        </div>
-      </div>
+
+      <!-- Rechte Spalte -->
+      <div
+  ref="scrollContainer"
+  class="w-full lg:w-2/3 h-full lg:h-auto overflow-y-auto snap-y snap-mandatory flex flex-col items-center"
+>
+  <div
+    v-for="(section, index) in loopedSections"
+    :key="`card-${index}`"
+    class="relative flex items-center justify-center min-h-[90vh] lg:h-auto snap-center transition-transform duration-00 px-8"
+    :class="{
+      'scale-100 z-10': index % sections.length === activeIndex,
+      'opacity-0': index % sections.length !== activeIndex   // An der Scheiß hier liegt es
+    }"
+  >
+    <div class="max-w-2xl text-center space-y-6 text-lg">
+      <p
+        v-for="(para, idx) in section.paragraphs"
+        :key="`para-${idx}`"
+        :style="{
+        transform: `translateY(${(idx - activeIndex) * 40}%)`,
+        opacity: idx === activeIndex ? 1 : 0.8,
+        pointerEvents: idx === activeIndex ? 'auto' : 'none'
+      }"
+      >
+        {{ para }}
+      </p>
+    </div>
+  </div>
+</div>
+
+
     </div>
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 
-// Hero-Animation
+// Hero Text Animation
 const phrases = [
   { text: 'meaningful experiences', color: '#FDD835' },
   { text: 'better interactions', color: '#FB8C00' },
   { text: 'new ideas', color: '#AB47BC' }
-];
-const currentPhrase = ref(phrases[0].text);
-const currentColor = ref(phrases[0].color);
-let phraseIndex = 0;
-let phraseInterval;
+]
+
+const currentPhrase = ref(phrases[0].text)
+const currentColor = ref(phrases[0].color)
+let phraseIndex = 0
+let phraseInterval: number
 
 onMounted(() => {
   phraseInterval = setInterval(() => {
-    phraseIndex = (phraseIndex + 1) % phrases.length;
-    currentPhrase.value = phrases[phraseIndex].text;
-    currentColor.value = phrases[phraseIndex].color;
-  }, 5000);
-});
+    phraseIndex = (phraseIndex + 1) % phrases.length
+    currentPhrase.value = phrases[phraseIndex].text
+    currentColor.value = phrases[phraseIndex].color
+  }, 5000)
+})
 
 onUnmounted(() => {
-  clearInterval(phraseInterval);
-});
+  clearInterval(phraseInterval)
+})
 
-const originalProjects = [
+// About Sections
+const sections = [
   {
     title: 'Wer ich bin',
-    text: 'Hi, ich bin Michelle und gestalte mit Begeisterung digitale Produkte. Mit einem Auge fürs Design und dem anderen für die Technik bin ich immer auf der Suche nach der perfekten Balance zwischen Ästhetik und Funktion.',
+    paragraphs: [
+      'Hi, ich bin Michelle und studiere derzeit im 4. Semester Interaktionsgestaltung in Schwäbisch Gmünd.',
+      'Neben dem Studium findet man mich oft mit einem Buch in der Hand, auf Skiern oder in Museen – überall dort, wo es etwas Neues zu entdecken gibt.',
+      'Gestaltung begleitet mich dabei immer: Ich liebe es, Eindrücke aufzusaugen, Neues auszuprobieren und daraus kreative Verbindungen zu schaffen.',
+      'Außerdem bin ich eine echte Nachteule – abends kommen mir oft die besten Ideen.'
+    ]
   },
   {
     title: 'Wie ich denke',
-    text: 'Mich interessiert bei Projekten besonders das "Warum". Nur wenn man den Kontext versteht, kann man sinnvolle Lösungen gestalten. Empathie und ein systemisches Denken sind für mich dabei zentral.',
+    paragraphs: [
+      'Mich interessiert bei der Entwicklung eines neuen Produktes die Frage, warum wir Produkte auf eine bestimmte Art nutzen und wie unser Verhalten dadurch beeinflusst wird.',
+      'Dabei ist es mir wichtig, mit Intention zu gestalten – bewusst Erfahrungen zu schaffen, die über das eigentliche Produkt hinausgehen.',
+      'Design bedeutet für mich, Funktion, Material, Nutzung und Kontext zusammenzudenken und daraus Erlebnisse zu entwickeln.'
+    ]
   },
   {
     title: 'Wie ich arbeite',
-    text: 'Ich arbeite gerne interdisziplinär, nutze Design Thinking und agile Methoden, um iterativ und nutzerzentriert zu entwickeln. Dabei ist mir der Austausch im Team besonders wichtig.',
-  },
-];
+    paragraphs: [
+      'Ich arbeite gerne strukturiert und mit einem Plan – auch wenn das in der Praxis mal besser und mal schlechter funktioniert.',
+      'Besonders wichtig ist mir die Arbeit im Team. Man lernt unglaublich viel voneinander, bekommt neue Perspektiven und kann gemeinsam bessere Lösungen entwickeln.',
+      'Ein gutes Produkt entsteht aus guter Zusammenarbeit, bei der jeder seine Perspektive einbringt.'
+    ]
+  }
+]
 
-const projects = ref(Array(100).fill(originalProjects).flat());
-const activeIndex = ref(originalProjects.length * 10);
-const scrollContainer = ref(null);
-let isAdjusting = false;
+const loopCount = 100 // Anzahl Wiederholungen für echtes Infinite Scroll
+const loopedSections = computed(() => Array(loopCount).fill(sections).flat())
+
+const activeIndex = ref(0) // Setze den Startwert auf den ersten Abschnitt ("Wer ich bin")
+const scrollContainer = ref<HTMLDivElement | null>(null)
 
 const handleScroll = () => {
-  if (isAdjusting) return;
   const container = scrollContainer.value;
   if (!container) return;
 
@@ -144,62 +151,45 @@ const handleScroll = () => {
 
   items.forEach((item, index) => {
     const rect = item.getBoundingClientRect();
-    const distanceToCenter = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
-    if (distanceToCenter < closestDistance) {
-      closestDistance = distanceToCenter;
+    const distance = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
+    if (distance < closestDistance) {
+      closestDistance = distance;
       closestIndex = index;
     }
   });
 
-  activeIndex.value = closestIndex;
-
-  const scrollTop = container.scrollTop;
-  const sectionHeight = container.scrollHeight / 3;
-
-  if (scrollTop >= sectionHeight * 2.5) {
-    isAdjusting = true;
-    requestAnimationFrame(() => {
-      container.scrollTop -= sectionHeight;
-      isAdjusting = false;
-    });
-  }
+  // Aktualisiere den activeIndex, um die richtige Sektion anzuzeigen
+  activeIndex.value = closestIndex % sections.length;
 };
 
+
 onMounted(() => {
-  const container = scrollContainer.value;
-  if (!container) return;
+  // Stelle sicher, dass der activeIndex korrekt gesetzt wird
+  activeIndex.value = 0 // Startet auf "Wer ich bin"
 
-  container.addEventListener('scroll', handleScroll);
-  container.style.scrollBehavior = 'auto';
+  const container = scrollContainer.value
+  if (!container) return
 
-  // Neuer setTimeout-Block
+  container.addEventListener('scroll', handleScroll)
+
+  // Setze Startposition auf den "Wer ich bin" Abschnitt
+  const startItem = container.querySelectorAll('.snap-center')[0] as HTMLElement
   setTimeout(() => {
-    const middleOffset = container.scrollHeight / 2;
-    container.scrollTop = middleOffset;
-    container.style.scrollBehavior = 'smooth';
-
-    // Manuelles Setzen von activeIndex (z.B. mittleres Element)
-    const items = container.querySelectorAll('.snap-center');
-    if (items.length > 0) {
-      const middleIndex = Math.floor(items.length / 2);
-      activeIndex.value = middleIndex;
-    }
-
-    // Optional handleScroll direkt aufrufen, um Blur-Effekt sofort zu korrigieren
-    handleScroll();
-  }, 50);
-});
+    container.scrollTop = startItem.offsetTop
+  }, 50)
+})
 
 onUnmounted(() => {
-  const container = scrollContainer.value;
-  if (container) {
-    container.removeEventListener('scroll', handleScroll);
-  }
-});
+  scrollContainer.value?.removeEventListener('scroll', handleScroll)
+})
+
 </script>
 
-
 <style scoped>
+.about-container {
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
 .hero-section {
   position: relative;
   width: 100%;
@@ -208,7 +198,10 @@ onUnmounted(() => {
 }
 
 .hero-img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  filter: brightness(0.8);
 }
 
 .hero-text {
@@ -219,51 +212,35 @@ onUnmounted(() => {
   text-align: center;
 }
 
-.rolling-text {
-  display: inline-block;
-  height: 1em;
-  overflow: hidden;
-  position: relative;
+.text-black {
+  color: #000;
 }
 
-.rolling-text .line {
+.text-gray-400 {
+  color: #aaa;
+}
+
+.right-column {
   display: flex;
-  transition: transform 0.8s ease;
-  transform: translateY(0%);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
 }
 
-.rolling-text .second {
-  position: absolute;
-  top: 100%;
-  left: 0;
+.snap-center {
+  scroll-snap-align: start;
 }
 
-.group:hover .rolling-text .line {
-  transform: translateY(-100%);
-}
 
-.letter {
-  display: inline-block;
-  transition: transform 0.8s ease, opacity 0.8s ease;
-}
-
-.rolling-text .line .letter {
-  transform: translateY(0%);
-  opacity: 1;
-}
-
-.rolling-text .second .letter {
-  transform: translateY(100%);
+.text-section {
+  transition: opacity 0.3s ease-in-out;
   opacity: 0;
 }
 
-.group:hover .rolling-text .line .letter {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-
-.group:hover .rolling-text .second .letter {
-  transform: translateY(0%);
+.text-section.active {
   opacity: 1;
 }
 </style>
