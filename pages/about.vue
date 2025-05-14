@@ -58,7 +58,7 @@
       'opacity-0': index % sections.length !== activeIndex   // An der Scheiß hier liegt es
     }"
   >
-    <div class="max-w-2xl text-center space-y-6 text-lg">
+    <div class="max-w-2xl text-left space-y-6 text-lg">
       <p
         v-for="(para, idx) in section.paragraphs"
         :key="`para-${idx}`"
@@ -111,26 +111,19 @@ const sections = [
   {
     title: 'Wer ich bin',
     paragraphs: [
-      'Hi, ich bin Michelle und studiere derzeit im 4. Semester Interaktionsgestaltung in Schwäbisch Gmünd.',
-      'Neben dem Studium findet man mich oft mit einem Buch in der Hand, auf Skiern oder in Museen – überall dort, wo es etwas Neues zu entdecken gibt.',
-      'Gestaltung begleitet mich dabei immer: Ich liebe es, Eindrücke aufzusaugen, Neues auszuprobieren und daraus kreative Verbindungen zu schaffen.',
-      'Außerdem bin ich eine echte Nachteule – abends kommen mir oft die besten Ideen.'
+      'Hi, ich bin Michelle und studiere derzeit im 4. Semester Interaktionsgestaltung in Schwäbisch Gmünd. Neben dem Studium findet man mich oft mit einem Buch in der Hand, auf Skiern oder in Museen – überall dort, wo es etwas Neues zu entdecken gibt. Gestaltung begleitet mich dabei immer: Ich liebe es, Eindrücke aufzusaugen, Neues auszuprobieren und daraus kreative Verbindungen zu schaffen. Außerdem bin ich eine echte Nachteule – abends kommen mir oft die besten Ideen.',
     ]
   },
   {
     title: 'Wie ich denke',
     paragraphs: [
-      'Mich interessiert bei der Entwicklung eines neuen Produktes die Frage, warum wir Produkte auf eine bestimmte Art nutzen und wie unser Verhalten dadurch beeinflusst wird.',
-      'Dabei ist es mir wichtig, mit Intention zu gestalten – bewusst Erfahrungen zu schaffen, die über das eigentliche Produkt hinausgehen.',
-      'Design bedeutet für mich, Funktion, Material, Nutzung und Kontext zusammenzudenken und daraus Erlebnisse zu entwickeln.'
+      'Mich interessiert bei der Entwicklung eines neuen Produktes die Frage, warum wir Produkte auf eine bestimmte Art nutzen und wie unser Verhalten dadurch beeinflusst wird. Dabei ist es mir wichtig, mit Intention zu gestalten – bewusst Erfahrungen zu schaffen, die über das eigentliche Produkt hinausgehen. Design bedeutet für mich, Funktion, Material, Nutzung und Kontext zusammenzudenken und daraus Erlebnisse zu entwickeln.',
     ]
   },
   {
     title: 'Wie ich arbeite',
     paragraphs: [
-      'Ich arbeite gerne strukturiert und mit einem Plan – auch wenn das in der Praxis mal besser und mal schlechter funktioniert.',
-      'Besonders wichtig ist mir die Arbeit im Team. Man lernt unglaublich viel voneinander, bekommt neue Perspektiven und kann gemeinsam bessere Lösungen entwickeln.',
-      'Ein gutes Produkt entsteht aus guter Zusammenarbeit, bei der jeder seine Perspektive einbringt.'
+      'Ich arbeite gerne strukturiert und mit einem Plan – auch wenn das in der Praxis mal besser und mal schlechter funktioniert. Besonders wichtig ist mir die Arbeit im Team. Man lernt unglaublich viel voneinander, bekommt neue Perspektiven und kann gemeinsam bessere Lösungen entwickeln. Ein gutes Produkt entsteht aus guter Zusammenarbeit, bei der jeder seine Perspektive einbringt.',
     ]
   }
 ]
@@ -242,5 +235,10 @@ onUnmounted(() => {
 
 .text-section.active {
   opacity: 1;
+}
+
+.text-block {
+  max-width: 50ch; /* ca. 10 Wörter */
+  word-break: break-word;
 }
 </style>
