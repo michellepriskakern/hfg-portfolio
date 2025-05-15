@@ -1,12 +1,13 @@
 <template>
   <nav class="fixed top-0 left-[100px] z-50 flex items-center h-[80px]">
-    <ul class="flex space-x-12 text-[1.5rem] text-black">
-      <li>
+    <ul class="flex text-[1.5rem] text-black">
+      <li class="mr-[32px]">
         <NuxtLink 
           to="/" 
           class="relative inline-block no-underline group link-item"
-          :class="{ 'active-link': $route.path === '/' }"
+          :class="{ 'active-link': $route.path === '/' || activeLink === '/' }"
           exact
+          @click="setActiveLink('/')"
         >
           <span class="rolling-text">
             <span class="line">
@@ -28,8 +29,9 @@
         <NuxtLink 
           to="/about" 
           class="relative inline-block no-underline group link-item"
-          :class="{ 'active-link': $route.path === '/about' }"
+          :class="{ 'active-link': $route.path === '/about' || activeLink === '/about' }"
           exact
+          @click="setActiveLink('/about')"
         >
           <span class="rolling-text">
             <span class="line">
@@ -50,9 +52,22 @@
   </nav>
 </template>
 
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const activeLink = ref('');
+const router = useRouter();
+
+const setActiveLink = (path) => {
+  activeLink.value = path;
+  router.push(path);
+};
+</script>
+
 <style scoped>
 nav {
-  left: 50px; /* Exakter Abstand vom linken Rand */
+  left: 50px;
   top: 0;
   position: fixed;
   height: 80px;
@@ -63,14 +78,19 @@ nav {
 
 .link-item {
   color: black;
-  font-size: 1.0rem; /* Schriftgröße exakt 1.5rem (24px) */
+  font-size: 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 1.4rem;
 }
 
 .rolling-text {
   display: inline-block;
-  height: 1.4em;
+  height: 1.4rem;
   overflow: hidden;
   position: relative;
+  line-height: 1.4rem;
 }
 
 .rolling-text .line {
@@ -94,41 +114,44 @@ nav {
   transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
-/* Ausgangszustand: Text normal sichtbar */
 .rolling-text .line .letter {
   transform: translateY(0%);
   opacity: 1;
 }
+
 .rolling-text .second .letter {
   transform: translateY(100%);
   opacity: 0;
 }
 
-/* Hover-Zustand mit Animation + Verzögerung */
 .group:hover .rolling-text .line .letter {
   transform: translateY(-100%);
   opacity: 0;
 }
+
 .group:hover .rolling-text .second .letter {
   transform: translateY(0%);
   opacity: 1;
 }
 
-/* Active underline animation */
-.active-underline {
+/* Unterstrich mit Farbe */
+.link-item::after {
   content: "";
-  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -2px;
   height: 2px;
-  width: 0%;
-  background-color: black;
-  transition: width 0.4s ease;
+  width: 0;
+  background-color: #8C8C8B;
+  transition: width 0.4s ease, background-color 0.4s ease;
 }
 
-.group:hover .active-underline {
+.group:hover::after {
   width: 100%;
 }
 
-.active-link .active-underline {
+.active-link::after {
   width: 100%;
+  background-color: #D53C4F; /* Die neue aktive Farbe */
 }
 </style>
