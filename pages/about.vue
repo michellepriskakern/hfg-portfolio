@@ -14,30 +14,21 @@
     <!-- About Sections -->
     <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
       <!-- Linke Spalte -->
-      <div
-        ref="textScrollContainer"
-        class="w-full lg:w-2/5 flex flex-col justify-center px-6 py-12 lg:pl-12 relative"
-      >
-        <!-- Entferne overflow-hidden -->
-        <div class="relative h-full flex items-center justify-center">
+      <div class="w-full lg:w-2/5 flex flex-col justify-center px-6 py-12 lg:pl-12">
+        <div class="flex flex-col gap-4 transition-all duration-500">
           <div
-            v-for="(section, i) in sections"
-            :key="`title-${i}`"
-            class="absolute transition-all duration-300 w-full flex flex-col items-start"
-            :style="{
-              transform: `translateY(${(i - activeIndex) * 100}%)`,
-              opacity: i === activeIndex ? 1 : 0.2,
-              pointerEvents: i === activeIndex ? 'auto' : 'none'
-            }"
+            v-for="(title, idx) in reorderedTitles"
+            :key="`rotated-title-${idx}`"
+            class="transition-opacity duration-500"
           >
             <h2
-              class="text-3xl sm:text-4xl lg:text-5xl font-bold transition-colors duration-300"
+              class="text-3xl sm:text-4xl lg:text-5xl font-bold"
               :class="{
-                'text-black opacity-100': i === activeIndex,
-                'text-gray-400 opacity-80': i !== activeIndex
+                'text-black': idx === 0,
+                'text-gray-400 opacity-80': idx !== 0
               }"
             >
-              {{ section.title }}
+              {{ title.title }}
             </h2>
           </div>
         </div>
@@ -46,12 +37,12 @@
       <!-- Rechte Spalte -->
       <div
         ref="scrollContainer"
-        class="w-full lg:w-3/5 h-full lg:h-auto overflow-y-auto snap-y snap-mandatory flex flex-col items-center"
+        class="w-full lg:w-3/5 h-full overflow-y-auto snap-y snap-mandatory flex flex-col items-center mt-20"
       >
         <div
           v-for="(section, index) in loopedSections"
           :key="`card-${index}`"
-          class="relative flex items-center justify-center min-h-[90vh] lg:h-auto snap-center transition-transform duration-00 px-8"
+          class="relative flex items-center justify-center min-h-[90vh] lg:h-auto snap-center transition-transform duration-300 px-8"
           :class="{
             'scale-100 z-10': index % sections.length === activeIndex,
             'opacity-0': index % sections.length !== activeIndex
@@ -62,10 +53,10 @@
               v-for="(para, idx) in section.paragraphs"
               :key="`para-${idx}`"
               :style="{
-              transform: `translateY(${(idx - activeIndex) * 40}%)`,
-              opacity: idx === activeIndex ? 1 : 0.8,
-              pointerEvents: idx === activeIndex ? 'auto' : 'none'
-            }"
+                transform: `translateY(${(idx - activeIndex) * 40}%)`,
+                opacity: idx === activeIndex ? 1 : 0.8,
+                pointerEvents: idx === activeIndex ? 'auto' : 'none'
+              }"
             >
               {{ para }}
             </p>
@@ -103,7 +94,7 @@ onUnmounted(() => {
   clearInterval(phraseInterval)
 })
 
-// About Sections
+// Sections
 const sections = [
   {
     title: 'Wer ich bin',
@@ -125,44 +116,60 @@ const sections = [
   }
 ]
 
-const loopCount = 100 // Anzahl Wiederholungen für echtes Infinite Scroll
+const activeIndex = ref(0)
+
+const rotatedTitles = computed(() => {
+  const len = sections.length
+  return [
+    sections[(activeIndex.value + len - 1) % len], // vorheriger
+    sections[activeIndex.value],                   // aktuell
+    sections[(activeIndex.value + 1) % len]       // nächster
+  ]
+})
+
+// reorderedTitles stellt die Reihenfolge um
+const reorderedTitles = computed(() => {
+  const len = sections.length
+  const current = sections[activeIndex.value]
+  const prev = sections[(activeIndex.value + len - 1) % len]
+  const next = sections[(activeIndex.value + 1) % len]
+
+  // Die Reihenfolge: aktuell oben, nächster in der Mitte, vorheriger unten
+  return [current, next, prev]
+})
+
+
+const loopCount = 100
 const loopedSections = computed(() => Array(loopCount).fill(sections).flat())
 
-const activeIndex = ref(0) // Setze den Startwert auf den ersten Abschnitt ("Wer ich bin")
 const scrollContainer = ref<HTMLDivElement | null>(null)
 
 const handleScroll = () => {
-  const container = scrollContainer.value;
-  if (!container) return;
+  const container = scrollContainer.value
+  if (!container) return
 
-  const items = container.querySelectorAll('.snap-center');
-  let closestIndex = 0;
-  let closestDistance = Infinity;
+  const items = container.querySelectorAll('.snap-center')
+  let closestIndex = 0
+  let closestDistance = Infinity
 
   items.forEach((item, index) => {
-    const rect = item.getBoundingClientRect();
-    const distance = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
+    const rect = item.getBoundingClientRect()
+    const distance = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2)
     if (distance < closestDistance) {
-      closestDistance = distance;
-      closestIndex = index;
+      closestDistance = distance
+      closestIndex = index
     }
-  });
+  })
 
-  // Aktualisiere den activeIndex, um die richtige Sektion anzuzeigen
-  activeIndex.value = closestIndex % sections.length;
-};
-
+  activeIndex.value = closestIndex % sections.length
+}
 
 onMounted(() => {
-  // Stelle sicher, dass der activeIndex korrekt gesetzt wird
-  activeIndex.value = 0 // Startet auf "Wer ich bin"
-
   const container = scrollContainer.value
   if (!container) return
 
   container.addEventListener('scroll', handleScroll)
 
-  // Setze Startposition auf den "Wer ich bin" Abschnitt
   const startItem = container.querySelectorAll('.snap-center')[0] as HTMLElement
   setTimeout(() => {
     container.scrollTop = startItem.offsetTop
@@ -172,7 +179,6 @@ onMounted(() => {
 onUnmounted(() => {
   scrollContainer.value?.removeEventListener('scroll', handleScroll)
 })
-
 </script>
 
 <style scoped>
@@ -196,10 +202,16 @@ onUnmounted(() => {
 
 .hero-text {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+}
+
+.hero-text h2 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .text-black {
@@ -208,16 +220,6 @@ onUnmounted(() => {
 
 .text-gray-400 {
   color: #aaa;
-}
-
-.right-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
 }
 
 .snap-center {
@@ -234,7 +236,7 @@ onUnmounted(() => {
 }
 
 .text-block {
-  max-width: 50ch; /* ca. 10 Wörter */
+  max-width: 50ch;
   word-break: break-word;
 }
 </style>
