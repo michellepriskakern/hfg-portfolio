@@ -134,6 +134,48 @@ nav {
   opacity: 1;
 }
 
+/* Rolling Delay pro Buchstabe (bis zu 10 Buchstaben) */
+.group:hover .rolling-text .line .letter:nth-child(1),
+.group:hover .rolling-text .second .letter:nth-child(1) {
+  transition-delay: 0s;
+}
+.group:hover .rolling-text .line .letter:nth-child(2),
+.group:hover .rolling-text .second .letter:nth-child(2) {
+  transition-delay: 0.05s;
+}
+.group:hover .rolling-text .line .letter:nth-child(3),
+.group:hover .rolling-text .second .letter:nth-child(3) {
+  transition-delay: 0.1s;
+}
+.group:hover .rolling-text .line .letter:nth-child(4),
+.group:hover .rolling-text .second .letter:nth-child(4) {
+  transition-delay: 0.15s;
+}
+.group:hover .rolling-text .line .letter:nth-child(5),
+.group:hover .rolling-text .second .letter:nth-child(5) {
+  transition-delay: 0.2s;
+}
+.group:hover .rolling-text .line .letter:nth-child(6),
+.group:hover .rolling-text .second .letter:nth-child(6) {
+  transition-delay: 0.25s;
+}
+.group:hover .rolling-text .line .letter:nth-child(7),
+.group:hover .rolling-text .second .letter:nth-child(7) {
+  transition-delay: 0.3s;
+}
+.group:hover .rolling-text .line .letter:nth-child(8),
+.group:hover .rolling-text .second .letter:nth-child(8) {
+  transition-delay: 0.35s;
+}
+.group:hover .rolling-text .line .letter:nth-child(9),
+.group:hover .rolling-text .second .letter:nth-child(9) {
+  transition-delay: 0.4s;
+}
+.group:hover .rolling-text .line .letter:nth-child(10),
+.group:hover .rolling-text .second .letter:nth-child(10) {
+  transition-delay: 0.45s;
+}
+
 /* Unterstrich mit Farbe */
 .link-item::after {
   content: "";
@@ -152,6 +194,7 @@ nav {
 
 .active-link::after {
   width: 100%;
-  background-color: #D53C4F; /* Die neue aktive Farbe */
+  background-color: #D53C4F;
 }
+
 </style>
