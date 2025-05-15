@@ -4,7 +4,7 @@
     <section class="hero-section relative h-screen w-full">
       <img src="public/images/skydiving.png" alt="Skydiving" class="hero-img" />
       <div class="hero-text absolute text-center">
-        <h2 class="text-white text-3xl sm:text-7xl font-light">
+        <h2 class="text-white text-3xl sm:text-7xl font-regular">
           always searching for<br />
           <span class="font-bold" :style="{ color: currentColor }">{{ currentPhrase }}</span>
         </h2>
@@ -15,66 +15,63 @@
     <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
       <!-- Linke Spalte -->
       <div
-  ref="textScrollContainer"
-  class="w-full lg:w-1/3 flex flex-col justify-center px-6 py-12 lg:pl-12 relative"
->
-  <!-- Entferne overflow-hidden -->
-  <div class="relative h-full flex items-center justify-center">
-    <div
-      v-for="(section, i) in sections"
-      :key="`title-${i}`"
-      class="absolute transition-all duration-300 w-full flex flex-col items-start"
-      :style="{
-        transform: `translateY(${(i - activeIndex) * 100}%)`,
-        opacity: i === activeIndex ? 1 : 0.2,
-        pointerEvents: i === activeIndex ? 'auto' : 'none'
-      }"
-    >
-      <h2
-        class="text-3xl sm:text-4xl lg:text-5xl font-bold transition-colors duration-300"
-        :class="{
-          'text-black opacity-100': i === activeIndex,
-          'text-gray-400 opacity-80': i !== activeIndex
-        }"
+        ref="textScrollContainer"
+        class="w-full lg:w-2/5 flex flex-col justify-center px-6 py-12 lg:pl-12 relative"
       >
-        {{ section.title }}
-      </h2>
-    </div>
-  </div>
-</div>
-
+        <!-- Entferne overflow-hidden -->
+        <div class="relative h-full flex items-center justify-center">
+          <div
+            v-for="(section, i) in sections"
+            :key="`title-${i}`"
+            class="absolute transition-all duration-300 w-full flex flex-col items-start"
+            :style="{
+              transform: `translateY(${(i - activeIndex) * 100}%)`,
+              opacity: i === activeIndex ? 1 : 0.2,
+              pointerEvents: i === activeIndex ? 'auto' : 'none'
+            }"
+          >
+            <h2
+              class="text-3xl sm:text-4xl lg:text-5xl font-bold transition-colors duration-300"
+              :class="{
+                'text-black opacity-100': i === activeIndex,
+                'text-gray-400 opacity-80': i !== activeIndex
+              }"
+            >
+              {{ section.title }}
+            </h2>
+          </div>
+        </div>
+      </div>
 
       <!-- Rechte Spalte -->
       <div
-  ref="scrollContainer"
-  class="w-full lg:w-2/3 h-full lg:h-auto overflow-y-auto snap-y snap-mandatory flex flex-col items-center"
->
-  <div
-    v-for="(section, index) in loopedSections"
-    :key="`card-${index}`"
-    class="relative flex items-center justify-center min-h-[90vh] lg:h-auto snap-center transition-transform duration-00 px-8"
-    :class="{
-      'scale-100 z-10': index % sections.length === activeIndex,
-      'opacity-0': index % sections.length !== activeIndex   // An der Scheiß hier liegt es
-    }"
-  >
-    <div class="max-w-2xl text-left space-y-6 text-lg">
-      <p
-        v-for="(para, idx) in section.paragraphs"
-        :key="`para-${idx}`"
-        :style="{
-        transform: `translateY(${(idx - activeIndex) * 40}%)`,
-        opacity: idx === activeIndex ? 1 : 0.8,
-        pointerEvents: idx === activeIndex ? 'auto' : 'none'
-      }"
+        ref="scrollContainer"
+        class="w-full lg:w-3/5 h-full lg:h-auto overflow-y-auto snap-y snap-mandatory flex flex-col items-center"
       >
-        {{ para }}
-      </p>
-    </div>
-  </div>
-</div>
-
-
+        <div
+          v-for="(section, index) in loopedSections"
+          :key="`card-${index}`"
+          class="relative flex items-center justify-center min-h-[90vh] lg:h-auto snap-center transition-transform duration-00 px-8"
+          :class="{
+            'scale-100 z-10': index % sections.length === activeIndex,
+            'opacity-0': index % sections.length !== activeIndex
+          }"
+        >
+          <div class="max-w-3xl text-left space-y-6 text-lg">
+            <p
+              v-for="(para, idx) in section.paragraphs"
+              :key="`para-${idx}`"
+              :style="{
+              transform: `translateY(${(idx - activeIndex) * 40}%)`,
+              opacity: idx === activeIndex ? 1 : 0.8,
+              pointerEvents: idx === activeIndex ? 'auto' : 'none'
+            }"
+            >
+              {{ para }}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -99,7 +96,7 @@ onMounted(() => {
     phraseIndex = (phraseIndex + 1) % phrases.length
     currentPhrase.value = phrases[phraseIndex].text
     currentColor.value = phrases[phraseIndex].color
-  }, 5000)
+  }, 2000)
 })
 
 onUnmounted(() => {
@@ -115,13 +112,13 @@ const sections = [
     ]
   },
   {
-    title: 'Wie ich denke',
+    title: 'Wie ich vorgehe',
     paragraphs: [
       'Mich interessiert bei der Entwicklung eines neuen Produktes die Frage, warum wir Produkte auf eine bestimmte Art nutzen und wie unser Verhalten dadurch beeinflusst wird. Dabei ist es mir wichtig, mit Intention zu gestalten – bewusst Erfahrungen zu schaffen, die über das eigentliche Produkt hinausgehen. Design bedeutet für mich, Funktion, Material, Nutzung und Kontext zusammenzudenken und daraus Erlebnisse zu entwickeln.',
     ]
   },
   {
-    title: 'Wie ich arbeite',
+    title: 'Was mir wichtig ist',
     paragraphs: [
       'Ich arbeite gerne strukturiert und mit einem Plan – auch wenn das in der Praxis mal besser und mal schlechter funktioniert. Besonders wichtig ist mir die Arbeit im Team. Man lernt unglaublich viel voneinander, bekommt neue Perspektiven und kann gemeinsam bessere Lösungen entwickeln. Ein gutes Produkt entsteht aus guter Zusammenarbeit, bei der jeder seine Perspektive einbringt.',
     ]
@@ -226,7 +223,6 @@ onUnmounted(() => {
 .snap-center {
   scroll-snap-align: start;
 }
-
 
 .text-section {
   transition: opacity 0.3s ease-in-out;

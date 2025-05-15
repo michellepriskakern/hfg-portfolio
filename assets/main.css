@@ -1,3 +1,18 @@
+/* assets/main.css */
+
+/* Google Font Manrope importieren */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+/* Tailwind CSS Basisklassen */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Manrope als Standard-Schriftart für das ganze Projekt */
+body {
+    font-family: 'Manrope', sans-serif;
+}
+
 @import "tailwindcss";
 
 @theme {
