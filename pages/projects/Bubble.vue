@@ -96,23 +96,36 @@
     </section>
 
 
-
-
-    <!-- IMAGE SECTION (Tablet) -->
-    <section class="mt-[200px] flex justify-center">
-      <img src="/images/bubble-tablet.png" alt="Project Image" class="large-image rounded-lg shadow-md" />
-    </section>
-
-    <!-- IMAGE SECTION (Smartwatch) -->
-    <section class="mt-[200px] flex justify-center">
-      <img src="/images/bubble-smartwatch.png" alt="Project Image" class="large-image rounded-lg shadow-md" />
-    </section>
-
     <!-- IMAGE SECTION (App) -->
-    <section class="mt-[200px] flex justify-center">
+    <section class="mt-[50px] flex justify-center">
       <img src="/images/bubble-app.png" alt="Project Image" class="large-image rounded-lg shadow-md" />
     </section>
   </div>
+
+   <!-- IMAGE SECTION (smartwatch und tablet) -->
+  <section class="mt-[50px] flex justify-center gap-6 max-w-[1428px] mx-auto">
+  <img src="public/images/bubble-tablet.png" alt="Bild 1" class="square-image rounded-lg shadow-md" />
+  <img src="public/images/bubble-smartwatch.png" alt="Bild 2" class="square-image rounded-lg shadow-md" />
+</section>
+
+<section class="mt-[200px] mb-[200px] flex flex-col items-start pl-[50px]">
+  <h2 class="text-[48px] font-bold leading-[1.0] mb-8 text-left">Video</h2>
+  <div class="w-full max-w-[1428px] aspect-w-16 aspect-h-9">
+    <iframe 
+      width="1428" 
+      height="803" 
+      src="https://www.youtube.com/embed/JB0M_5JVKgQ" 
+      title="YouTube video player" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+
+
+
 </template>
 
 <script setup>
@@ -126,6 +139,13 @@
   max-width: 1428px;
   height: auto;
   object-fit: cover;
+}
+
+.square-image {
+  width: 50%;         /* Jeweils die Hälfte vom Container */
+  aspect-ratio: 1 / 1; /* Macht das Bild quadratisch */
+  object-fit: cover;   /* Bild skaliert, füllt den Container */
+  max-width: 714px;    /* Damit sie nicht breiter als 714px werden */
 }
 
 /* GIF Bereich speziell ansprechen */
@@ -159,5 +179,23 @@ section h1 + p {
 body {
   font-family: Arial, sans-serif;
 }
+
+.aspect-w-16 {
+  width: 100%;
+}
+
+.aspect-h-9 {
+  padding-top: 56.25%; /* Verhältnis 16:9 für das Video */
+  position: relative;
+}
+
+iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 </style>
  
