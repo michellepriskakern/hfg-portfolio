@@ -86,7 +86,7 @@
         class="relative flex items-center justify-center h-screen snap-center transition-transform duration-300"
         :class="{
           'scale-100 blur-0 opacity-100': index === activeIndex,
-          'scale-95 blur-sm opacity-50': index !== activeIndex
+          'scale-95 ': index !== activeIndex  //blur-sm opacity-50
         }"
       >
         <NuxtLink
