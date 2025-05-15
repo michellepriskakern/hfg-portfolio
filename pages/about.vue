@@ -6,7 +6,7 @@
       <div class="hero-text absolute text-center">
         <h2 class="text-white text-3xl sm:text-7xl font-regular">
           always searching for<br />
-          <span class="font-bold" :style="{ color: currentColor }">{{ currentPhrase }}</span>
+          <span class="font-bold" :style="{ color: currentColor, whiteSpace: 'nowrap' }">{{ currentPhrase }}</span>
         </h2>
       </div>
     </section>
@@ -138,7 +138,6 @@ const reorderedTitles = computed(() => {
   return [current, next, prev]
 })
 
-
 const loopCount = 100
 const loopedSections = computed(() => Array(loopCount).fill(sections).flat())
 
@@ -209,10 +208,17 @@ onUnmounted(() => {
 }
 
 .hero-text h2 {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal; /* wichtig, damit <br> funktioniert */
+  overflow: visible;
+  text-overflow: clip;
 }
+
+/* Diese Klasse brauchst du nicht mehr, wenn inline styles genutzt werden */
+/*
+.no-wrap {
+  white-space: nowrap;
+}
+*/
 
 .text-black {
   color: #000;
@@ -220,6 +226,7 @@ onUnmounted(() => {
 
 .text-gray-400 {
   color: #aaa;
+  opacity: 0.8;
 }
 
 .snap-center {
