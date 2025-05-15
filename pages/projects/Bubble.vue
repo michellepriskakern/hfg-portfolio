@@ -16,7 +16,7 @@
         <h2 class="text-[12px] font-semibold">[Team]</h2>
         <a href="https://yasminhaehnel.com" target="_blank" class="text-black-500 hover:underline">yasminhaehnel.com</a>, <br>
         <a href="https://leaullmann.de" target="_blank" class="text-black-500 hover:underline">Lea Ullmann</a>,<br>
-        <a href="vanessahiller.de" target="_blank" class="text-black-500 hover:underline">Vanessa Hiller</a>
+        <a href="https://vanessahiller.de" target="_blank" class="text-black-500 hover:underline">Vanessa Hiller</a>
       </div>
       <div>
         <h2 class="text-[12px] font-semibold">[Tools]</h2>
@@ -30,123 +30,134 @@
 
     <!-- IMAGE SECTION -->
     <section class="mt-[50px] flex justify-center">
-      <img src="/images/bubble.jpg" alt="Project Image" class="w-[1428px] h-[792px] object-cover rounded-lg shadow-md" />
+      <img src="/images/bubble.jpg" alt="Project Image" class="large-image rounded-lg shadow-md" />
     </section>
 
     <!-- DESCRIPTION SECTION -->
-    <section class="pl-[50px] mt-[50px] text-[24px] text-gray-800 leading-relaxed">
-      <div class="max-w-[800px]">
-        <p>
-          This project shows how digital technologies can be used specifically to support people with borderline personality disorder. 
-          By combining reflection, biometric data and AI-supported support, we want to help those affected to better understand their emotions and deal with critical moments.
-          <br><br>
-          It was particularly important to us to develop an application that can be seamlessly integrated into everyday life and supports both the therapeutic process and personal well-being.
+    <section class="pl-[50px] mt-[50px] text-[24px] text-gray-800 leading-relaxed max-w-[800px]">
+      <p>
+        This project shows how digital technologies can be used specifically to support people with borderline personality disorder. 
+        By combining reflection, biometric data and AI-supported support, we want to help those affected to better understand their emotions and deal with critical moments.
+        <br><br>
+        It was particularly important to us to develop an application that can be seamlessly integrated into everyday life and supports both the therapeutic process and personal well-being.
+      </p>
+    </section>
+
+    <!-- PROCESS SECTION -->
+    <section class="mt-[200px] flex flex-col items-start text-[18px] pl-[50px]">
+      <h2 class="text-[48px] font-bold leading-[1.0] mb-4 text-left">Process</h2>
+      <div class="flex flex-col gap-[12px] text-left leading-relaxed process-text">
+        <p><span class="font-semibold">Recherche & Problemverständnis</span><br>
+          Zu Beginn starteten wir mit einer offenen Themenfindung, in der wir uns fragten, welche Probleme aktuell bestehen und welche in Zukunft relevant werden könnten. Durch Ideensammlung entwickelten wir vielfältige Ansätze, bevor wir uns auf das Thema Borderline-Persönlichkeitsstörung (BPS) fokussierten. Diese Entscheidung fiel, da es in diesem Bereich nur begrenzte Unterstützungsangebote gibt und wir hier großes Potenzial für sinnvolle Unterstützung sahen.
+          Um das Thema fundiert anzugehen, führten wir eine umfassende Recherche durch. Neben einer Marktrecherche, war uns klar, dass wir auch mit Expertinnen reden möchten und auch in Austausch mit Betroffenen selbst sein wollten. Die gewonnenen Insights halfen uns, ein tiefes Verständnis für die Bedürfnisse und Herausforderungen der Zielgruppe zu entwickeln. Auf Basis dieser Erkenntnisse definierten wir unsere Ziele        </p>
+        <p><span class="font-semibold">Ideenentwicklung & Konzeption</span><br>
+          Der kreative Prozess begann mit einer individuellen Ideenskizze, bei der jedes Teammitglied eigene Ansätze entwickelte. Im Rahmen der Methode „Crazy 8“ wurden in kurzer Zeit zahlreiche Ideen visualisiert. Anschließend bewerteten wir die Umsetzbarkeit der Ansätze, auch unter technologischen Gesichtspunkten.
+          Mit einer klaren Zielgruppenfokussierung erstellten wir eine Persona, die die Bedürfnisse und Eigenschaften der Nutzer*innen abbildet. Auf dieser Basis entwickelten wir den Userflow und die Informationsarchitektur der Funktionen. Weitere Skizzen und ein Storyboard veranschaulichten die Nutzerführung und das Nutzungserlebnis.        </p>
+        <p><span class="font-semibold">Umsetzung & Prototyping</span><br>
+          Mit einem klaren Konzept starteten wir in die visuelle und technische Umsetzung. Ein Styleguide stellte sicher, dass ein einheitliches Bild über alle Komponenten hinweg gewahrt blieb. Parallel entwickelten wir Wireframes für die App und verfeinerten das Design sukzessive.Der finale Prototyp entstand auf dieser Grundlage und wurde als klickbarer Dummy umgesetzt, um Nutzungsabläufe erlebbar zu machen. Ergänzend erstellten wir ein Video, für das wir ein detailliertes Skript verfassten. Die Aufnahme und der Schnitt des Videos dienten dazu, unser Konzept anschaulich zu präsentieren.
         </p>
       </div>
     </section>
 
-<!-- PROCESS SECTION -->
-<section class="mt-[200px] flex justify-end text-[18px] pr-[50px]">
-  <div class="flex items-start space-x-[50px]">
-    <div class="flex flex-col justify-start text-right max-w-[200px]">
-      <h2 class="text-[48px] font-bold leading-[1.0] mb-2">Process</h2>
-    </div>
-    <div class="max-w-[600px] text-left leading-relaxed flex flex-col gap-[12px]">
-      <p>
-        Durch Interviews mit Expert*innen und intensive Recherche entschieden wir uns für die Borderline-Persönlichkeitsstörung (BPS), da sie ein hohes Potenzial für sinnvolle Unterstützung bietet. 
-        Unser Fokus lag darauf, das Thema sensibel zu behandeln und eine ergänzende Hilfe statt einer Therapiealternative zu entwickeln.
-      </p>
-      <p>
-        Eine Marktrecherche half uns, bestehende Angebote zu analysieren und technologische Ansätze zu prüfen. Zudem stellten wir uns die Frage, wo wir ansetzen: 
-        bei Betroffenen in Therapie, ohne Diagnose oder als Alltagshelfer? Diese Überlegungen bildeten die Basis für unser Konzept.
-      </p>
-      <p>
-        Wir wollen Angehörigen ein besseres Verständnis für die Krankheit vermitteln und Betroffene in kritischen Momenten unterstützen. 
-        Langfristig soll die emotionale Selbstregulation gefördert und der Umgang mit der Erkrankung erleichtert werden.
-      </p>
-    </div>
-  </div>
-</section>
+    <!-- IMAGE SECTION FOR PROCESS -->
+    <section class="mt-[52px] flex justify-center">
+      <img src="public/images/bubble-process.png" alt="Process Image" class="large-image rounded-lg shadow-md" />
+    </section>
+
+    <!-- GIF AND TEXT SECTION -->
+    <section class="mt-[50px] flex items-start justify-start px-[50px] gap-[50px] gif-section">
+      <!-- GIF IMAGE -->
+      <div class="flex-shrink-0">
+        <img src="/images/bubble-gif.gif" alt="Bubble Animation" class="gif-image rounded-md" />
+      </div>
+
+      <!-- TEXT SECTION -->
+      <div class="text-[18px] text-black leading-relaxed max-w-[500px]">
+        <h2 class="text-[36px] font-semibold text-black mb-4">KI</h2>
+        <p>
+          Die Hauptfunktion der App ist die Reflexion. Nutzer können gemessene Daten und kritische Momente einsehen sowie täglich eine KI-gestützte Reflexion mit „Bubble“ durchführen.
+        </p>
+      </div>
+    </section>
 
 
-<!-- IMAGE SECTION (Tablet) -->
-<section class="mt-[200px] flex justify-center">
-  <img src="/images/bubble-tablet.png" alt="Project Image" class="w-[1428px] h-[792px] object-cover rounded-lg shadow-md" />
-</section>
-
-<!-- TABLET SECTION -->
-<section class="mt-[200px] flex justify-end text-[18px] pr-[50px]">
-  <div class="flex items-start space-x-[50px]">
-    <div class="flex flex-col justify-start text-right max-w-[200px]">
-      <h2 class="text-[48px] font-bold leading-[1.0] mb-2">Tablet</h2>
-    </div>
-    <div class="max-w-[600px] text-left leading-relaxed flex flex-col gap-[12px]">
-      <p>
-        Our app supports therapy by allowing users to decide for themselves in therapy mode which data is shared with therapists. 
-        They see an overview of the relevant data since the last session on their tablet. 
-        The display can be made clearly visible using a whiteboard or projector. 
-        After therapy, the mode is deactivated and the data can only be viewed by the user again.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- IMAGE SECTION (Smartwatch) -->
-<section class="mt-[200px] flex justify-center">
-  <img src="/images/bubble-smartwatch.png" alt="Project Image" class="w-[1428px] h-[792px] object-cover rounded-lg shadow-md" />
-</section>
-
-<!-- SMARTWATCH SECTION -->
-<section class="mt-[200px] flex justify-end text-[18px] pr-[50px]">
-  <div class="flex items-start space-x-[120px]"> <!-- Abstand vergrößert -->
-    <div class="flex flex-col justify-start text-right max-w-[200px] flex-shrink-0">
-      <h2 class="text-[48px] font-bold leading-[1.0] mb-2">Smartwatch</h2>
-    </div>
-    <div class="max-w-[600px] text-left leading-relaxed flex flex-col gap-[12px]">
-      <p>
-        The smartwatch measures bio-metric data and recognises critical moments. 
-        If the values rise, a notification is sent and you can use the ‘do not disturb’ mode 
-        to notify the saved trusted persons in your environment.
-      </p>
-    </div>
-  </div>
-</section>
-
-
-<!-- IMAGE SECTION (App) -->
-<section class="mt-[200px] flex justify-center">
-  <img src="/images/bubble-app.png" alt="Project Image" class="w-[1428px] h-[792px] object-cover rounded-lg shadow-md" />
-</section>
-
-<!-- APP SECTION -->
-<section class="mt-[200px] flex justify-end text-[18px] pr-[50px] mb-[200px]">
-  <div class="flex items-start space-x-[50px]">
-    <div class="flex flex-col justify-start text-right max-w-[200px]">
-      <h2 class="text-[48px] font-bold leading-[1.0] mb-2">App</h2>
-    </div>
-    <div class="max-w-[600px] text-left leading-relaxed flex flex-col gap-[12px]">
-      <p>
-        The main function of the app is reflection. Users can view measured data and critical moments and carry out an AI-supported reflection with ‘Bubble’ every day. This is documented and can be viewed again later in the journal. Anonymised critical moments can be replayed for better reflection.
-      </p>
-    </div>
-  </div>
-</section>
+    <!-- FINAL SECTION -->
+    <section class="mt-[50px] flex flex-col items-start text-[18px] pl-[50px]">
+      <h2 class="text-[48px] font-bold leading-[1.0] mb-4 text-left">Final</h2>
+      <div class="flex flex-col gap-[12px] text-left leading-relaxed process-text">
+        <p><span class="font-semibold">App</span><br>
+          The main function of the app is reflection. Users can view measured data and critical moments and carry out an AI-supported reflection with ‘Bubble’ every day. This is documented and can be viewed again later in the journal. Anonymised critical moments can be replayed for better reflection.     </p>
+        <p><span class="font-semibold">Smartwatch</span><br>
+          The smartwatch measures bio-metric data and recognises critical moments. If the values rise, a notification is sent and you can use the ‘do not disturb’ mode to notify the saved trusted persons in your environment.      </p>
+        <p><span class="font-semibold">Tablet</span><br>
+          Our app supports therapy by allowing users to decide for themselves in therapy mode which data is shared with therapists. They see an overview of the relevant data since the last session on their tablet. The display can be made clearly visible using a whiteboard or projector. After therapy, the mode is deactivated and the data can only be viewed by the user again.
+        </p>
+      </div>
+    </section>
 
 
 
+
+    <!-- IMAGE SECTION (Tablet) -->
+    <section class="mt-[200px] flex justify-center">
+      <img src="/images/bubble-tablet.png" alt="Project Image" class="large-image rounded-lg shadow-md" />
+    </section>
+
+    <!-- IMAGE SECTION (Smartwatch) -->
+    <section class="mt-[200px] flex justify-center">
+      <img src="/images/bubble-smartwatch.png" alt="Project Image" class="large-image rounded-lg shadow-md" />
+    </section>
+
+    <!-- IMAGE SECTION (App) -->
+    <section class="mt-[200px] flex justify-center">
+      <img src="/images/bubble-app.png" alt="Project Image" class="large-image rounded-lg shadow-md" />
+    </section>
   </div>
 </template>
 
 <script setup>
 </script>
 
+
 <style scoped>
-body {
-  font-family: Arial, sans-serif;
+/* Globale Bildgröße für große Bilder */
+.large-image {
+  width: 100%;
+  max-width: 1428px;
+  height: auto;
+  object-fit: cover;
 }
 
-/* Präziser Abstand zwischen Titel und Untertitel in der Hero-Section */
+/* GIF Bereich speziell ansprechen */
+.gif-section {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.gif-section .gif-image {
+  width: 800px;
+  height: 800px;
+  object-fit: contain;
+}
+
+/* Prozess Textbereich */
+.process-text p {
+  max-width: 50ch;
+  word-wrap: break-word;
+  line-height: 1.6;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+/* Textanpassung für den Hero-Bereich */
 section h1 + p {
   margin-top: 2px !important;
 }
+
+
+body {
+  font-family: Arial, sans-serif;
+}
 </style>
+ 
