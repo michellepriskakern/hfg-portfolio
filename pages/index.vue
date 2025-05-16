@@ -1,4 +1,5 @@
 <template>
+  <transition name="fade" appear>
   <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
     <!-- Linke Spalte (Titel) -->
     <div
@@ -102,6 +103,7 @@
       </div>
     </div>
   </div>
+  </transition>
 </template>
 
 
@@ -203,6 +205,17 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+
+/* Fade Transition */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1.5s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-to, .fade-leave-from {
+  opacity: 1;
+}
 html,
 body {
   overflow: hidden;

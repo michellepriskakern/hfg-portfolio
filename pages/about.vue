@@ -1,70 +1,72 @@
 <template>
-  <div class="about-container">
-    <!-- Hero Section -->
-    <section class="hero-section relative h-screen w-full">
-      <img src="public/images/skydiving.png" alt="Skydiving" class="hero-img" />
-      <div class="hero-text absolute text-center">
-        <h2 class="text-white text-3xl sm:text-7xl font-regular">
-          always searching for<br />
-          <span class="font-bold" :style="{ color: currentColor, whiteSpace: 'nowrap' }">{{ currentPhrase }}</span>
-        </h2>
-      </div>
-    </section>
+  <transition name="fade" appear>
+    <div class="about-container">
+      <!-- Hero Section -->
+      <section class="hero-section relative h-screen w-full">
+        <img src="public/images/skydiving.png" alt="Skydiving" class="hero-img" />
+        <div class="hero-text absolute text-center">
+          <h2 class="text-white text-3xl sm:text-7xl font-regular">
+            always searching for<br />
+            <span class="font-bold" :style="{ color: currentColor }">{{ currentPhrase }}</span>
+          </h2>
+        </div>
+      </section>
 
-    <!-- About Sections -->
-    <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
-      <!-- Linke Spalte -->
-      <div class="w-full lg:w-2/5 flex flex-col justify-center px-6 py-12 lg:pl-12">
-        <div class="flex flex-col gap-4 transition-all duration-500">
-          <div
-            v-for="(title, idx) in reorderedTitles"
-            :key="`rotated-title-${idx}`"
-            class="transition-opacity duration-500"
-          >
-            <h2
-              class="text-3xl sm:text-4xl lg:text-5xl font-bold"
-              :class="{
-                'text-black': idx === 0,
-                'text-gray-400 opacity-80': idx !== 0
-              }"
+      <!-- About Sections -->
+      <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
+        <!-- Linke Spalte -->
+        <div class="w-full lg:w-2/5 flex flex-col justify-center px-6 py-12 lg:pl-12">
+          <div class="flex flex-col gap-4 transition-all duration-500">
+            <div
+              v-for="(title, idx) in reorderedTitles"
+              :key="`rotated-title-${idx}`"
+              class="transition-opacity duration-500"
             >
-              {{ title.title }}
-            </h2>
+              <h2
+                class="text-3xl sm:text-4xl lg:text-5xl font-bold"
+                :class="{
+                  'text-black': idx === 0,
+                  'text-gray-400 opacity-80': idx !== 0
+                }"
+              >
+                {{ title.title }}
+              </h2>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Rechte Spalte -->
-      <div
-        ref="scrollContainer"
-        class="w-full lg:w-3/5 h-full overflow-y-auto snap-y snap-mandatory flex flex-col items-center mt-20"
-      >
+        <!-- Rechte Spalte -->
         <div
-          v-for="(section, index) in loopedSections"
-          :key="`card-${index}`"
-          class="relative flex items-center justify-center min-h-[90vh] lg:h-auto snap-center transition-transform duration-300 px-8"
-          :class="{
-            'scale-100 z-10': index % sections.length === activeIndex,
-            'opacity-0': index % sections.length !== activeIndex
-          }"
+          ref="scrollContainer"
+          class="w-full lg:w-3/5 h-full overflow-y-auto snap-y snap-mandatory flex flex-col items-center mt-20"
         >
-          <div class="max-w-3xl text-left space-y-6 text-lg">
-            <p
-              v-for="(para, idx) in section.paragraphs"
-              :key="`para-${idx}`"
-              :style="{
-                transform: `translateY(${(idx - activeIndex) * 40}%)`,
-                opacity: idx === activeIndex ? 1 : 0.8,
-                pointerEvents: idx === activeIndex ? 'auto' : 'none'
-              }"
-            >
-              {{ para }}
-            </p>
+          <div
+            v-for="(section, index) in loopedSections"
+            :key="`card-${index}`"
+            class="relative flex items-center justify-center min-h-[90vh] lg:h-auto snap-center transition-transform duration-300 px-8"
+            :class="{
+              'scale-100 z-10': index % sections.length === activeIndex,
+              'opacity-0': index % sections.length !== activeIndex
+            }"
+          >
+            <div class="max-w-3xl text-left space-y-6 text-lg">
+              <p
+                v-for="(para, idx) in section.paragraphs"
+                :key="`para-${idx}`"
+                :style="{
+                  transform: `translateY(${(idx - activeIndex) * 40}%)`,
+                  opacity: idx === activeIndex ? 1 : 0.8,
+                  pointerEvents: idx === activeIndex ? 'auto' : 'none'
+                }"
+              >
+                {{ para }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
@@ -185,6 +187,17 @@ onUnmounted(() => {
   font-family: 'Helvetica Neue', sans-serif;
 }
 
+/* Fade Transition */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1.2s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-to, .fade-leave-from {
+  opacity: 1;
+}
+
 .hero-section {
   position: relative;
   width: 100%;
@@ -208,17 +221,10 @@ onUnmounted(() => {
 }
 
 .hero-text h2 {
-  white-space: normal; /* wichtig, damit <br> funktioniert */
-  overflow: visible;
-  text-overflow: clip;
-}
-
-/* Diese Klasse brauchst du nicht mehr, wenn inline styles genutzt werden */
-/*
-.no-wrap {
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-*/
 
 .text-black {
   color: #000;
@@ -226,7 +232,6 @@ onUnmounted(() => {
 
 .text-gray-400 {
   color: #aaa;
-  opacity: 0.8;
 }
 
 .snap-center {
