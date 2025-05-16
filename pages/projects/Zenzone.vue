@@ -1,168 +1,201 @@
 <template>
   <div>
     <!-- HERO SECTION -->
-    <section class="relative w-full h-screen bg-cover bg-center flex items-end text-black"
-      :style="{ backgroundImage: 'url(/images/zenzone.png)' }">
-      <div class="absolute bottom-10 left-10">
-        <h1 class="text-6xl font-bold">zenzone</h1>
-        <p class="text-2xl mt-2">Entspannung im Alltag</p>
-      </div>
+    <section class="pt-[300px] pb-[50px] px-[50px]">
+      <h1 class="text-[48px] font-bold" style="color: #D53C4F;">zenzone</h1>
+      <p class="text-[24px]" style="color: #8C8C8B; margin-top: 2px;">Entspannung im Alltag</p>
     </section>
 
     <!-- PROJECT INFO SECTION -->
-    <section class="container mx-auto px-8 py-16 grid grid-cols-1 md:grid-cols-2 gap-10">
-      <div class="text-xl">
-        <p><span class="text-gray-400 font-semibold">Duration</span><br>1 semester, study project</p>
-        <br>
-        <p><span class="text-gray-400 font-semibold">Strategy</span><br>Research, Interviews, Concept, interaction,<br>video conception, digital application, UI Design</p>
-        <br>
-        <p><span class="text-gray-400 font-semibold">Tools</span><br>Figma, Cinema4D, Miro, </p>
-        <br>
-        <p>
-  <span class="text-gray-400 font-semibold">Team</span><br>
-  <a href="https://yasminhaehnel.com" target="_blank" class="text-black-500 hover:underline">yasminhaehnel.com</a>, 
-  <a href="https://leaullmann.de" target="_blank" class="text-black-500 hover:underline">Lea Ullmann</a>
-</p>
+    <section class="px-[50px] grid grid-cols-1 md:grid-cols-4 gap-10 text-[18px]">
+      <div>
+        <h2 class="text-[12px] font-semibold">[Duration]</h2>
+        <p>März 2024 – Juli 2024</p>
       </div>
       <div>
-        <p class="text-4xl font-semibold">
-          Unser Semesterprojekt im Kurs Interface Design 1 beschäftigte sich mit dem Thema Haptic User Interfaces im Alltag. Ziel war es, ein Gerät zu entwerfen, das sich über ein haptisches Interface bedienen lässt.
-
-In vielen Bereichen des Alltags werden haptische Rückmeldungen zunehmend durch Touchscreens ersetzt – was jedoch häufig zu Einschränkungen in der Barrierefreiheit führt. Unser Projekt setzte genau hier an und suchte nach alternativen, taktil erfahrbaren Bedienkonzepten.
-        </p>
+        <h2 class="text-[12px] font-semibold">[Team]</h2>
+        <a href="https://yasminhaehnel.com" target="_blank" class="text-black-500 hover:underline">yasminhaehnel.com</a>, <br>
+        <a href="https://leaullmann.de" target="_blank" class="text-black-500 hover:underline">Lea Ullmann</a>,<br>
+      </div>
+      <div>
+        <h2 class="text-[12px] font-semibold">[Tools]</h2>
+        <p>Miro, Figma, Cinema 4D, Premiere Pro,  <br> Arduino</p>
+      </div>
+      <div>
+        <h2 class="text-[12px] font-semibold">[Strategy]</h2>
+        <p>Research, Konzept, Screen Design, Prototyping, Usability, 3D-Druck</p>
       </div>
     </section>
 
-    <!-- KONZEPT SECTION -->
-    <section class="container mx-auto px-8 py-16 grid grid-cols-1 md:grid-cols-2 gap-10">
-      <div></div>
-      <div>
-        <h2 class="text-3xl font-bold mb-4">Concept</h2>
-        <p class="text-lg leading-relaxed">
+    <!-- IMAGE SECTION -->
+    <section class="mt-[50px] flex justify-center">
+      <img src="/images/interface-zenzone-box.jpg" alt="Project Image" class="large-image rounded-lg shadow-md" />
+    </section>
+
+    <!-- DESCRIPTION SECTION -->
+    <section class="pl-[50px] mt-[50px] text-[24px] text-gray-800 leading-relaxed max-w-[800px]">
+      <p>
+        Unser Semesterprojekt im Kurs Interface Design 1 beschäftigte sich mit dem Thema Haptic User Interfaces im Alltag. Ziel war es, ein Gerät zu entwerfen, das sich über ein haptisches Interface bedienen lässt.
+        In vielen Bereichen des Alltags werden haptische Rückmeldungen zunehmend durch Touchscreens ersetzt – was jedoch häufig zu Einschränkungen in der Barrierefreiheit führt. Unser Projekt setzte genau hier an und suchte nach alternativen, taktil erfahrbaren Bedienkonzepten.
+            </p>
+    </section>
+
+    <!-- PROCESS SECTION -->
+    <section class="mt-[200px] flex flex-col items-start text-[18px] pl-[50px]">
+      <h2 class="text-[48px] font-bold leading-[1.0] mb-4 text-left">Process</h2>
+      <div class="flex flex-col gap-[12px] text-left leading-relaxed process-text">
+        <p><span class="font-semibold">Recherche & Problemverständnis</span><br>
           Das Smartphone ist für viele zum ständigen Begleiter geworden – auch abends im Bett. Doch genau dort steht es echter Entspannung oft im Weg. Eingehende Nachrichten, grelles Licht oder der Impuls, noch einmal schnell auf Social Media zu schauen, stören den Einschlafprozess und führen zu innerer Unruhe.
-<br><br>
           Dabei ist es gerade abends wichtig, den Kopf freizubekommen und den Tag hinter sich zu lassen. Das Handy ist zwar ein praktisches Tool, um den Alltag zu organisieren, doch es kann auch zur Ablenkung werden. Viele Menschen haben Schwierigkeiten, abends abzuschalten und zur Ruhe zu kommen. Das Smartphone wird oft als letzte Beschäftigung genutzt, bevor
-Zwar gibt es Funktionen wie den „Nicht stören“-Modus oder Schlaf-Timer in Apps, doch das Problem bleibt: Das Handy liegt griffbereit – und damit auch die Ablenkung. Viele nutzen zudem YouTube, Spotify oder andere Plattformen, um mit Musik, Geräuschen oder Hörspielen einzuschlafen. Doch Werbung, Bildschirmlicht oder ständige Verfügbarkeit stören die eigentlich gewünschte Ruhe.
-<br><br>
-zenzone wurde entwickelt, um genau hier anzusetzen: ein eigenständiges Gerät, das beruhigende Klänge abspielt – ganz ohne aktives Smartphone. Es schafft eine ablenkungsfreie Atmosphäre für echte Entspannung und unterstützt so einen natürlichen Einschlafprozess.
+          Zwar gibt es Funktionen wie den „Nicht stören“-Modus oder Schlaf-Timer in Apps, doch das Problem bleibt: Das Handy liegt griffbereit – und damit auch die Ablenkung. Viele nutzen zudem YouTube, Spotify oder andere Plattformen, um mit Musik, Geräuschen oder Hörspielen einzuschlafen. Doch Werbung, Bildschirmlicht oder ständige Verfügbarkeit stören die eigentlich gewünschte Ruhe.
+          zenzone wurde entwickelt, um genau hier anzusetzen: ein eigenständiges Gerät, das beruhigende Klänge abspielt – ganz ohne aktives Smartphone. Es schafft eine ablenkungsfreie Atmosphäre für echte Entspannung und unterstützt so einen natürlichen Einschlafprozess.      </p>
+        <p><span class="font-semibold">Ideenentwicklung & Konzeption</span><br>
+          Im Rahmen der Recherche mit Interviewpartner:innen wurde deutlich, dass vielen Personen das Einschlafen am Abend ohne Hintergrundgeräusche schwerfällt und dass die Nutzung des Smartphones häufig den Einschlafprozess verzögert.       </p>
+        <p><span class="font-semibold">Umsetzung & Prototyping</span><br>
+          Auf Basis dieser Erkenntnisse entstanden zunächst mehrere Low-Fidelity-Prototypen, um verschiedene Ansätze für die Gestaltung eines haptischen Produkts zu erproben. Unterstützend kamen Moodboards zum Einsatz, um einen passenden Stil zu entwickeln und visuelle Inspirationen zu sammeln.
+          In einem weiterentwickelten Prototyp wurde ein Neopixel-Ring integriert, um Lichtverhältnisse nach dem „Wizard of Oz“-Prinzip simulieren zu können. Daraufhin konnte die Testphase beginnen.
+          Insgesamt wurden mit 6 Personen Usabilitytests durchgeführt, aus denen hilfreiche Insights gezogen werden konnten, welche den Prototypen entweder bestätigt oder nochmals zu einem Umdenken der Bedienung führten.
         </p>
       </div>
     </section>
 
-<!-- CONTENT SECTIONS -->
-<section class="container mx-auto px-8 py-16">
-  <div class="space-y-[150px]">
-    <div
-      v-for="(section, index) in sections"
-      :key="index"
-      class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center"
-    >
-      <div v-if="index % 2 === 0">
-        <h2 class="text-3xl font-bold">{{ section.title }}</h2>
-        <p class="mt-4 text-lg">{{ section.text }}</p>
+    <!-- IMAGE SECTION FOR PROCESS -->
+    <section class="mt-[52px] flex justify-center">
+      <img src="public/images/usabilitytesting.png" alt="Process Image" class="large-image rounded-lg shadow-md" />
+    </section>
+
+   
+
+
+    <!-- FINAL SECTION -->
+    <section class="mt-[200px] flex flex-col items-start text-[18px] pl-[50px]">
+      <h2 class="text-[48px] font-bold leading-[1.0] mb-4 text-left">Final</h2>
+      <div class="flex flex-col gap-[12px] text-left leading-relaxed process-text">
+        <p><span class="font-semibold">App</span><br>
+          In der App lassen sich individuelle Playlists hochladen und mit einem ausgewählten Stein verknüpfen oder direkt per NFC auf diesen übertragen. Zusätzlich können die gewünschte Lichttemperatur, die über den Stein ausgestrahlt werden soll, sowie die Zeit bis zum automatischen Standby-Modus der Box festgelegt werden. Nach der Konfiguration wird der Stein auf die Box gelegt – der Entspannungsprozess beginnt.   </p>
+        <p><span class="font-semibold">Box Bedienung</span><br>
+          Box starten: Um die Box zu starten, wird der gewünschte Stein aufgelegt und das Licht sowie der Sound beginnen. Wenn der Stein von der Box genommen wird, schaltet sich die Box aus.
+          Pausieren: Um den Sound zu pausieren und wieder zu starten, wird einmal auf den Stein getippt.
+          Skippen: Um zum nächsten Sound in der Playlist zu skippen, wird doppelt auf den Stein getippt.     </p>
+        <p><span class="font-semibold">Steine</span><br>
+          Es gibt drei Steine, welche für die verschiedenen Modi stehen. Alle drei werden durch eine unterschiedliche haptische Oberfläche gekennzeichnet.
+
+Modus 1 – Einschlafen:
+
+Mit diesem Stein können Playlists erstellt werden, um das Einschlafen für Menschen, die ohne Hintergrundgeräusche nicht einschlafen können, zu erleichtern.
+
+Modus 2 – Meditieren:
+
+Der Meditationsstein ist speziell für die Entspannung während einer beruhigenden Meditation konzipiert. Seine besondere Eigenschaft besteht darin, dass er sich an die Meditation anpasst und das Licht pulsierend zu den Atemübungen synchronisiert.
+
+Modus 3 – Dein Modus:
+
+Mit diesem Stein können individuelle Playlisten erstellt werden, wie zum Beispiel Hörspiele, Podcasts oder die Lieblingsmusik für den Alltag.
+        </p>
       </div>
-      <div>
-        <img :src="section.image" :alt="section.title" class="rounded-lg shadow-md" />
-      </div>
-      <div v-if="index % 2 !== 0">
-        <h2 class="text-3xl font-bold">{{ section.title }}</h2>
-        <p class="mt-4 text-lg">{{ section.text }}</p>
-      </div>
-    </div>
+    </section>
+
+
+    <!-- IMAGE SECTION (App) -->
+    <section class="mt-[50px] flex justify-center">
+      <img src="/images/zenzone-bett.jpeg" alt="Project Image" class="large-image rounded-lg shadow-md" />
+    </section>
+  </div>
+
+   <!-- IMAGE SECTION (smartwatch und tablet) -->
+  <section class="mt-[50px] flex justify-center gap-6 max-w-[1428px] mx-auto">
+  <img src="public/images/zenzone-app.png" alt="Bild 1" class="square-image rounded-lg shadow-md" />
+  <img src="public/images/zenzone-steine.png" alt="Bild 2" class="square-image rounded-lg shadow-md" />
+</section>
+
+<section class="mt-[200px] mb-[200px] flex flex-col items-start pl-[50px]">
+  <h2 class="text-[48px] font-bold leading-[1.0] mb-8 text-left">Video</h2>
+  <div class="w-full max-w-[1428px] aspect-w-16 aspect-h-9">
+    <iframe 
+      width="1428" 
+      height="803" 
+      src="https://www.youtube.com/watch?v=PNB309KE4Jc" 
+      title="YouTube video player" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
   </div>
 </section>
 
-    <!-- 🔄 Figma + YouTube Video Carousel Section -->
-    <section class="container mx-auto px-4 py-16">
-      <h2 class="text-3xl font-bold mb-8 text-center">Prototyp & Video</h2>
-      <div class="relative max-w-[1200px] mx-auto w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-gray-200">
-        <transition name="fade" mode="out-in">
-          <div :key="currentSlide" class="w-full h-full">
-            <iframe
-              v-if="currentSlide === 0"
-              class="w-full h-full"
-              style="border: 0;"
-              src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/pbKNn9V1Rvx6Qoy723xZOL/Application-Design?page-id=917%3A996&node-id=917-1098&viewport=1012%2C-900%2C0.16&scaling=scale-down&content-scaling=fixed&starting-point-node-id=917%3A1098"
-              allowfullscreen
-            ></iframe>
-            <iframe
-              v-else
-              class="w-full h-full"
-              style="border: 0;"
-              src="https://www.youtube.com/embed/hPr-Yc92qaY"
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </transition>
 
-        <!-- Controls -->
-        <div class="absolute top-1/2 left-0 transform -translate-y-1/2 z-10">
-          <button
-            @click="prevSlide"
-            class="bg-white/80 hover:bg-white text-black font-bold p-3 rounded-r-lg shadow-md"
-          >
-            ‹
-          </button>
-        </div>
-        <div class="absolute top-1/2 right-0 transform -translate-y-1/2 z-10">
-          <button
-            @click="nextSlide"
-            class="bg-white/80 hover:bg-white text-black font-bold p-3 rounded-l-lg shadow-md"
-          >
-            ›
-          </button>
-        </div>
-      </div>
-    </section>
-  </div>
+
+
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
-const currentSlide = ref(0)
-const totalSlides = 2
-
-const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % totalSlides
-}
-const prevSlide = () => {
-  currentSlide.value = (currentSlide.value - 1 + totalSlides) % totalSlides
-}
-
-const sections = [
-  {
-    title: "App",
-    text: "Eine der Hauptfunktionen ist die Entdecken-Seite mit täglich wechselndem Match des Tages, individuellen Listen wie Top-Bücher der Woche oder Empfehlungen von Freunden und dem innovativen BookMatch-Feature. Dieses funktioniert ähnlich wie Tinder – Nutzer:innen entscheiden auf einen Blick, ob sie ein Buch interessiert oder nicht. Durch anpassbare Filter bietet BookMatch eine besonders schnelle und einfache Möglichkeit, neue Literatur zu finden. Zusätzlich ermöglicht Phlib das gemeinsame Lesen durch Buddyreads, das Teilen von Leseupdates im Feed und eine persönliche Lesestatistik mit Streaks und Jahres-Challenges. Visuell ansprechend und intuitiv gestaltet, bringt Phlib Übersicht, Motivation und Inspiration in den Lesealltag.",
-    image: "/images/Entdecken.jpg"
-  },
-  {
-    title: "Website",
-    text: "Die Web-Ansicht von Phlib bietet dieselben Kernfunktionen wie die App – in einem auf größere Bildschirme optimierten Layout. Nutzer:innen können ihre Bibliothek verwalten, BookMatch nutzen, Buchempfehlungen entdecken und Buddyreads verfolgen. Damit wird Phlib zur plattformübergreifenden Lösung für alle, die ihre Leseerfahrung flexibel gestalten möchten.",
-    image: "/images/phlibWeb.png"
-  },
-  {
-    title: "App",
-    text: "Eine der Hauptfunktionen ist die Entdecken-Seite mit täglich wechselndem Match des Tages, individuellen Listen wie Top-Bücher der Woche oder Empfehlungen von Freunden und dem innovativen BookMatch-Feature. Dieses funktioniert ähnlich wie Tinder – Nutzer:innen entscheiden auf einen Blick, ob sie ein Buch interessiert oder nicht. Durch anpassbare Filter bietet BookMatch eine besonders schnelle und einfache Möglichkeit, neue Literatur zu finden. Zusätzlich ermöglicht Phlib das gemeinsame Lesen durch Buddyreads, das Teilen von Leseupdates im Feed und eine persönliche Lesestatistik mit Streaks und Jahres-Challenges. Visuell ansprechend und intuitiv gestaltet, bringt Phlib Übersicht, Motivation und Inspiration in den Lesealltag.",
-    image: "/images/Entdecken.jpg"
-  },
-]
 </script>
 
+
 <style scoped>
-.container {
-  max-width: 1200px;
+/* Globale Bildgröße für große Bilder */
+.large-image {
+  width: 100%;
+  max-width: 1428px;
+  height: auto;
+  object-fit: cover;
 }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.6s ease;
+
+.square-image {
+  width: 50%;         /* Jeweils die Hälfte vom Container */
+  aspect-ratio: 1 / 1; /* Macht das Bild quadratisch */
+  object-fit: cover;   /* Bild skaliert, füllt den Container */
+  max-width: 714px;    /* Damit sie nicht breiter als 714px werden */
 }
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
+
+/* GIF Bereich speziell ansprechen */
+.gif-section {
+  display: flex;
+  align-items: center;
+  gap: 50px;
 }
+
+.gif-section .gif-image {
+  width: 800px;
+  height: 800px;
+  object-fit: contain;
+}
+
+/* Prozess Textbereich */
+.process-text p {
+  max-width: 50ch;
+  word-wrap: break-word;
+  line-height: 1.6;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+/* Textanpassung für den Hero-Bereich */
+section h1 + p {
+  margin-top: 2px !important;
+}
+
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.aspect-w-16 {
+  width: 100%;
+}
+
+.aspect-h-9 {
+  padding-top: 56.25%; /* Verhältnis 16:9 für das Video */
+  position: relative;
+}
+
+iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 </style>
  

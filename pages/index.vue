@@ -115,7 +115,7 @@ const originalProjects = [
   {
     title: 'zenzone',
     subtitle: 'Entspannung im Alltag',
-    image: '/images/zenzone.png',
+    image: '/images/interface-zenzone-box.jpg',
     slug: '/projects/zenzone'
   },
   {
