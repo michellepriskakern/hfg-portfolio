@@ -12,18 +12,23 @@
         </div>
       </section>
 
-      ```
       <!-- About Sections -->
       <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
         <!-- Linke Spalte -->
         <div class="w-full lg:w-2/5 flex flex-col justify-center px-6 py-12 lg:pl-12">
           <div class="flex flex-col gap-4 transition-all duration-500">
-            <div v-for="(title, idx) in reorderedTitles" :key="`rotated-title-${idx}`"
-              class="transition-opacity duration-500">
-              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold" :class="{
-                'text-black': idx === 0,
-                'text-gray-400 opacity-80': idx !== 0
-              }">
+            <div
+              v-for="(title, idx) in reorderedTitles"
+              :key="`rotated-title-${idx}`"
+              class="transition-opacity duration-500"
+            >
+              <h2
+                class="text-3xl sm:text-4xl lg:text-5xl font-bold"
+                :class="{
+                  'text-black': idx === 0,
+                  'text-gray-400 opacity-80': idx !== 0
+                }"
+              >
                 {{ title.title }}
               </h2>
             </div>
@@ -31,20 +36,29 @@
         </div>
 
         <!-- Rechte Spalte -->
-        <div ref="scrollContainer"
-          class="w-full lg:w-3/5 h-full overflow-y-auto snap-y snap-mandatory flex flex-col items-center mt-20">
-          <div v-for="(section, index) in loopedSections" :key="`card-${index}`"
+        <div
+          ref="scrollContainer"
+          class="w-full lg:w-3/5 h-full overflow-y-auto snap-y snap-mandatory flex flex-col items-center mt-20"
+        >
+          <div
+            v-for="(section, index) in loopedSections"
+            :key="`card-${index}`"
             class="relative flex items-center justify-center min-h-[90vh] lg:h-auto snap-center transition-transform duration-300 px-8"
             :class="{
               'scale-100 z-10': index % sections.length === activeIndex,
               'opacity-0': index % sections.length !== activeIndex
-            }">
+            }"
+          >
             <div class="max-w-3xl text-left space-y-6 text-lg">
-              <p v-for="(para, idx) in section.paragraphs" :key="`para-${idx}`" :style="{
-                transform: `translateY(${(idx - activeIndex) * 40}%)`,
-                opacity: idx === activeIndex ? 1 : 0.8,
-                pointerEvents: idx === activeIndex ? 'auto' : 'none'
-              }">
+              <p
+                v-for="(para, idx) in section.paragraphs"
+                :key="`para-${idx}`"
+                :style="{
+                  transform: `translateY(${(idx - activeIndex) * 40}%)`,
+                  opacity: idx === activeIndex ? 1 : 0.8,
+                  pointerEvents: idx === activeIndex ? 'auto' : 'none'
+                }"
+              >
                 {{ para }}
               </p>
             </div>
@@ -52,8 +66,6 @@
         </div>
       </div>
     </div>
-    ```
-
   </transition>
 </template>
 
@@ -176,18 +188,13 @@ onUnmounted(() => {
 }
 
 /* Fade Transition */
-.fade-enter-active,
-.fade-leave-active {
+.fade-enter-active, .fade-leave-active {
   transition: opacity 1.2s ease;
 }
-
-.fade-enter-from,
-.fade-leave-to {
+.fade-enter-from, .fade-leave-to {
   opacity: 0;
 }
-
-.fade-enter-to,
-.fade-leave-from {
+.fade-enter-to, .fade-leave-from {
   opacity: 1;
 }
 
