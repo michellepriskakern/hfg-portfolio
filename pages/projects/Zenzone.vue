@@ -5,8 +5,6 @@
       <h1 class="text-[48px] font-bold" style="color: #D53C4F;">zenzone</h1>
       <p class="text-[24px]" style="color: #8C8C8B; margin-top: 2px;">Entspannung im Alltag</p>
     </section>
-
-    ```
     <!-- PROJECT INFO SECTION -->
     <section class="px-[50px] grid grid-cols-1 md:grid-cols-4 gap-10 text-[18px]">
       <div>
