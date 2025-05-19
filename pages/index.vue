@@ -1,112 +1,86 @@
 <template>
   <transition name="fade" appear>
-  <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
-    <!-- Linke Spalte (Titel) -->
-    <div
-      ref="textScrollContainer"
-      class="w-full lg:w-[48%] flex flex-col justify-center px-4 sm:px-6 py-8 sm:py-12 lg:pl-12 pb-12 overflow-hidden relative"
-    >
+    <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
+      <!-- Linke Spalte (Titel) -->
+      <div ref="textScrollContainer"
+        class="w-full lg:w-[48%] flex flex-col justify-center px-4 sm:px-6 py-8 sm:py-12 lg:pl-12 pb-12 overflow-hidden relative">
 
-      <div class="relative h-full lg:h-screen flex items-center justify-center">
-        <div
-          v-for="(project, i) in projects.slice(activeIndex)"
-          :key="`title-${activeIndex + i}`"
-          class="absolute transition-all duration-300 w-full flex flex-col items-start"
-          :style="{
-            transform: `translateY(${i * 100}%)`,
-            opacity: i === 0 ? 1 : 0.2,
-            pointerEvents: i === 0 ? 'auto' : 'none'
-          }"
-        >
-          <div class="flex flex-col sm:flex-row items-start sm:items-center">
-            <NuxtLink
-              :to="project.slug"
-              class="group"
-            >
-            <h2
-  class="rolling-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-4 sm:mt-10 relative z-10 leading-big"
-  :class="{
-    'text-black opacity-100': i === 0,
-    'text-gray-400 opacity-80': i !== 0
-  }"
->
-  <span class="rolling-text">
-    <span class="line">
-      <span
-        v-for="(letter, index) in project.title.split('')"
-        :key="'line1-' + index"
-        class="letter"
-      >
-        {{ letter }}
-      </span>
-    </span>
-    <span class="line second">
-      <span
-        v-for="(letter, index) in project.title.split('')"
-        :key="'line2-' + index"
-        class="letter"
-      >
-        {{ letter }}
-      </span>
-    </span>
-  </span>
-</h2>
+        ```
+        <div class="relative h-full lg:h-screen flex items-center justify-center">
+          <div v-for="(project, i) in projects.slice(activeIndex)" :key="`title-${activeIndex + i}`"
+            class="absolute transition-all duration-300 w-full flex flex-col items-start" :style="{
+              transform: `translateY(${i * 100}%)`,
+              opacity: i === 0 ? 1 : 0.2,
+              pointerEvents: i === 0 ? 'auto' : 'none'
+            }">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center">
+              <NuxtLink :to="project.slug" class="group">
+                <h2 ```
+                  class="rolling-text text-3xl sm\:text-4xl md\:text-5xl lg\:text-6xl font-bold mt-4 sm\:mt-10 relative z-10 leading-big"
+                  \:class="{
+'text-black opacity-100': i === 0,
+'text-gray-400 opacity-80': i !== 0
+}">
 
-            </NuxtLink>
+                  <span class="rolling-text">
+                    <span class="line">
+                      <span v-for="(letter, index) in project.title.split('')" :key="'line1-' + index" class="letter">
+                        {{ letter }}
+                      </span>
+                    </span>
+                    <span class="line second">
+                      <span v-for="(letter, index) in project.title.split('')" :key="'line2-' + index" class="letter">
+                        {{ letter }}
+                      </span>
+                    </span>
+                  </span>
+                </h2>
 
-            <div
-              v-if="i === 0"
-              class="sm:ml-4 text-sm sm:text-base md:text-lg text-gray-600 font-light leading-normal max-w-[35ch] text-balance flex flex-col opacity-100 transition-opacity duration-500 mt-4 sm:mt-12"
-            >
-            <p class="subtitle">
-  <span
-    v-for="(word, index) in project.subtitle.split(' ')" 
-    :key="index" 
-    class="word inline-block"
-    :style="{ animationDelay: `${index * 0.1}s` }"
-  >
-    {{ word }}
-  </span>
-</p>
+                ```
+              </NuxtLink>
 
+              <div v-if="i === 0"
+                class="sm:ml-4 text-sm sm:text-base md:text-lg text-gray-600 font-light leading-normal max-w-[35ch] text-balance flex flex-col opacity-100 transition-opacity duration-500 mt-4 sm:mt-12">
+                <p class="subtitle">
+                  ```
 
+                  \<span v-for="(word, index) in project.subtitle.split(' ')" \:key="index" class="word inline-block"
+                    \:style="{ animationDelay: `${index * 0.1}s` }">
+
+                    ```
+                    {{ word }}
+                    ```
+
+                  </span>
+                </p>
+
+                ```
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Rechte Spalte (Bilder) -->
-    <div
-      ref="scrollContainer"
-      class="w-full lg:w-[52%] h-screen overflow-y-scroll snap-y snap-mandatory flex flex-col items-center justify-start px-4"
-    >
-      <div
-        v-for="(project, index) in projects"
-        :key="`card-${index}-${project.slug}`"
-        class="relative flex items-center justify-center h-screen snap-center transition-transform duration-300"
-        :class="{
-          'scale-100 blur-0 opacity-100': index === activeIndex,
-          'scale-95 ': index !== activeIndex  //blur-sm opacity-50
-        }"
-      >
-        <NuxtLink
-          :to="project.slug"
-          class="w-full max-w-[600px] sm:max-w-[700px] md:max-w-[750px] transition-all duration-300"
-        >
-          <img
-            :src="project.image"
-            :alt="project.title"
-            class="w-full h-auto object-cover rounded-lg shadow-lg"
-          />
-        </NuxtLink>
+      <!-- Rechte Spalte (Bilder) -->
+      <div ref="scrollContainer"
+        class="w-full lg:w-[52%] h-screen overflow-y-scroll snap-y snap-mandatory flex flex-col items-center justify-start px-4">
+        <div v-for="(project, index) in projects" :key="`card-${index}-${project.slug}`"
+          class="relative flex items-center justify-center h-screen snap-center transition-transform duration-300"
+          :class="{
+            'scale-100 blur-0 opacity-100': index === activeIndex,
+            'scale-95 ': index !== activeIndex  //blur-sm opacity-50
+          }">
+          <NuxtLink :to="project.slug"
+            class="w-full max-w-[600px] sm:max-w-[700px] md:max-w-[750px] transition-all duration-300">
+            <img :src="project.image" :alt="project.title" class="w-full h-auto object-cover rounded-lg shadow-lg" />
+          </NuxtLink>
+        </div>
       </div>
+      ```
+
     </div>
-  </div>
   </transition>
 </template>
-
-
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue';
@@ -205,17 +179,22 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-
 /* Fade Transition */
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 1.5s ease;
 }
-.fade-enter-from, .fade-leave-to {
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
-.fade-enter-to, .fade-leave-from {
+
+.fade-enter-to,
+.fade-leave-from {
   opacity: 1;
 }
+
 html,
 body {
   overflow: hidden;
@@ -224,13 +203,18 @@ body {
 
 .subtitle {
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Text auf 3 Zeilen beschränken */
+  -webkit-line-clamp: 3;
+  /* Text auf 3 Zeilen beschränken */
   -webkit-box-orient: vertical;
   overflow: hidden;
-  white-space: normal; /* Text darf umbrochen werden */
-  word-wrap: break-word; /* Lange Wörter werden umgebrochen */
-  line-height: 1em; /* Zeilenhöhe für den Text */
-  max-height: 4em; /* Höhe für 3 Zeilen */
+  white-space: normal;
+  /* Text darf umbrochen werden */
+  word-wrap: break-word;
+  /* Lange Wörter werden umgebrochen */
+  line-height: 1em;
+  /* Zeilenhöhe für den Text */
+  max-height: 4em;
+  /* Höhe für 3 Zeilen */
 }
 
 .subtitle p {
@@ -239,16 +223,21 @@ body {
 }
 
 .word {
-  display: block; /* Jedes Wort wird als Block behandelt, um in die nächste Zeile zu springen */
-  margin-bottom: 0.25rem; /* Leichter Abstand zwischen den Wörtern */
-  opacity: 0; /* Startet unsichtbar */
-  animation: fadeIn 0.5s forwards; /* Fade-In-Effekt für jedes Wort */
+  display: block;
+  /* Jedes Wort wird als Block behandelt, um in die nächste Zeile zu springen */
+  margin-bottom: 0.25rem;
+  /* Leichter Abstand zwischen den Wörtern */
+  opacity: 0;
+  /* Startet unsichtbar */
+  animation: fadeIn 0.5s forwards;
+  /* Fade-In-Effekt für jedes Wort */
 }
 
 @keyframes fadeIn {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -301,6 +290,7 @@ body {
   transform: translateY(-100%);
   opacity: 0;
 }
+
 .group:hover .rolling-text .second .letter {
   transform: translateY(0%);
   opacity: 1;
@@ -311,33 +301,39 @@ body {
 .group:hover .rolling-text .second .letter:nth-child(1) {
   transition-delay: 0s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(2),
 .group:hover .rolling-text .second .letter:nth-child(2) {
   transition-delay: 0.05s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(3),
 .group:hover .rolling-text .second .letter:nth-child(3) {
   transition-delay: 0.1s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(4),
 .group:hover .rolling-text .second .letter:nth-child(4) {
   transition-delay: 0.15s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(5),
 .group:hover .rolling-text .second .letter:nth-child(5) {
   transition-delay: 0.2s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(6),
 .group:hover .rolling-text .second .letter:nth-child(6) {
   transition-delay: 0.25s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(7),
 .group:hover .rolling-text .second .letter:nth-child(7) {
   transition-delay: 0.3s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(8),
 .group:hover .rolling-text .second .letter:nth-child(8) {
   transition-delay: 0.35s;
 }
-
 </style>

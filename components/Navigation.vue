@@ -2,13 +2,8 @@
   <nav class="fixed top-0 left-[100px] z-50 flex items-center h-[80px]">
     <ul class="flex text-[1.5rem] text-black">
       <li class="mr-[32px]">
-        <NuxtLink 
-          to="/" 
-          class="relative inline-block no-underline group link-item"
-          :class="{ 'active-link': $route.path === '/' || activeLink === '/' }"
-          exact
-          @click="setActiveLink('/')"
-        >
+        <NuxtLink to="/" class="relative inline-block no-underline group link-item"
+          :class="{ 'active-link': $route.path === '/' || activeLink === '/' }" exact @click="setActiveLink('/')">
           <span class="rolling-text">
             <span class="line">
               <span v-for="(letter, index) in 'projects'.split('')" :key="'projects-line1-' + index" class="letter">
@@ -25,14 +20,11 @@
         </NuxtLink>
       </li>
 
+      ```
       <li>
-        <NuxtLink 
-          to="/about" 
-          class="relative inline-block no-underline group link-item"
-          :class="{ 'active-link': $route.path === '/about' || activeLink === '/about' }"
-          exact
-          @click="setActiveLink('/about')"
-        >
+        <NuxtLink to="/about" class="relative inline-block no-underline group link-item"
+          :class="{ 'active-link': $route.path === '/about' || activeLink === '/about' }" exact
+          @click="setActiveLink('/about')">
           <span class="rolling-text">
             <span class="line">
               <span v-for="(letter, index) in 'about'.split('')" :key="'about-line1-' + index" class="letter">
@@ -49,6 +41,8 @@
         </NuxtLink>
       </li>
     </ul>
+    ```
+
   </nav>
 </template>
 
@@ -139,38 +133,47 @@ nav {
 .group:hover .rolling-text .second .letter:nth-child(1) {
   transition-delay: 0s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(2),
 .group:hover .rolling-text .second .letter:nth-child(2) {
   transition-delay: 0.05s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(3),
 .group:hover .rolling-text .second .letter:nth-child(3) {
   transition-delay: 0.1s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(4),
 .group:hover .rolling-text .second .letter:nth-child(4) {
   transition-delay: 0.15s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(5),
 .group:hover .rolling-text .second .letter:nth-child(5) {
   transition-delay: 0.2s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(6),
 .group:hover .rolling-text .second .letter:nth-child(6) {
   transition-delay: 0.25s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(7),
 .group:hover .rolling-text .second .letter:nth-child(7) {
   transition-delay: 0.3s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(8),
 .group:hover .rolling-text .second .letter:nth-child(8) {
   transition-delay: 0.35s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(9),
 .group:hover .rolling-text .second .letter:nth-child(9) {
   transition-delay: 0.4s;
 }
+
 .group:hover .rolling-text .line .letter:nth-child(10),
 .group:hover .rolling-text .second .letter:nth-child(10) {
   transition-delay: 0.45s;
@@ -196,5 +199,4 @@ nav {
   width: 100%;
   background-color: #D53C4F;
 }
-
 </style>
