@@ -2,7 +2,7 @@
   <div>
     <!-- HERO SECTION -->
     <section class="pt-[300px] pb-[50px] px-[50px]">
-      <h1 class="text-[48px] font-bold" style="color: #D53C4F;">The human head</h1>
+      <h1 class="text-[48px] font-bold" style="color: #D53C4F;">human head</h1>
       <p class="text-[24px]" style="color: #8C8C8B; margin-top: 2px;">Interaktive Austellungsgestaltung</p>
     </section>
 
