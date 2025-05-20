@@ -53,9 +53,7 @@ Wir definierten eine Zielgruppe, um Inhalte verständlich und zielgerichtet aufz
 Wir erstellten ein Interface-Moodboard und leiteten daraus unseren Styleguide ab. Anschließend gestalteten wir erste Interface-Varianten in Figma und entwickelten einen Paper-Prototypen. Dieser diente dazu, die Anordnung der Elemente sowie den Informationsfluss zu testen. Der Kopf wurde zentral platziert, Buttons und Puzzle-Elemente gut erreichbar angeordnet. Das frühe Testen half uns, Probleme frühzeitig zu erkennen und fundierte Layoutentscheidungen zu treffen.  </p>
         <p><span class="font-semibold">Umsetzung & Prototyping</span><br>
           Für das physische Modell fertigten wir ein Holzpuzzle an, das wir mit Laser schnitten. Die Puzzleteile bestehen aus zwei Holzplatten und enthalten eingelassene Magnete. Für bessere Haptik haben wir Tabs hinzugefügt. Die Technik wurde auf der Rückseite durch einen Holzrahmen, weiße Pappe und Polystyrol gestützt. Zwei Arduino-Boards steuern die Interaktionen: Eines erkennt durch Reed-Kontakte und Magnete die richtigen Puzzleteile, das andere registriert die Berührung der Antwort-Buttons über Kupferklebeband.
-
 Im digitalen Prototypen wurden Nummern für die Interaktionen vergeben, um die Verbindung zur physischen Technik herzustellen. Texte und Grafiken erscheinen zeitlich versetzt, um den Informationsfluss zu steuern. Am Ende erstellten wir alle restlichen Puzzleteile und setzten das finale Layout um. Die Quizfunktion ist voll funktionsfähig – durch Handberührung auf die Kupferflächen werden Buttons aktiviert.
-
 Wir sind mit dem Ergebnis sehr zufrieden, auch wenn technische Herausforderungen und gestalterische Entscheidungen uns zeitweise gefordert haben. Durch gute Teamarbeit konnten wir alle Probleme lösen. Besonders hilfreich war das frühe Prototyping, das uns viele Erkenntnisse brachte. Mit mehr Zeit würden wir noch Audiofeedback integrieren und das Projekt mehrsprachig erweitern.
         </p>
       </div>
@@ -91,7 +89,7 @@ Wir sind mit dem Ergebnis sehr zufrieden, auch wenn technische Herausforderungen
    <!-- IMAGE SECTION (smartwatch und tablet) -->
   <section class="mt-[50px] flex justify-center gap-6 max-w-[1428px] mx-auto">
   <img src="public/images/ErgebnisQuizfrage.png" alt="Bild 1" class="square-image rounded-lg shadow-md" />
-  <img src="public/images/ErgebnisInfoScreen.png" alt="Bild 2" class="square-image rounded-lg shadow-md" />
+  <img src="public/images/ErgebnisInfoScreen.png" alt="Bild 3" class="square-image rounded-lg shadow-md" />
 
 </section>
 
