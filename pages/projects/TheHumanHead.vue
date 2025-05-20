@@ -89,8 +89,8 @@ Wir sind mit dem Ergebnis sehr zufrieden, auch wenn technische Herausforderungen
    <!-- IMAGE SECTION (smartwatch und tablet) -->
   <section class="mt-[50px] flex justify-center gap-6 max-w-[1428px] mx-auto">
   <img src="public/images/ErgebnisQuizfrage.png" alt="Bild 1" class="square-image rounded-lg shadow-md" />
-  <img src="public/images/ErgebnisInfoScreen.png" alt="Bild 2" class="square-image rounded-lg shadow-md" />
-  <!-- <img src="public/images/ErgebnisInfoScreen.png" alt="Bild 2" class="square-image rounded-lg shadow-md" /> -->
+  <img src="public/images/ErgebnisInfo.png" alt="Bild 2" class="square-image rounded-lg shadow-md" />
+
 
 </section>
 
