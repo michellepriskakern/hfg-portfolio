@@ -224,6 +224,7 @@ onUnmounted(() => {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.2; /* ⬅️ wichtig */
 }
 
 .text-black {
