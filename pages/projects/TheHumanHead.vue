@@ -89,7 +89,8 @@ Wir sind mit dem Ergebnis sehr zufrieden, auch wenn technische Herausforderungen
    <!-- IMAGE SECTION (smartwatch und tablet) -->
   <section class="mt-[50px] flex justify-center gap-6 max-w-[1428px] mx-auto">
   <img src="public/images/ErgebnisQuizfrage.png" alt="Bild 1" class="square-image rounded-lg shadow-md" />
-  <img src="public/images/ErgebnisInfoScreen.png" alt="Bild 2" class="square-image rounded-lg shadow-md" />
+  <img src="public/images/ErgebnisQuizfrage.png" alt="Bild 2" class="square-image rounded-lg shadow-md" />
+  <!-- <img src="public/images/ErgebnisInfoScreen.png" alt="Bild 2" class="square-image rounded-lg shadow-md" /> -->
 
 </section>
 
@@ -135,18 +136,6 @@ Wir sind mit dem Ergebnis sehr zufrieden, auch wenn technische Herausforderungen
   max-width: 714px;    /* Damit sie nicht breiter als 714px werden */
 }
 
-/* GIF Bereich speziell ansprechen */
-.gif-section {
-  display: flex;
-  align-items: center;
-  gap: 50px;
-}
-
-.gif-section .gif-image {
-  width: 800px;
-  height: 800px;
-  object-fit: contain;
-}
 
 /* Prozess Textbereich */
 .process-text p {
