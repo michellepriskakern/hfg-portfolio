@@ -59,7 +59,13 @@
                   pointerEvents: idx === activeIndex ? 'auto' : 'none'
                 }"
               >
-                {{ para }}
+                <span
+                  v-for="(line, lidx) in splitIntoLines(para)"
+                  :key="`line-${idx}-${lidx}`"
+                  class="block"
+                >
+                  {{ line }}
+                </span>
               </p>
             </div>
           </div>
@@ -72,18 +78,55 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 
+// Helper-Funktion zur Begrenzung auf 13 Wörter pro Zeile
+function splitIntoLines(paragraph: string): string[] {
+  const words = paragraph.trim().split(/\s+/)
+  const lines: string[] = []
+
+  let i = 0
+  while (i < words.length) {
+    const remaining = words.length - i
+
+    // Wenn nur noch <=23 Wörter übrig sind, prüfen wir ob wir sie gut aufteilen können
+    if (remaining <= 23) {
+      // Wenn <=13: alles in eine letzte Zeile
+      if (remaining <= 13) {
+        lines.push(words.slice(i).join(' '))
+        break
+      }
+
+      // Wenn vorletzte Zeile <10 Wörter wäre, besser gleichmäßig aufteilen
+      const firstPart = Math.ceil(remaining / 2)
+      const secondPart = remaining - firstPart
+
+      if (firstPart < 10) {
+        const middle = Math.floor(remaining / 2)
+        lines.push(words.slice(i, i + middle).join(' '))
+        lines.push(words.slice(i + middle).join(' '))
+        break
+      }
+
+      lines.push(words.slice(i, i + firstPart).join(' '))
+      lines.push(words.slice(i + firstPart).join(' '))
+      break
+    }
+
+    // Normale 13-Wort-Zeile
+    lines.push(words.slice(i, i + 13).join(' '))
+    i += 13
+  }
+
+  return lines
+}
+
+
+
 // Hero Text Animation
 const phrases = [
   { text: 'meaningful experiences', color: '#FDD835' },
   { text: 'better interactions', color: '#FB8C00' },
   { text: 'new ideas', color: '#AB47BC' }
 ]
-// const phrases = [
-//   { text: 'meaningful experiences', color: '#D53C4F' },
-//   { text: 'better interactions', color: '#D53C4F' },
-//   { text: 'new ideas', color: '#D53C4F' }
-// ]
-
 
 const currentPhrase = ref(phrases[0].text)
 const currentColor = ref(phrases[0].color)
@@ -129,20 +172,17 @@ const activeIndex = ref(0)
 const rotatedTitles = computed(() => {
   const len = sections.length
   return [
-    sections[(activeIndex.value + len - 1) % len], // vorheriger
-    sections[activeIndex.value],                   // aktuell
-    sections[(activeIndex.value + 1) % len]       // nächster
+    sections[(activeIndex.value + len - 1) % len],
+    sections[activeIndex.value],
+    sections[(activeIndex.value + 1) % len]
   ]
 })
 
-// reorderedTitles stellt die Reihenfolge um
 const reorderedTitles = computed(() => {
   const len = sections.length
   const current = sections[activeIndex.value]
   const prev = sections[(activeIndex.value + len - 1) % len]
   const next = sections[(activeIndex.value + 1) % len]
-
-  // Die Reihenfolge: aktuell oben, nächster in der Mitte, vorheriger unten
   return [current, next, prev]
 })
 
@@ -230,7 +270,7 @@ onUnmounted(() => {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2; /* ⬅️ wichtig */
+  line-height: 1.2;
 }
 
 .text-black {
@@ -257,5 +297,9 @@ onUnmounted(() => {
 .text-block {
   max-width: 50ch;
   word-break: break-word;
+}
+
+.block {
+  margin-bottom: 0.1em;
 }
 </style>
