@@ -78,6 +78,12 @@ const phrases = [
   { text: 'better interactions', color: '#FB8C00' },
   { text: 'new ideas', color: '#AB47BC' }
 ]
+// const phrases = [
+//   { text: 'meaningful experiences', color: '#D53C4F' },
+//   { text: 'better interactions', color: '#D53C4F' },
+//   { text: 'new ideas', color: '#D53C4F' }
+// ]
+
 
 const currentPhrase = ref(phrases[0].text)
 const currentColor = ref(phrases[0].color)
