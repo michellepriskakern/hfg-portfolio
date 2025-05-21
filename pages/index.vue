@@ -56,7 +56,7 @@
 
             <div
               v-if="i === 0"
-              class="sm:ml-4 text-sm sm:text-base md:text-lg text-gray-600 font-light leading-normal max-w-[35ch] text-balance flex flex-col opacity-100 transition-opacity duration-500 mt-4 sm:mt-12"
+             class="sm:ml-4 text-[12px] sm:text-[14px] md:text-[16px] text-gray-600 font-light leading-normal max-w-[35ch] text-balance flex flex-col opacity-100 transition-opacity duration-500 mt-4 sm:mt-12"
             >
             <p class="subtitle">
   <span
@@ -230,7 +230,7 @@ body {
   white-space: normal; /* Text darf umbrochen werden */
   word-wrap: break-word; /* Lange Wörter werden umgebrochen */
   line-height: 1em; /* Zeilenhöhe für den Text */
-  max-height: 4em; /* Höhe für 3 Zeilen */
+  max-height: 6em; /* Höhe für 3 Zeilen */
 }
 
 .subtitle p {
