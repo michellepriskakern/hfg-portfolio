@@ -144,12 +144,14 @@
           ></iframe>
         </div>
       </section>
+      <Footer />
     </div>
   </transition>
 </template>
 
 <script setup>
   // Kein JS notwendig für die fadeIn-Transition beim Laden
+  import Footer from '~/components/Footer.vue'
 </script>
 
 <style scoped>

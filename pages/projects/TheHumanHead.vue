@@ -103,12 +103,16 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen>
       </iframe>
+      
     </div>
+    
   </section>
+  <Footer />
 </template>
 
 <script setup>
 // Kein Script nötig für einfache Transition beim Laden
+import Footer from '~/components/Footer.vue'
 </script>
 
 <style scoped>

@@ -110,6 +110,7 @@
           </iframe>
         </div>
       </section>
+      <Footer />
     </div>
   </transition>
 </template>
