@@ -90,7 +90,7 @@ function splitIntoLines(paragraph: string): string[] {
     // Wenn nur noch <=23 Wörter übrig sind, prüfen wir ob wir sie gut aufteilen können
     if (remaining <= 23) {
       // Wenn <=13: alles in eine letzte Zeile
-      if (remaining <= 13) {
+      if (remaining <= 10) {
         lines.push(words.slice(i).join(' '))
         break
       }
@@ -112,8 +112,8 @@ function splitIntoLines(paragraph: string): string[] {
     }
 
     // Normale 13-Wort-Zeile
-    lines.push(words.slice(i, i + 13).join(' '))
-    i += 13
+    lines.push(words.slice(i, i + 10).join(' '))
+    i += 10
   }
 
   return lines
