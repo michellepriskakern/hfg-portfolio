@@ -13,7 +13,7 @@
       </div>
 
       <div class="text-center text-xs">
-        designed and coded 2025 by © vanessa hiller
+        designed and coded 2025 by © michelle kern
       </div>
 
       <div class="flex space-x-4">
@@ -23,3 +23,4 @@
     </footer>
   </div>
 </template>
+

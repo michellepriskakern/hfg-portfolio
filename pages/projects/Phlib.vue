@@ -57,11 +57,15 @@
       </div>
     </section>
 
+  <!-- IMAGE SECTION FOR PROCESS -->
+    <section class="mt-[52px] flex justify-center">
+      <img src="public/images/phlib-persona.png" alt="Process Image" class="large-image rounded-lg shadow-md" />
+    </section>
 
 
 
     <!-- FINAL SECTION -->
-    <section class="mt-[50px] flex flex-col items-start text-[18px] pl-[50px]">
+    <section class="mt-[200px] flex flex-col items-start text-[18px] pl-[50px]">
       <h2 class="text-[48px] font-bold leading-[1.0] mb-4 text-left">Final</h2>
       <div class="flex flex-col gap-[12px] text-left leading-relaxed process-text">
         <p><span class="font-semibold">App</span><br>

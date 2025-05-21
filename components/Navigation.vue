@@ -65,6 +65,9 @@ const setActiveLink = (path) => {
 };
 </script>
 
+
+
+
 <style scoped>
 nav {
   left: 50px;
@@ -199,3 +202,4 @@ nav {
 }
 
 </style>
+
