@@ -71,12 +71,16 @@
           </div>
         </div>
       </div>
+
+      <!-- Footer Komponente hier -->
+      <Footer />
     </div>
   </transition>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
+import Footer from '~/components/Footer.vue'
 
 // Helper-Funktion zur Begrenzung auf 13 Wörter pro Zeile
 function splitIntoLines(paragraph: string): string[] {
@@ -87,15 +91,12 @@ function splitIntoLines(paragraph: string): string[] {
   while (i < words.length) {
     const remaining = words.length - i
 
-    // Wenn nur noch <=23 Wörter übrig sind, prüfen wir ob wir sie gut aufteilen können
     if (remaining <= 23) {
-      // Wenn <=13: alles in eine letzte Zeile
       if (remaining <= 10) {
         lines.push(words.slice(i).join(' '))
         break
       }
 
-      // Wenn vorletzte Zeile <10 Wörter wäre, besser gleichmäßig aufteilen
       const firstPart = Math.ceil(remaining / 2)
       const secondPart = remaining - firstPart
 
@@ -111,15 +112,12 @@ function splitIntoLines(paragraph: string): string[] {
       break
     }
 
-    // Normale 13-Wort-Zeile
     lines.push(words.slice(i, i + 10).join(' '))
     i += 10
   }
 
   return lines
 }
-
-
 
 // Hero Text Animation
 const phrases = [
@@ -297,9 +295,5 @@ onUnmounted(() => {
 .text-block {
   max-width: 50ch;
   word-break: break-word;
-}
-
-.block {
-  margin-bottom: 0.1em;
 }
 </style>
