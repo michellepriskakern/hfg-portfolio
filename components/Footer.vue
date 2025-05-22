@@ -1,6 +1,10 @@
 <template>
-  <footer class="footer py-6 bg-gray-100 text-gray-600 text-sm mt-12">
-    <div class="flex justify-between items-center pl-6 pr-40">
+  <footer class="footer py-6 text-gray-600 text-sm mt-12">
+    <!-- Strich mit 10px Abstand links und rechts -->
+    <div class="h-1 bg-gray-400 mx-[25px]"></div>
+
+    <!-- Inhalt des Footers -->
+    <div class="flex justify-between items-center pl-6 pr-40 mt-6">
       <p class="text-left">&copy; 2025 Michelle Kern</p>
       <nav class="flex space-x-20">
         <NuxtLink to="/dataprivacy" class="hover:text-gray-900">Datenschutzerklärung</NuxtLink>
@@ -11,13 +15,12 @@
 </template>
 
 <script setup>
-// Falls du später Props brauchst, kannst du sie hier definieren
+// Optional: Setup für Props, etc.
 </script>
 
 <style scoped>
 .footer {
   font-family: 'Helvetica Neue', sans-serif;
-  background-color: #f7fafc;
   color: #718096;
 }
 </style>
