@@ -1,7 +1,8 @@
 <template>
   <footer class="footer py-6 text-gray-600 text-sm mt-12">
     <!-- Strich mit 10px Abstand links und rechts -->
-    <div class="h-1 bg-gray-400 mx-[24px]"></div>
+   <div class="h-[1.5px] bg-gray-400 mx-[24px]"></div>
+
 
     <!-- Inhalt des Footers -->
     <div class="flex justify-between items-center pl-6 pr-40 mt-6">
@@ -20,7 +21,7 @@
 
 <style scoped>
 .footer {
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Manrope', sans-serif;
   color: #718096;
 }
 </style>
