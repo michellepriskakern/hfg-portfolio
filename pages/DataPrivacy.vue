@@ -107,6 +107,7 @@
       Quelle: <a href="https://www.e-recht24.de" target="_blank">e-recht24.de</a>
     </p>
   </div>
+     <Footer />
 </template>
 
 <script setup lang="ts">
