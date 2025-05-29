@@ -209,7 +209,7 @@ section h1+p {
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 .aspect-w-16 {
