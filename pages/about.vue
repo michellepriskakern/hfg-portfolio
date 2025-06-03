@@ -5,9 +5,33 @@
       <section class="hero-section relative h-screen w-full">
         <img src="public/images/skydiving.png" alt="Skydiving" class="hero-img" />
         <div class="hero-text absolute text-center">
-          <h2 class="text-white text-3xl sm:text-7xl font-regular">
-            always searching for<br />
-            <span class="font-bold" :style="{ color: currentColor }">{{ currentPhrase }}</span>
+          <<h2 class="text-white text-3xl sm:text-7xl font-regular relative" style="height: 10rem; overflow: hidden; line-height: 5rem;">
+          always searching for<br />
+          <div class="phrase-wrapper">
+            <div
+                class="phrase-slider"
+                :class="{ 'no-transition': !animate }"
+                :style="{
+                transform: `translateY(-${phraseIndex * 5}rem)`}"
+              >
+                <div
+  v-for="(phrase, index) in fullPhrases"
+  :key="`phrase-${index}`"
+  class="phrase-line font-bold"
+  :style="{ color: phrase.color }"
+>
+  <span
+    v-for="(char, cidx) in phrase.text.split('')"
+    :key="`char-${index}-${phraseIndex}-${cidx}`"
+    class="char"
+    :style="{ animationDelay: `${cidx * 0.06}s` }"
+  >
+    {{ char === ' ' ? '\u00A0' : char }}
+  </span>
+</div>
+
+              </div>
+            </div>
           </h2>
         </div>
       </section>
@@ -120,28 +144,45 @@ function splitIntoLines(paragraph: string): string[] {
 }
 
 // Hero Text Animation
+const phraseIndex = ref(0)
+const animate = ref(true)
 const phrases = [
   { text: 'meaningful experiences', color: '#FDD835' },
   { text: 'better interactions', color: '#FB8C00' },
   { text: 'new ideas', color: '#AB47BC' }
 ]
 
-const currentPhrase = ref(phrases[0].text)
-const currentColor = ref(phrases[0].color)
-let phraseIndex = 0
+
+const fullPhrases = [...phrases, ...phrases, ...phrases, ...phrases]
+
+
 let phraseInterval: number
+
 
 onMounted(() => {
   phraseInterval = setInterval(() => {
-    phraseIndex = (phraseIndex + 1) % phrases.length
-    currentPhrase.value = phrases[phraseIndex].text
-    currentColor.value = phrases[phraseIndex].color
-  }, 2000)
+    if (phraseIndex.value === phrases.length) {
+      // Disable animation, spring to top instantly
+      animate.value = false
+      phraseIndex.value = 0
+    }
+
+    // In the next tick, re-enable animation and continue
+    setTimeout(() => {
+      animate.value = true
+      phraseIndex.value += 1
+    }, 20)
+  }, 3200)
 })
+
+
+
+
 
 onUnmounted(() => {
   clearInterval(phraseInterval)
 })
+
 
 // Sections
 const sections = [
@@ -166,6 +207,7 @@ const sections = [
 ]
 
 const activeIndex = ref(0)
+
 
 const rotatedTitles = computed(() => {
   const len = sections.length
@@ -242,6 +284,86 @@ onUnmounted(() => {
   opacity: 1;
 }
 
+.phrase-slider.no-transition {
+  transition: none !important;
+}
+
+
+
+
+
+
+.phrase-wrapper {
+  height: 5rem; /* Höhe einer Zeile */
+  overflow: hidden;
+  position: relative;
+}
+
+.phrase-slider {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.6s ease-in-out;
+}
+
+.phrase-line {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+
+.slide-up-enter-from {
+  transform: translateY(100%); /* Start unten */
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.slide-up-enter-to {
+  transform: translateY(0%); /* An Position */
+  opacity: 1;
+  position: relative;
+  width: 100%;
+}
+
+.slide-up-leave-from {
+  transform: translateY(0%); /* Start an Position */
+  opacity: 1;
+  position: relative;
+  width: 100%;
+}
+
+.slide-up-leave-to {
+  transform: translateY(-100%); /* Nach oben raus */
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  position: relative;
+}
+
+
+
+.char {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  animation: roll-up 0.6s forwards;
+}
+
+@keyframes roll-up {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 .hero-section {
   position: relative;
   width: 100%;
