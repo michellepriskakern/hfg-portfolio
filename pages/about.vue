@@ -5,7 +5,7 @@
       <section class="hero-section relative h-screen w-full">
         <img src="public/images/skydiving.png" alt="Skydiving" class="hero-img" />
         <div class="hero-text absolute text-center">
-          <<h2 class="text-white text-3xl sm:text-7xl font-regular relative" style="height: 10rem; overflow: hidden; line-height: 5rem;">
+          <h2 class="text-white text-3xl sm:text-7xl font-regular relative" style="height: 10rem; overflow: hidden; line-height: 5rem;">
           always searching for<br />
           <div class="phrase-wrapper">
             <div
