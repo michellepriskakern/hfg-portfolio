@@ -1,30 +1,259 @@
-/* assets/main.css */
-
-/* Google Font Manrope importieren */
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
-
-/* Tailwind CSS Basisklassen */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Manrope als Standard-Schriftart für das ganze Projekt */
-body {
-    font-family: 'Manrope', sans-serif;
-}
-
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------
+   Design-Tokens – hier lassen sich Farben, Schriften und Abstände
+   zentral ändern. Alles andere greift auf diese Variablen zu.
+------------------------------------------------------------------- */
 @theme {
-    --font-display: "Satoshi", "sans-serif";
-    --breakpoint-3xl: 120rem;
-    --color-avocado-100: oklch(0.99 0 0);
-    --color-avocado-200: oklch(0.98 0.04 113.22);
-    --color-avocado-300: oklch(0.94 0.11 115.03);
-    --color-avocado-400: oklch(0.92 0.19 114.08);
-    --color-avocado-500: oklch(0.84 0.18 117.33);
-    --color-avocado-600: oklch(0.53 0.12 118.34);
-    --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
-    --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
-    /* ... */
+  --font-sans: "Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Instrument Serif", "Iowan Old Style", "Times New Roman", serif;
+
+  --color-paper: #f3f1ec;
+  --color-surface: #ffffff;
+  --color-ink: #141414;
+  --color-muted: #7b7a76;
+  --color-line: #d4d1c9;
+  --color-accent: #2f4bff; /* Akzentfarbe – vorläufig, leicht austauschbar */
+
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+  --breakpoint-3xl: 120rem;
+}
+
+:root {
+  --gutter: clamp(1rem, 3.2vw, 3rem);
+  --radius: 4px;
+  --nav-h: 64px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 24px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- Typografie ---------- */
+.display {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  font-size: clamp(2.6rem, 9.4vw, 9.5rem);
+}
+
+.h-xl {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  font-size: clamp(2.2rem, 6.4vw, 6rem);
+}
+
+.h-lg {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  font-size: clamp(1.6rem, 3.2vw, 2.75rem);
+}
+
+.lead {
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
+  line-height: 1.38;
+  letter-spacing: -0.01em;
+}
+
+.serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.serif-i {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+/* kleine Katalog-Labels, z. B. [Zeitraum] */
+.label {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.bracket::before {
+  content: "[";
+  margin-right: 0.18em;
+}
+.bracket::after {
+  content: "]";
+  margin-left: 0.18em;
+}
+
+.wrap {
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.rule {
+  border-top: 1px solid var(--color-line);
+}
+
+/* ---------- Bausteine ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-ink);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.box {
+  border: 1px solid var(--color-ink);
+  border-radius: 14px;
+  padding: clamp(1rem, 2vw, 1.75rem);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--color-ink);
+  border-radius: 999px;
+  padding: 0.7rem 1.2rem;
+  font-size: 0.95rem;
+  transition: background 0.3s var(--ease-fluid), color 0.3s var(--ease-fluid);
+}
+.btn:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.link-u {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.35s var(--ease-fluid);
+  padding-bottom: 2px;
+}
+.link-u:hover {
+  background-size: 0% 1px;
+  background-position: 100% 100%;
+}
+
+/* Bilder: in Übersichten schwarzweiß, bei Hover farbig */
+.img-frame {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: #e4e1d9;
+}
+.img-bw img {
+  filter: grayscale(1) contrast(1.02);
+  transition: filter 0.6s var(--ease-fluid), scale 0.9s var(--ease-fluid);
+}
+a:hover .img-bw img,
+a:focus-visible .img-bw img,
+.img-bw:hover img {
+  filter: grayscale(0);
+  scale: 1.03;
+}
+@media (hover: none) {
+  .img-bw img {
+    filter: none;
+  }
+}
+
+/* ---------- Bewegung ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s var(--ease-fluid), transform 0.9s var(--ease-fluid);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.35s var(--ease-fluid), transform 0.35s var(--ease-fluid);
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.page-leave-to {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Rechtstexte */
+.legal h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.legal a {
+  text-decoration: underline;
 }

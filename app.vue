@@ -1,9 +1,17 @@
+<script setup lang="ts">
+const { lang } = useLang();
+
+useHead({
+  htmlAttrs: { lang },
+});
+</script>
+
 <template>
   <div>
-    <Navigation/>
-  <NuxtPage/>
- 
+    <SiteNav />
+    <main id="main">
+      <NuxtPage />
+    </main>
+    <SiteFooter />
   </div>
 </template>
-
-<script></script>

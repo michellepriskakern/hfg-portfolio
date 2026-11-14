@@ -1,6 +1,6 @@
 <template>
-  <div class="max-w-3xl mx-auto p-8 mt-24">
-    <h1 class="text-[42px] font-bold text-[#D53C4F] mb-2">Datenschutzerklärung</h1>
+  <div class="legal max-w-3xl mx-auto p-8 mt-24">
+    <h1 class="mb-2">Datenschutzerklärung</h1>
     <p class="text-[20px] text-[#8C8C8B] mt-[2px] mb-8">Datenschutz auf einen Blick</p>
 
     <h2>Allgemeine Hinweise</h2>
@@ -107,11 +107,10 @@
       Quelle: <a href="https://www.e-recht24.de" target="_blank">e-recht24.de</a>
     </p>
   </div>
-     <Footer />
 </template>
 
 <script setup lang="ts">
-// Kein JavaScript erforderlich
+useSeoMeta({ title: 'Datenschutzerklärung | Michelle Kern', robots: 'noindex' })
 </script>
 
 <style scoped>
@@ -136,7 +135,7 @@ p {
 }
 
 a {
-  color: #0066cc;
+  color: inherit;
   text-decoration: underline;
 }
 </style>
