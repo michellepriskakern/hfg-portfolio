@@ -129,10 +129,8 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
 
     <!-- ============ Arbeiten ============ -->
     <section id="work" ref="workSection" class="work wrap" aria-labelledby="work-title">
-      <header class="work-head rule">
-        <h2 id="work-title" class="label">{{ t(site.home.workTitle) }}</h2>
-        <span class="label bracket">{{ nr(projects.length - 1) }}</span>
-      </header>
+      <!-- Überschrift nur für Screenreader, sichtbar sind direkt die Projekte -->
+      <h2 id="work-title" class="sr-only">{{ t(site.home.workTitle) }}</h2>
 
       <ol class="tiles">
         <li
@@ -351,11 +349,6 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
 .work {
   position: relative;
   padding-top: clamp(4rem, 9vw, 8rem);
-}
-.work-head {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 0.75rem;
 }
 .tiles {
   display: grid;
