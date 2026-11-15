@@ -99,7 +99,7 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
 <template>
   <div>
     <!-- ============ Hero ============ -->
-    <section class="hero wrap">
+    <section class="hero">
       <div class="hero-stack" aria-hidden="true">
         <div v-for="(img, i) in heroImages" :key="img.src" class="hero-img" :class="'hero-img--' + i">
           <img v-parallax="[0.12, -0.08, 0.16][i]" :src="img.src" :width="img.w" :height="img.h" alt="" :fetchpriority="i === 0 ? 'high' : 'auto'" />
@@ -196,8 +196,7 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
 .hero {
   position: relative;
   min-height: 100svh;
-  padding-top: calc(var(--nav-h) + 1rem);
-  padding-bottom: 1.25rem;
+  padding-top: var(--nav-h);
   display: flex;
   overflow: hidden;
 }
@@ -245,13 +244,11 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
   flex-direction: column;
   justify-content: space-between;
   gap: 2rem;
-  padding: clamp(1rem, 2.4vw, 2rem);
-  border-radius: var(--radius);
+  padding: clamp(1.5rem, 4vw, 3.5rem) var(--gutter);
   min-width: 0;
   background: color-mix(in srgb, var(--color-paper) 66%, transparent);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
-  border: 1px solid color-mix(in srgb, var(--color-surface) 60%, transparent);
 }
 .hero-title {
   margin: auto 0;
