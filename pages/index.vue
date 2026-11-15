@@ -232,7 +232,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
   position: fixed;
   left: var(--gutter);
   right: var(--gutter);
-  bottom: clamp(1rem, 2.2vw, 1.75rem);
+  bottom: clamp(1.5rem, 3.2vw, 3rem);
   z-index: 0;
   pointer-events: none; /* enthält keine Links – darunterliegendes bleibt klickbar */
   display: grid;
@@ -240,13 +240,14 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
   align-items: end;
   transition: color 0.6s var(--ease-fluid);
 }
+/* so hoch, dass beim Laden noch kein Projekt in den Namen ragt */
 .hero-space {
-  height: 100svh;
+  height: calc(100svh + 22vh);
 }
 .hero-name {
   font-size: clamp(3.6rem, 19vw, 7rem);
   font-weight: 600;
-  line-height: 0.8;
+  line-height: 0.9;
   letter-spacing: -0.055em;
   margin-left: -0.05em;
   text-transform: lowercase;
@@ -319,7 +320,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
     font-size: clamp(5rem, 7.6vw, 10rem);
   }
   .hero-side {
-    padding-bottom: 0.1em;
+    padding-bottom: 0.35rem;
   }
 }
 
