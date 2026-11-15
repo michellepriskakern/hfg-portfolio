@@ -53,6 +53,8 @@ const workSection = ref<HTMLElement | null>(null);
  * tritt in den Hintergrund, die Projekte gleiten darüber. Vor dem About-Teaser verschwindet es ganz.
  */
 const intro = ref<HTMLElement | null>(null);
+const heroBg = ref<HTMLElement | null>(null);
+const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
 const teaser = ref<HTMLElement | null>(null);
 let fadeTicking = false;
 const onFade = () => {
@@ -66,6 +68,8 @@ const onFade = () => {
     const tTop = teaser.value?.getBoundingClientRect().top ?? Infinity;
     if (tTop < vh) o *= Math.max(0, (tTop - vh * 0.4) / (vh * 0.6));
     intro.value?.style.setProperty("opacity", o.toFixed(3));
+    // Hintergrund-Bilder: gleiten nach oben weg, werden unschärfer und verschwinden
+    heroBg.value?.style.setProperty("--bp", Math.min(1, window.scrollY / (vh * 0.7)).toFixed(3));
     intro.value?.classList.toggle("is-back", p > 0.5);
   });
 };
@@ -129,6 +133,14 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
 <template>
   <div>
     <!-- ============ Hero: ruhig, nur Name + Haltung ============ -->
+    <!-- ============ Hintergrund: Projektbilder unter „Transparentpapier“, verschwinden beim Scrollen ============ -->
+    <div ref="heroBg" class="hero-bg" aria-hidden="true">
+      <div v-for="(img, i) in heroImages" :key="img.src" class="hero-img" :class="'hero-img--' + i">
+        <img :src="img.src" :width="img.w" :height="img.h" alt="" :fetchpriority="i === 0 ? 'high' : 'auto'" />
+      </div>
+      <div class="hero-paper" />
+    </div>
+
     <!-- ============ Intro: fest unten links, tritt beim Scrollen zurück ============ -->
     <section ref="intro" class="intro">
       <h1 class="hero-name">
@@ -227,6 +239,68 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
 </template>
 
 <style scoped>
+/* ---------- Hintergrund ---------- */
+.hero-bg {
+  --bp: 0;
+  position: fixed;
+  inset: var(--nav-h) 0 0 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: calc(1 - var(--bp));
+  transform: translate3d(0, calc(var(--bp) * -14vh), 0) scale(calc(1 + var(--bp) * 0.04));
+  filter: blur(calc(var(--bp) * 8px));
+  will-change: transform, opacity;
+}
+.hero-img {
+  position: absolute;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+.hero-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+}
+.hero-img--0 {
+  left: 6%;
+  top: 10%;
+  width: 46%;
+  aspect-ratio: 4 / 3;
+}
+.hero-img--1 {
+  right: 5%;
+  top: 4%;
+  width: 34%;
+  aspect-ratio: 4 / 5;
+}
+.hero-img--2 {
+  right: 22%;
+  bottom: 4%;
+  width: 40%;
+  aspect-ratio: 16 / 10;
+}
+/* das „Transparentpapier“ über den Bildern */
+.hero-paper {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--color-paper) 66%, transparent);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+@media (max-width: 767px) {
+  .hero-img--0 { left: -6%; top: 8%; width: 78%; }
+  .hero-img--1 { right: -8%; top: 34%; width: 62%; }
+  .hero-img--2 { right: 18%; bottom: 3%; width: 70%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg {
+    transform: none;
+    filter: none;
+  }
+}
+
 /* ---------- Intro: fest unten links (wie ein Schild hinter den Projekten) ---------- */
 .intro {
   position: fixed;
