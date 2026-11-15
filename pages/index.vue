@@ -53,8 +53,6 @@ const workSection = ref<HTMLElement | null>(null);
  * tritt in den Hintergrund, die Projekte gleiten darüber. Vor dem About-Teaser verschwindet es ganz.
  */
 const intro = ref<HTMLElement | null>(null);
-const heroBg = ref<HTMLElement | null>(null);
-const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
 const teaser = ref<HTMLElement | null>(null);
 let fadeTicking = false;
 const onFade = () => {
@@ -68,8 +66,6 @@ const onFade = () => {
     const tTop = teaser.value?.getBoundingClientRect().top ?? Infinity;
     if (tTop < vh) o *= Math.max(0, (tTop - vh * 0.4) / (vh * 0.6));
     intro.value?.style.setProperty("opacity", o.toFixed(3));
-    // Hintergrund-Bilder: gleiten nach oben weg, werden unschärfer und verschwinden
-    heroBg.value?.style.setProperty("--bp", Math.min(1, window.scrollY / (vh * 0.7)).toFixed(3));
     intro.value?.classList.toggle("is-back", p > 0.5);
   });
 };
@@ -133,20 +129,6 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
 <template>
   <div>
     <!-- ============ Hero: ruhig, nur Name + Haltung ============ -->
-    <!-- ============ Hintergrund: Projektbilder unter „Transparentpapier“, verschwinden beim Scrollen ============ -->
-    <div ref="heroBg" class="hero-bg" aria-hidden="true">
-      <div
-        v-for="(img, i) in heroImages"
-        :key="img.src"
-        class="hero-img"
-        :class="'hero-img--' + i"
-        :style="{ aspectRatio: `${img.w} / ${img.h}` }"
-      >
-        <img :src="img.src" :width="img.w" :height="img.h" alt="" :fetchpriority="i === 1 ? 'high' : 'auto'" />
-      </div>
-      <div class="hero-paper" />
-    </div>
-
     <!-- ============ Intro: fest unten links, tritt beim Scrollen zurück ============ -->
     <section ref="intro" class="intro">
       <h1 class="hero-name">
@@ -245,81 +227,6 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
 </template>
 
 <style scoped>
-/* ---------- Hintergrund ---------- */
-.hero-bg {
-  --bp: 0;
-  position: fixed;
-  inset: var(--nav-h) 0 0 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  opacity: calc(1 - var(--bp));
-  transform: translate3d(0, calc(var(--bp) * -14vh), 0) scale(calc(1 + var(--bp) * 0.04));
-  filter: blur(calc(var(--bp) * 8px));
-  will-change: transform, opacity;
-}
-/* Bilder frei überlappend oben rechts, im vollen Format; leicht weich und körnig */
-.hero-img {
-  position: absolute;
-  overflow: hidden;
-}
-.hero-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(9px) saturate(1.05);
-  transform: scale(1.08); /* verhindert helle, ausgefranste Ränder durch den Blur */
-}
-/* Körnung wie bei analogem Druck */
-.hero-img::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  background-size: 180px 180px;
-  mix-blend-mode: overlay;
-  opacity: 0.55;
-}
-/* cura */
-.hero-img--0 {
-  right: 27%;
-  top: 7%;
-  width: 29%;
-  z-index: 1;
-}
-/* bubble */
-.hero-img--1 {
-  right: var(--gutter);
-  top: 2%;
-  width: 35%;
-  z-index: 2;
-}
-/* phlib */
-.hero-img--2 {
-  right: 15%;
-  top: 37%;
-  width: 25%;
-  z-index: 3;
-}
-/* ganz leichter Schleier, damit es ruhig bleibt */
-.hero-paper {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  background: color-mix(in srgb, var(--color-paper) 12%, transparent);
-}
-@media (max-width: 767px) {
-  .hero-img--0 { right: auto; left: 6%; top: 5%; width: 62%; }
-  .hero-img--1 { right: -6%; top: 22%; width: 72%; }
-  .hero-img--2 { right: 22%; top: 42%; width: 54%; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-bg {
-    transform: none;
-    filter: none;
-  }
-}
-
 /* ---------- Intro: fest unten links (wie ein Schild hinter den Projekten) ---------- */
 .intro {
   position: fixed;
