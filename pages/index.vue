@@ -13,10 +13,34 @@ useSeoMeta({
   ogTitle: "Michelle Kern – Interaction Design Portfolio",
 });
 
-/* --- rotierender Claim im Hero --- */
+/* --- Claim im Hero: Wörter werden Buchstabe für Buchstabe getippt und wieder gelöscht --- */
 const words = site.home.claimWords;
-const wordIndex = ref(0);
-let timer: ReturnType<typeof setInterval> | undefined;
+const typed = ref(words[0]);
+const typing = ref(false);
+let alive = false;
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+async function typeLoop() {
+  let i = 0;
+  while (alive) {
+    await sleep(2400); // Wort stehen lassen
+    if (!alive) return;
+    typing.value = true;
+    while (alive && typed.value.length) {
+      typed.value = typed.value.slice(0, -1);
+      await sleep(35);
+    }
+    i = (i + 1) % words.length;
+    await sleep(280);
+    for (const ch of words[i]) {
+      if (!alive) return;
+      typed.value += ch;
+      await sleep(60 + Math.random() * 60);
+    }
+    typing.value = false;
+  }
+}
 
 /* --- Index-Anzeige: welches Projekt ist gerade im Blick? --- */
 const activeIndex = ref(0);
@@ -29,9 +53,8 @@ let sectionIo: IntersectionObserver | undefined;
 onMounted(() => {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduced) {
-    timer = setInterval(() => {
-      wordIndex.value = (wordIndex.value + 1) % words.length;
-    }, 2600);
+    alive = true;
+    typeLoop();
   }
 
   io = new IntersectionObserver(
@@ -54,7 +77,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  if (timer) clearInterval(timer);
+  alive = false;
   io?.disconnect();
   sectionIo?.disconnect();
 });
@@ -92,11 +115,10 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
 
         <h1 class="display hero-title">
           <span class="block">{{ t(site.home.claimLead) }}</span>
-          <span class="hero-word serif-i" aria-live="off">
+          <span class="hero-word serif-i">
+            <span class="sr-only">{{ words.join(", ") }}</span>
             <span class="hero-bracket" aria-hidden="true">[</span>
-            <Transition name="word" mode="out-in">
-              <span :key="wordIndex" class="hero-word-inner">{{ words[wordIndex] }}</span>
-            </Transition>
+            <span class="hero-word-inner" aria-hidden="true">{{ typed || "\u200B" }}<span class="hero-caret" :class="{ 'is-typing': typing }" /></span>
             <span class="hero-bracket" aria-hidden="true">]</span>
           </span>
         </h1>
@@ -266,17 +288,28 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
   display: inline-block;
   margin: 0 0.1em;
 }
-.word-enter-active,
-.word-leave-active {
-  transition: opacity 0.45s var(--ease-fluid), transform 0.45s var(--ease-fluid);
+/* blinkender Cursor hinter dem getippten Wort */
+.hero-caret {
+  display: inline-block;
+  width: 0.055em;
+  height: 0.78em;
+  margin-left: 0.08em;
+  background: currentColor;
+  vertical-align: -0.04em;
+  animation: caret 1.05s steps(1) infinite;
 }
-.word-enter-from {
-  opacity: 0;
-  transform: translateY(0.35em);
+.hero-caret.is-typing {
+  animation: none;
 }
-.word-leave-to {
-  opacity: 0;
-  transform: translateY(-0.35em);
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-caret {
+    display: none;
+  }
 }
 .hero-foot {
   display: grid;
