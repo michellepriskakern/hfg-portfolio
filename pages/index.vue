@@ -135,10 +135,14 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
     <!-- ============ Hero: ruhig, nur Name + Haltung ============ -->
     <!-- ============ Hintergrund: Projektbilder unter „Transparentpapier“, verschwinden beim Scrollen ============ -->
     <div ref="heroBg" class="hero-bg" aria-hidden="true">
-      <div class="hero-cluster">
-        <div v-for="(img, i) in heroImages" :key="img.src" class="hero-img" :class="'hero-img--' + i">
-          <img :src="img.src" :width="img.w" :height="img.h" alt="" :fetchpriority="i === 1 ? 'high' : 'auto'" />
-        </div>
+      <div
+        v-for="(img, i) in heroImages"
+        :key="img.src"
+        class="hero-img"
+        :class="'hero-img--' + i"
+        :style="{ aspectRatio: `${img.w} / ${img.h}` }"
+      >
+        <img :src="img.src" :width="img.w" :height="img.h" alt="" :fetchpriority="i === 1 ? 'high' : 'auto'" />
       </div>
       <div class="hero-paper" />
     </div>
@@ -254,57 +258,60 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
   filter: blur(calc(var(--bp) * 8px));
   will-change: transform, opacity;
 }
-/* Bilder-Collage oben rechts, Kante an Kante; jedes Bild stark weichgezeichnet, die Kanten bleiben scharf */
-.hero-cluster {
-  position: absolute;
-  top: 0;
-  right: var(--gutter);
-  width: min(62vw, 64rem);
-  display: grid;
-  grid-template-columns: 0.75fr 1.6fr;
-  grid-template-rows: auto auto;
-}
+/* Bilder frei überlappend oben rechts, im vollen Format; leicht weich und körnig */
 .hero-img {
-  position: relative;
+  position: absolute;
   overflow: hidden;
 }
 .hero-img img {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(26px) saturate(1.1);
-  transform: scale(1.18); /* verhindert helle, ausgefranste Ränder durch den Blur */
+  filter: blur(9px) saturate(1.05);
+  transform: scale(1.08); /* verhindert helle, ausgefranste Ränder durch den Blur */
 }
-/* cura: hohe Spalte links */
+/* Körnung wie bei analogem Druck */
+.hero-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+}
+/* cura */
 .hero-img--0 {
-  grid-column: 1;
-  grid-row: 1 / 3;
+  right: 27%;
+  top: 7%;
+  width: 29%;
+  z-index: 1;
 }
-/* bubble: im vollen Format, nichts abgeschnitten */
+/* bubble */
 .hero-img--1 {
-  grid-column: 2;
-  grid-row: 1;
-  aspect-ratio: 2000 / 1268;
+  right: var(--gutter);
+  top: 2%;
+  width: 35%;
+  z-index: 2;
 }
-/* phlib: Streifen darunter */
+/* phlib */
 .hero-img--2 {
-  grid-column: 2;
-  grid-row: 2;
-  aspect-ratio: 2000 / 640;
+  right: 15%;
+  top: 37%;
+  width: 25%;
+  z-index: 3;
 }
 /* ganz leichter Schleier, damit es ruhig bleibt */
 .hero-paper {
   position: absolute;
   inset: 0;
-  background: color-mix(in srgb, var(--color-paper) 18%, transparent);
+  z-index: 4;
+  background: color-mix(in srgb, var(--color-paper) 12%, transparent);
 }
 @media (max-width: 767px) {
-  .hero-cluster {
-    right: 0;
-    width: 100%;
-  }
+  .hero-img--0 { right: auto; left: 6%; top: 5%; width: 62%; }
+  .hero-img--1 { right: -6%; top: 22%; width: 72%; }
+  .hero-img--2 { right: 22%; top: 42%; width: 54%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-bg {
