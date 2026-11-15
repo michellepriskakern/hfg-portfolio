@@ -65,6 +65,12 @@ img {
   display: block;
 }
 
+/* Eigener Cursor: System-Cursor ausblenden (nur bei Maus/Trackpad, siehe SiteCursor.vue) */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
 /* ---------- Typografie ---------- */
 .display {
   font-weight: 600;

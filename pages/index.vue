@@ -50,11 +50,26 @@ const workSection = ref<HTMLElement | null>(null);
 let io: IntersectionObserver | undefined;
 let sectionIo: IntersectionObserver | undefined;
 
+/* Hero tritt beim Scrollen zurück, während die Projekte darüber gleiten */
+const hero = ref<HTMLElement | null>(null);
+let heroTicking = false;
+const onHeroScroll = () => {
+  if (heroTicking) return;
+  heroTicking = true;
+  requestAnimationFrame(() => {
+    heroTicking = false;
+    const p = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * 0.9)));
+    hero.value?.style.setProperty("--hp", p.toFixed(3));
+  });
+};
+
 onMounted(() => {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduced) {
     alive = true;
     typeLoop();
+    window.addEventListener("scroll", onHeroScroll, { passive: true });
+    onHeroScroll();
   }
 
   io = new IntersectionObserver(
@@ -78,18 +93,22 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   alive = false;
+  window.removeEventListener("scroll", onHeroScroll);
   io?.disconnect();
   sectionIo?.disconnect();
 });
 
 const nr = (i: number) => String(i + 1).padStart(2, "0");
 
-/* Versetztes Raster: jede Kachel hat Breite, Versatz und Parallax-Tempo */
+/*
+ * Freie Komposition: jede Kachel hat Position, Format, ein eigenes Scroll-Tempo (drift)
+ * und ein Tempo für das Bild im Rahmen (speed). Ab dem 5. Projekt wiederholt sich das Muster.
+ */
 const layouts = [
-  { cls: "tile--a", speed: -0.06 },
-  { cls: "tile--b", speed: 0.1 },
-  { cls: "tile--c", speed: 0.05 },
-  { cls: "tile--d", speed: -0.09 },
+  { cls: "tile--a", ratio: "1 / 1", speed: 0.06, drift: -0.14 },
+  { cls: "tile--b", ratio: "5 / 4", speed: -0.05, drift: 0.18 },
+  { cls: "tile--c", ratio: "4 / 5", speed: 0.05, drift: 0.06 },
+  { cls: "tile--d", ratio: "16 / 10", speed: -0.06, drift: -0.12 },
 ];
 const layoutFor = (i: number) => layouts[i % layouts.length];
 
@@ -98,8 +117,10 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
 
 <template>
   <div>
+    <!-- Bühne: der Hero bleibt stehen, die Projekte gleiten darüber -->
+    <div class="stage">
     <!-- ============ Hero ============ -->
-    <section class="hero">
+    <section ref="hero" class="hero">
       <div class="hero-stack" aria-hidden="true">
         <div v-for="(img, i) in heroImages" :key="img.src" class="hero-img" :class="'hero-img--' + i">
           <img v-parallax="[0.12, -0.08, 0.16][i]" :src="img.src" :width="img.w" :height="img.h" alt="" :fetchpriority="i === 0 ? 'high' : 'auto'" />
@@ -141,23 +162,32 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
           :class="layoutFor(i).cls"
           :data-index="i"
         >
-          <NuxtLink :to="`/projects/${p.slug}`" class="tile-link" v-reveal>
-            <div class="img-frame img-bw tile-img" :style="{ aspectRatio: i % 2 === 0 ? '4 / 3' : '4 / 5' }">
-              <img
-                v-parallax="layoutFor(i).speed"
-                :src="p.cover.src"
-                :width="p.cover.w"
-                :height="p.cover.h"
-                :alt="t(p.cover.alt)"
-                :loading="i === 0 ? 'eager' : 'lazy'"
-              />
-            </div>
-            <div class="tile-cap">
-              <span class="label bracket">{{ nr(i) }}</span>
-              <h3 class="tile-title">{{ p.title }}</h3>
-              <span class="label tile-year">{{ p.year }}</span>
-              <p class="tile-sub">{{ t(p.subtitle) }}</p>
-              <p class="label tile-disc">{{ t(p.disciplines) }}</p>
+          <NuxtLink
+            v-parallax="{ speed: layoutFor(i).drift, free: true }"
+            :to="`/projects/${p.slug}`"
+            class="tile-link"
+            data-cursor="explore"
+          >
+            <div v-reveal class="tile-inner">
+              <div class="img-frame img-bw tile-img" :style="{ aspectRatio: layoutFor(i).ratio }">
+                <img
+                  v-parallax="layoutFor(i).speed"
+                  :src="p.cover.src"
+                  :width="p.cover.w"
+                  :height="p.cover.h"
+                  :alt="t(p.cover.alt)"
+                  :loading="i === 0 ? 'eager' : 'lazy'"
+                />
+                <div class="tile-cap">
+                  <span class="tile-nr">[{{ nr(i) }}]</span>
+                  <h3 class="tile-title"><RollText :text="p.title" /></h3>
+                  <p class="tile-sub">{{ t(p.subtitle) }}</p>
+                </div>
+              </div>
+              <p class="label tile-meta">
+                <span>{{ t(p.disciplines) }}</span>
+                <span>{{ p.year }}</span>
+              </p>
             </div>
           </NuxtLink>
         </li>
@@ -175,6 +205,7 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
         </ol>
       </nav>
     </section>
+    </div>
 
     <!-- ============ About-Teaser ============ -->
     <section class="teaser wrap">
@@ -190,13 +221,31 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
 </template>
 
 <style scoped>
-/* ---------- Hero ---------- */
-.hero {
+/* ---------- Bühne + Hero ---------- */
+.stage {
   position: relative;
-  min-height: 100svh;
+}
+.hero {
+  /* bleibt stehen, während die Projekte darüber scrollen */
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: 100svh;
+  min-height: 34rem;
   padding-top: var(--nav-h);
   display: flex;
   overflow: hidden;
+}
+/* Beim Scrollen tritt der Hero leicht zurück (--hp = 0 … 1) */
+.hero-paper > * {
+  opacity: calc(1 - var(--hp, 0) * 0.55);
+}
+.hero-title {
+  transform: scale(calc(1 - var(--hp, 0) * 0.04));
+  transform-origin: left center;
+}
+.hero-stack {
+  filter: blur(calc(var(--hp, 0) * 6px));
 }
 .hero-stack {
   position: absolute;
@@ -345,19 +394,29 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
   }
 }
 
-/* ---------- Arbeiten ---------- */
+/* ---------- Arbeiten (gleiten über den Hero) ---------- */
 .work {
   position: relative;
-  padding-top: clamp(4rem, 9vw, 8rem);
+  z-index: 1;
+  padding-top: 30svh;
+  padding-bottom: clamp(4rem, 10vw, 10rem);
+  pointer-events: none; /* Lücken lassen den Hero darunter bedienbar */
+}
+.work .tile-link,
+.work .index {
+  pointer-events: auto;
 }
 .tiles {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 3.5rem;
-  margin-top: 2.5rem;
+  gap: 4.5rem;
 }
 .tile-link {
   display: block;
+}
+.tile-img {
+  position: relative;
+  box-shadow: 0 24px 60px rgba(20, 20, 20, 0.12);
 }
 .tile-img img {
   width: 100%;
@@ -365,43 +424,73 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
   translate: 0 -8.33%;
   object-fit: cover;
 }
+/* Titel liegt auf dem Bild */
 .tile-cap {
+  position: absolute;
+  inset: auto 0 0 0;
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: baseline;
-  gap: 0.2rem 0.75rem;
-  margin-top: 0.8rem;
+  gap: 0.2rem;
+  padding: clamp(0.9rem, 1.6vw, 1.4rem);
+  color: #fff;
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.62), rgba(10, 10, 10, 0));
+}
+.tile-nr {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
 }
 .tile-title {
-  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-size: clamp(1.4rem, 2.2vw, 2.2rem);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: -0.025em;
-  line-height: 1;
-  transition: color 0.3s var(--ease-fluid);
-}
-.tile-link:hover .tile-title {
-  color: var(--color-accent);
+  line-height: 1.05;
 }
 .tile-sub {
-  grid-column: 2 / -1;
-  max-width: 28rem;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  max-width: 26rem;
+  opacity: 0.9;
 }
-.tile-disc {
-  grid-column: 2 / -1;
+.tile-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.6rem;
+}
+@media (max-width: 767px) {
+  .tile--a,
+  .tile--c {
+    width: 86%;
+  }
+  .tile--b,
+  .tile--d {
+    width: 80%;
+    margin-left: auto;
+  }
 }
 @media (min-width: 768px) {
   .tiles {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: 1.5rem;
-    row-gap: clamp(5rem, 10vw, 10rem);
-    margin-top: 4rem;
+    row-gap: clamp(6rem, 14vw, 14rem);
     padding-right: 4.5rem;
   }
-  .tile--a { grid-column: 1 / span 7; }
-  .tile--b { grid-column: 9 / span 4; margin-top: 38%; }
-  .tile--c { grid-column: 2 / span 4; }
-  .tile--d { grid-column: 7 / span 6; margin-top: 22%; }
+  /* versetzt wie auf einem Tisch verteilt: je zwei Projekte teilen sich eine Zeile */
+  .tile--a { grid-column: 2 / span 4; }
+  .tile--b { grid-column: 8 / span 4; margin-top: 32vh; }
+  .tile--c { grid-column: 4 / span 3; }
+  .tile--d { grid-column: 8 / span 5; margin-top: 20vh; }
+  .tile-sub {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s var(--ease-fluid), opacity 0.4s var(--ease-fluid);
+  }
+  .tile-link:hover .tile-sub,
+  .tile-link:focus-visible .tile-sub {
+    max-height: 4rem;
+    opacity: 0.9;
+  }
 }
 
 /* ---------- Index-Anzeige ---------- */
@@ -465,7 +554,10 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
 
 /* ---------- About-Teaser ---------- */
 .teaser {
-  margin-top: clamp(6rem, 12vw, 12rem);
+  position: relative;
+  z-index: 1;
+  background: var(--color-paper);
+  padding-top: clamp(3rem, 6vw, 6rem);
 }
 .teaser-grid {
   padding-top: 1rem;

@@ -158,6 +158,7 @@ export const site = {
       en: "Loading the video connects to YouTube. See the privacy policy for details.",
     } as L,
     next: { de: "Weitere Arbeiten", en: "More work" } as L,
+    explore: { de: "explore", en: "explore" } as L,
     privacy: { de: "Datenschutz", en: "Privacy" } as L,
     imprint: { de: "Impressum", en: "Imprint" } as L,
     skip: { de: "Zum Inhalt springen", en: "Skip to content" } as L,

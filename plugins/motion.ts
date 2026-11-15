@@ -41,7 +41,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
   });
 
-  const items = new Map<HTMLElement, number>();
+  type Cfg = { speed: number; free: boolean };
+  const items = new Map<HTMLElement, Cfg>();
   let ticking = false;
   let listening = false;
 
@@ -49,7 +50,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     ticking = false;
     const enabled = window.matchMedia("(min-width: 768px)").matches && !reduced();
     const vh = window.innerHeight;
-    items.forEach((speed, el) => {
+    items.forEach(({ speed, free }, el) => {
       if (!enabled) {
         el.style.transform = "";
         return;
@@ -57,8 +58,8 @@ export default defineNuxtPlugin((nuxtApp) => {
       const parent = el.parentElement ?? el;
       const r = parent.getBoundingClientRect();
       if (r.bottom < -200 || r.top > vh + 200) return;
-      // Das Bild ist 20 % höher als sein Rahmen – der Versatz bleibt innerhalb dieses Spielraums.
-      const max = r.height * 0.09;
+      // Bild im Rahmen: Versatz bleibt im 20-%-Spielraum. Freie Elemente: bis 180 px.
+      const max = free ? Math.min(180, vh * 0.2) : r.height * 0.09;
       const raw = (r.top + r.height / 2 - vh / 2) * speed;
       const offset = Math.max(-max, Math.min(max, raw));
       el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
@@ -72,7 +73,14 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   nuxtApp.vueApp.directive("parallax", {
     mounted(el: HTMLElement, binding) {
-      items.set(el, typeof binding.value === "number" ? binding.value : 0.08);
+      const v = binding.value;
+      const cfg: Cfg =
+        typeof v === "number"
+          ? { speed: v, free: false }
+          : v && typeof v === "object"
+            ? { speed: typeof v.speed === "number" ? v.speed : 0.08, free: !!v.free }
+            : { speed: 0.08, free: false };
+      items.set(el, cfg);
       el.style.willChange = "transform";
       if (!listening) {
         listening = true;

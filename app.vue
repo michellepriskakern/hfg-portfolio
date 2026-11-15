@@ -13,5 +13,6 @@ useHead({
       <NuxtPage />
     </main>
     <SiteFooter />
+    <SiteCursor />
   </div>
 </template>
