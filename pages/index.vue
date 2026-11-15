@@ -244,7 +244,8 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
   flex-direction: column;
   justify-content: space-between;
   gap: 2rem;
-  padding: clamp(1.5rem, 4vw, 3.5rem) var(--gutter);
+  /* Fläche randlos, Texte mit dem gleichen Abstand zum Rand wie vorher */
+  padding: calc(var(--gutter) + clamp(1rem, 2.4vw, 2rem));
   min-width: 0;
   background: color-mix(in srgb, var(--color-paper) 66%, transparent);
   -webkit-backdrop-filter: blur(5px);
