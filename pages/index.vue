@@ -47,10 +47,35 @@ const activeIndex = ref(0);
 const showIndex = ref(false);
 const tiles = ref<HTMLElement[]>([]);
 const workSection = ref<HTMLElement | null>(null);
+
+/*
+ * Intro (Name + Text) steht fest unten links. Sobald man scrollt, wird es grau und
+ * tritt in den Hintergrund, die Projekte gleiten darüber. Vor dem About-Teaser verschwindet es ganz.
+ */
+const intro = ref<HTMLElement | null>(null);
+const teaser = ref<HTMLElement | null>(null);
+let fadeTicking = false;
+const onFade = () => {
+  if (fadeTicking) return;
+  fadeTicking = true;
+  requestAnimationFrame(() => {
+    fadeTicking = false;
+    const vh = window.innerHeight;
+    const p = Math.min(1, Math.max(0, window.scrollY / (vh * 0.55)));
+    let o = 1 - p * 0.92; // bis auf 8 % – grau im Hintergrund
+    const tTop = teaser.value?.getBoundingClientRect().top ?? Infinity;
+    if (tTop < vh) o *= Math.max(0, (tTop - vh * 0.4) / (vh * 0.6));
+    intro.value?.style.setProperty("opacity", o.toFixed(3));
+    intro.value?.classList.toggle("is-back", p > 0.5);
+  });
+};
 let io: IntersectionObserver | undefined;
 let sectionIo: IntersectionObserver | undefined;
 
 onMounted(() => {
+  window.addEventListener("scroll", onFade, { passive: true });
+  window.addEventListener("resize", onFade, { passive: true });
+  onFade();
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduced) {
     alive = true;
@@ -77,6 +102,8 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
+  window.removeEventListener("scroll", onFade);
+  window.removeEventListener("resize", onFade);
   alive = false;
   io?.disconnect();
   sectionIo?.disconnect();
@@ -102,10 +129,11 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
 <template>
   <div>
     <!-- ============ Hero: ruhig, nur Name + Haltung ============ -->
-    <section class="hero wrap">
+    <!-- ============ Intro: fest unten links, tritt beim Scrollen zurück ============ -->
+    <section ref="intro" class="intro">
       <h1 class="hero-name">
-        <span class="block">Michelle</span>
-        <span class="block">Kern</span>
+        <span class="block">michelle</span>
+        <span class="block">kern</span>
       </h1>
       <div class="hero-side">
         <p class="hero-role">{{ t(site.home.role) }}</p>
@@ -118,12 +146,11 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
             <span class="hero-bracket" aria-hidden="true">]</span>
           </span>
         </p>
-        <a href="#work" class="hero-scroll label">
-          <span class="bracket">{{ t(site.home.scroll) }}</span>
-          <span class="hero-arrow" aria-hidden="true">↓</span>
-        </a>
       </div>
     </section>
+    <!-- freie Fläche über dem Intro, danach kommen die Projekte -->
+    <div class="hero-space" aria-hidden="true" />
+
 
     <!-- ============ Arbeiten ============ -->
     <section id="work" ref="workSection" class="work wrap" aria-labelledby="work-title">
@@ -187,7 +214,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
     </section>
 
     <!-- ============ About-Teaser ============ -->
-    <section class="teaser wrap">
+    <section ref="teaser" class="teaser wrap">
       <div class="rule teaser-grid">
         <p class="label bracket">{{ t(site.about.title) }}</p>
         <div v-reveal>
@@ -200,32 +227,40 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
 </template>
 
 <style scoped>
-/* ---------- Hero: ruhig, heller Grund, nur Name ---------- */
-.hero {
-  min-height: 100svh;
-  padding-top: calc(var(--nav-h) + 2rem);
-  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+/* ---------- Intro: fest unten links (wie ein Schild hinter den Projekten) ---------- */
+.intro {
+  position: fixed;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: clamp(1rem, 2.2vw, 1.75rem);
+  z-index: 0;
+  pointer-events: none; /* enthält keine Links – darunterliegendes bleibt klickbar */
   display: grid;
-  align-content: end;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  gap: 1.1rem;
+  align-items: end;
+  transition: color 0.6s var(--ease-fluid);
+}
+.hero-space {
+  height: 100svh;
 }
 .hero-name {
-  font-size: clamp(3.6rem, 17vw, 6rem);
+  font-size: clamp(3.6rem, 19vw, 7rem);
   font-weight: 600;
-  line-height: 0.86;
-  letter-spacing: -0.05em;
-  margin-left: -0.04em;
+  line-height: 0.8;
+  letter-spacing: -0.055em;
+  margin-left: -0.05em;
+  text-transform: lowercase;
 }
 .hero-side {
   display: grid;
-  gap: 1.1rem;
+  gap: 0.9rem;
   align-content: end;
   max-width: 27rem;
 }
 .hero-role {
-  font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+  font-size: clamp(1.05rem, 1.4vw, 1.4rem);
   font-weight: 500;
-  line-height: 1.25;
+  line-height: 1.2;
   letter-spacing: -0.01em;
 }
 .hero-claim {
@@ -239,6 +274,9 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
   font-size: 1.3em;
   line-height: 1.2;
   white-space: nowrap;
+}
+.intro.is-back .hero-word {
+  color: inherit;
 }
 .hero-bracket {
   font-family: var(--font-sans);
@@ -271,41 +309,25 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
     display: none;
   }
 }
-.hero-scroll {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: var(--color-ink);
-  justify-self: start;
-  margin-top: 0.4rem;
-}
-.hero-arrow {
-  display: inline-block;
-  animation: nudge 1.8s var(--ease-fluid) infinite;
-}
-@keyframes nudge {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
-}
 @media (min-width: 1024px) {
-  /* Name links, Beschreibung startet in der Mitte – unten bündig (wie zwei Spalten) */
-  .hero {
-    min-height: 78svh;
+  /* Name links unten, Beschreibung startet in der Mitte – unten bündig */
+  .intro {
     grid-template-columns: 1fr 1fr;
-    align-items: end;
     column-gap: clamp(2rem, 4vw, 4rem);
   }
   .hero-name {
-    font-size: clamp(5rem, 7.2vw, 9rem);
+    font-size: clamp(5rem, 7.6vw, 10rem);
   }
   .hero-side {
-    padding-bottom: 0.15em;
+    padding-bottom: 0.1em;
   }
 }
 
 /* ---------- Arbeiten ---------- */
 .work {
-  padding-top: clamp(3rem, 7vw, 7rem);
+  position: relative;
+  z-index: 1;
+  padding-top: 0;
   padding-bottom: clamp(5rem, 12vw, 12rem);
 }
 .tiles {
@@ -497,6 +519,8 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
 
 /* ---------- About-Teaser ---------- */
 .teaser {
+  position: relative;
+  z-index: 1;
   padding-top: clamp(3rem, 6vw, 6rem);
 }
 .teaser-grid {
