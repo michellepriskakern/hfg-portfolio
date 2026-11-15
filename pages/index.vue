@@ -135,8 +135,10 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
     <!-- ============ Hero: ruhig, nur Name + Haltung ============ -->
     <!-- ============ Hintergrund: Projektbilder unter „Transparentpapier“, verschwinden beim Scrollen ============ -->
     <div ref="heroBg" class="hero-bg" aria-hidden="true">
-      <div v-for="(img, i) in heroImages" :key="img.src" class="hero-img" :class="'hero-img--' + i">
-        <img :src="img.src" :width="img.w" :height="img.h" alt="" :fetchpriority="i === 0 ? 'high' : 'auto'" />
+      <div class="hero-cluster">
+        <div v-for="(img, i) in heroImages" :key="img.src" class="hero-img" :class="'hero-img--' + i">
+          <img :src="img.src" :width="img.w" :height="img.h" alt="" :fetchpriority="i === 1 ? 'high' : 'auto'" />
+        </div>
       </div>
       <div class="hero-paper" />
     </div>
@@ -252,47 +254,57 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
   filter: blur(calc(var(--bp) * 8px));
   will-change: transform, opacity;
 }
-.hero-img {
+/* Bilder-Collage oben rechts, Kante an Kante; jedes Bild stark weichgezeichnet, die Kanten bleiben scharf */
+.hero-cluster {
   position: absolute;
+  top: 0;
+  right: var(--gutter);
+  width: min(62vw, 64rem);
+  display: grid;
+  grid-template-columns: 0.75fr 1.6fr;
+  grid-template-rows: auto auto;
+}
+.hero-img {
+  position: relative;
   overflow: hidden;
-  border-radius: var(--radius);
 }
 .hero-img img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(1) contrast(1.05);
+  filter: blur(26px) saturate(1.1);
+  transform: scale(1.18); /* verhindert helle, ausgefranste Ränder durch den Blur */
 }
+/* cura: hohe Spalte links */
 .hero-img--0 {
-  left: 6%;
-  top: 10%;
-  width: 46%;
-  aspect-ratio: 4 / 3;
+  grid-column: 1;
+  grid-row: 1 / 3;
 }
+/* bubble: im vollen Format, nichts abgeschnitten */
 .hero-img--1 {
-  right: 5%;
-  top: 4%;
-  width: 34%;
-  aspect-ratio: 4 / 5;
+  grid-column: 2;
+  grid-row: 1;
+  aspect-ratio: 2000 / 1268;
 }
+/* phlib: Streifen darunter */
 .hero-img--2 {
-  right: 22%;
-  bottom: 4%;
-  width: 40%;
-  aspect-ratio: 16 / 10;
+  grid-column: 2;
+  grid-row: 2;
+  aspect-ratio: 2000 / 640;
 }
-/* das „Transparentpapier“ über den Bildern */
+/* ganz leichter Schleier, damit es ruhig bleibt */
 .hero-paper {
   position: absolute;
   inset: 0;
-  background: color-mix(in srgb, var(--color-paper) 66%, transparent);
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
+  background: color-mix(in srgb, var(--color-paper) 18%, transparent);
 }
 @media (max-width: 767px) {
-  .hero-img--0 { left: -6%; top: 8%; width: 78%; }
-  .hero-img--1 { right: -8%; top: 34%; width: 62%; }
-  .hero-img--2 { right: 18%; bottom: 3%; width: 70%; }
+  .hero-cluster {
+    right: 0;
+    width: 100%;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-bg {
