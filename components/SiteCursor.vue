@@ -3,7 +3,7 @@
  * Eigener Cursor (nur mit Maus/Trackpad):
  * – kleiner Punkt, der weich hinterherläuft
  * – über Links etwas größer
- * – über Elementen mit data-cursor="…" ein großer Kreis mit Text in Klammern, z. B. [ explore ]
+ * – über Elementen mit data-cursor="…" ein abgerundetes Rechteck mit Text in Klammern, z. B. [ explore ]
  * – verzieht sich leicht in Bewegungsrichtung
  */
 const enabled = ref(false);
@@ -47,7 +47,9 @@ const loop = () => {
   cx = nx;
   cy = ny;
   if (root.value) root.value.style.transform = `translate3d(${cx.toFixed(1)}px, ${cy.toFixed(1)}px, 0)`;
-  if (shape.value) {
+  if (shape.value && label.value) {
+    shape.value.style.transform = "none"; // die Pille bleibt gerade
+  } else if (shape.value) {
     const stretch = Math.min(Math.hypot(vx, vy) / 60, 0.28);
     const angle = (Math.atan2(vy, vx) * 180) / Math.PI;
     shape.value.style.transform = `rotate(${angle.toFixed(1)}deg) scale(${(1 + stretch).toFixed(3)}, ${(1 - stretch).toFixed(3)})`;
@@ -117,7 +119,7 @@ onBeforeUnmount(() => {
   top: -5px;
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: 999px;
   background: var(--color-ink);
   transition:
     width 0.45s var(--ease-fluid),
@@ -134,11 +136,12 @@ onBeforeUnmount(() => {
   background: color-mix(in srgb, var(--color-ink) 18%, transparent);
 }
 .cursor.is-label .cursor-shape {
-  width: 108px;
-  height: 108px;
-  left: -54px;
-  top: -54px;
-  background: var(--color-accent);
+  width: 128px;
+  height: 44px;
+  left: -64px;
+  top: -22px;
+  border-radius: 999px;
+  background: var(--color-ink);
 }
 .cursor.is-down .cursor-shape {
   width: 7px;
@@ -147,10 +150,10 @@ onBeforeUnmount(() => {
   top: -3.5px;
 }
 .cursor.is-label.is-down .cursor-shape {
-  width: 92px;
-  height: 92px;
-  left: -46px;
-  top: -46px;
+  width: 116px;
+  height: 40px;
+  left: -58px;
+  top: -20px;
 }
 .cursor-text {
   position: absolute;
@@ -158,7 +161,7 @@ onBeforeUnmount(() => {
   top: 0;
   transform: translate(-50%, -50%) scale(0.6);
   white-space: nowrap;
-  color: #fff;
+  color: var(--color-paper);
   font-size: 0.74rem;
   font-weight: 500;
   letter-spacing: 0.08em;
