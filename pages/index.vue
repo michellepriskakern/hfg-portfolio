@@ -328,12 +328,13 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
     font-size: clamp(2.1rem, 10.4vw, 4.5rem);
   }
   .hero-word {
-    font-size: 1em;
-    line-height: 0.98;
+    font-size: 0.82em;
+    line-height: 1;
+    white-space: nowrap;
   }
   .hero-word-inner {
     display: inline;
-    margin: 0;
+    margin: 0 0.04em;
   }
 }
 @media (min-width: 768px) {
