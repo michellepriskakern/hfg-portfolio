@@ -138,6 +138,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
           class="tile"
           :class="layoutFor(i).cls"
           :data-index="i"
+          :style="{ gridRow: i + 1 }"
         >
           <NuxtLink
             v-parallax="{ speed: layoutFor(i).drift, free: true }"
@@ -421,7 +422,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
   .tiles {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: 1.5rem;
-    row-gap: clamp(7rem, 13vw, 13rem);
+    row-gap: clamp(5rem, 9vw, 9rem);
     padding-right: 4.5rem;
   }
   /* jedes Projekt in eigener Zeile, abwechselnd links / rechts versetzt */
