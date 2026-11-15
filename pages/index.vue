@@ -210,33 +210,33 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
   gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 .hero-name {
-  font-size: clamp(4.2rem, 15.5vw, 17rem);
+  font-size: clamp(3.6rem, 17vw, 6rem);
   font-weight: 600;
-  line-height: 0.84;
-  letter-spacing: -0.055em;
+  line-height: 0.86;
+  letter-spacing: -0.05em;
   margin-left: -0.04em;
 }
 .hero-side {
   display: grid;
   gap: 1.1rem;
   align-content: end;
-  max-width: 30rem;
+  max-width: 27rem;
 }
 .hero-role {
-  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  font-size: clamp(1.05rem, 1.35vw, 1.35rem);
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: -0.01em;
 }
 .hero-claim {
   color: var(--color-muted);
-  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  font-size: clamp(0.9rem, 1vw, 1rem);
   line-height: 1.4;
 }
 .hero-word {
   display: block;
   color: var(--color-accent);
-  font-size: 1.35em;
+  font-size: 1.3em;
   line-height: 1.2;
   white-space: nowrap;
 }
@@ -288,20 +288,24 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
   50% { transform: translateY(5px); }
 }
 @media (min-width: 1024px) {
-  /* Name links groß, daneben die Beschreibung – unten bündig */
+  /* Name links, Beschreibung startet in der Mitte – unten bündig (wie zwei Spalten) */
   .hero {
-    grid-template-columns: auto minmax(16rem, 1fr);
+    min-height: 78svh;
+    grid-template-columns: 1fr 1fr;
     align-items: end;
     column-gap: clamp(2rem, 4vw, 4rem);
   }
+  .hero-name {
+    font-size: clamp(5rem, 7.2vw, 9rem);
+  }
   .hero-side {
-    padding-bottom: 0.4em;
+    padding-bottom: 0.15em;
   }
 }
 
 /* ---------- Arbeiten ---------- */
 .work {
-  padding-top: clamp(4rem, 12vw, 12rem);
+  padding-top: clamp(3rem, 7vw, 7rem);
   padding-bottom: clamp(5rem, 12vw, 12rem);
 }
 .tiles {
