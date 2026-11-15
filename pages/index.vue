@@ -107,12 +107,6 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
       </div>
 
       <div class="hero-paper">
-        <ul class="hero-meta label">
-          <li class="bracket">Portfolio {{ new Date().getFullYear() }}</li>
-          <li class="bracket">{{ t(site.role) }}</li>
-          <li class="bracket hero-meta-loc">{{ site.location }}</li>
-        </ul>
-
         <h1 class="display hero-title">
           <span class="block">{{ t(site.home.claimLead) }}</span>
           <span class="hero-word serif-i">
@@ -259,13 +253,6 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
   backdrop-filter: blur(5px);
   border: 1px solid color-mix(in srgb, var(--color-surface) 60%, transparent);
 }
-.hero-meta {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.5rem 1.5rem;
-  color: var(--color-ink);
-}
 .hero-title {
   margin: auto 0;
 }
@@ -337,9 +324,6 @@ const heroImages = computed(() => projects.slice(0, 3).map((p) => p.cover));
   50% { transform: translateY(5px); }
 }
 @media (max-width: 767px) {
-  .hero-meta-loc {
-    display: none;
-  }
   .hero-img--0 { left: -6%; top: 10%; width: 78%; }
   .hero-img--1 { right: -8%; top: 38%; width: 62%; }
   .hero-img--2 { right: 18%; bottom: 3%; width: 70%; }
