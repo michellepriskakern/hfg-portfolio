@@ -310,7 +310,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
     display: none;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   /* Name links unten, Beschreibung startet in der Mitte – unten bündig */
   .intro {
     grid-template-columns: 1fr 1fr;
