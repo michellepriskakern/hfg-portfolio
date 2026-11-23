@@ -117,7 +117,7 @@ const nr = (i: number) => String(i + 1).padStart(2, "0");
  * Ab dem 5. Projekt wiederholt sich das Muster.
  */
 const layouts = [
-  { cls: "tile--a", ratio: "3 / 2", speed: 0.06, drift: -0.07 },
+  { cls: "tile--a", ratio: "16 / 10", speed: 0.06, drift: -0.07 },
   { cls: "tile--b", ratio: "5 / 4", speed: -0.05, drift: 0.06 },
   { cls: "tile--c", ratio: "1 / 1", speed: 0.05, drift: -0.05 },
   { cls: "tile--d", ratio: "16 / 10", speed: -0.06, drift: 0.07 },

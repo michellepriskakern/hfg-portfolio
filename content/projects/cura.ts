@@ -30,7 +30,7 @@ const project: Project = {
   cover: {
     src: "/img/cura/product.webp",
     w: 2000,
-    h: 1333,
+    h: 1465,
     alt: {
       de: "cura: Tablet auf einem weißen Ständer, darunter der Dispenser mit farbigen Fächern, daneben Medikamentenpackungen",
       en: "cura: a tablet on a white stand above the dispenser with coloured compartments, medication packs next to it",
