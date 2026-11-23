@@ -117,7 +117,7 @@ const nr = (i: number) => String(i + 1).padStart(2, "0");
  * Ab dem 5. Projekt wiederholt sich das Muster.
  */
 const layouts = [
-  { cls: "tile--a", ratio: "4 / 5", speed: 0.06, drift: -0.07 },
+  { cls: "tile--a", ratio: "3 / 2", speed: 0.06, drift: -0.07 },
   { cls: "tile--b", ratio: "5 / 4", speed: -0.05, drift: 0.06 },
   { cls: "tile--c", ratio: "1 / 1", speed: 0.05, drift: -0.05 },
   { cls: "tile--d", ratio: "16 / 10", speed: -0.06, drift: 0.07 },
@@ -453,7 +453,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
     padding-right: 4.5rem;
   }
   /* jedes Projekt in eigener Zeile, abwechselnd links / rechts versetzt */
-  .tile--a { grid-column: 2 / span 4; }
+  .tile--a { grid-column: 2 / span 5; }
   .tile--b { grid-column: 7 / span 5; }
   .tile--c { grid-column: 3 / span 4; }
   .tile--d { grid-column: 6 / span 6; }

@@ -192,7 +192,7 @@ html.has-cursor * {
 /* Bilder: in Übersichten schwarzweiß, bei Hover farbig */
 .img-frame {
   overflow: hidden;
-  border-radius: var(--radius);
+  border-radius: 0; /* Projektbilder mit harten Kanten */
   background: #e4e1d9;
 }
 .img-bw img {

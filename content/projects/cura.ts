@@ -28,12 +28,12 @@ const project: Project = {
   ],
   disciplines: { de: "Interface · Hardware · UX", en: "Interface · Hardware · UX" },
   cover: {
-    src: "/img/cura/prototype.webp",
+    src: "/img/cura/product.webp",
     w: 2000,
-    h: 1500,
+    h: 1333,
     alt: {
-      de: "Prototyp von cura: Tablet auf einem Ständer, davor ein Wochen-Dispenser mit farbigen Bechern",
-      en: "cura prototype: a tablet on a stand with a weekly dispenser and coloured cups in front of it",
+      de: "cura: Tablet auf einem weißen Ständer, darunter der Dispenser mit farbigen Fächern, daneben Medikamentenpackungen",
+      en: "cura: a tablet on a white stand above the dispenser with coloured compartments, medication packs next to it",
     },
   },
   hero: {
