@@ -38,7 +38,7 @@ export default defineNuxtConfig({
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "Michelle Kern" },
         { property: "og:image", content: "https://www.michellekern.de/img/cura/prototype.webp" },
-        { name: "theme-color", content: "#f3f1ec" },
+        { name: "theme-color", content: "#ffffff" },
       ],
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
