@@ -133,7 +133,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
     <section ref="intro" class="intro">
       <h1 class="hero-name">
         <span class="block">michelle</span>
-        <span class="block">kern</span>
+        <span class="block">priska kern</span>
       </h1>
       <div class="hero-side">
         <p class="hero-role">{{ t(site.home.role) }}</p>
@@ -246,7 +246,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
   height: calc(100svh + 22vh);
 }
 .hero-name {
-  font-size: clamp(3.6rem, 19vw, 7rem);
+  font-size: clamp(3rem, 16.5vw, 7rem);
   font-weight: 600;
   line-height: 0.9;
   letter-spacing: -0.055em;
