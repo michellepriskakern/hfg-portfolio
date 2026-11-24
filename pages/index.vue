@@ -324,6 +324,20 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
     padding-bottom: 0.35rem;
   }
 }
+@media (min-width: 1024px) {
+  /* großer Name; der Text rechts reicht genau von der Oberkante bis zur Grundlinie von „priska kern“ */
+  .intro {
+    grid-template-columns: auto 1fr;
+    column-gap: clamp(3rem, 8vw, 9rem);
+  }
+  .hero-name {
+    font-size: 12.2vw;
+    line-height: 0.82;
+  }
+  .hero-side {
+    padding-bottom: 0.8vw;
+  }
+}
 
 /* ---------- Arbeiten ---------- */
 .work {
