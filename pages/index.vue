@@ -261,6 +261,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
   max-width: 27rem;
 }
 .hero-role {
+  text-wrap: balance; /* gleich lange Zeilen statt Flattersatz */
   font-size: clamp(1.05rem, 1.4vw, 1.4rem);
   font-weight: 500;
   line-height: 1.2;

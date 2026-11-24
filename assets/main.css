@@ -316,3 +316,8 @@ button:focus-visible .hover-arrow {
     display: none;
   }
 }
+
+/* Fließtext: keine einzelnen Wörter allein in der letzten Zeile */
+p {
+  text-wrap: pretty;
+}
