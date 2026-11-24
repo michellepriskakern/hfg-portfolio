@@ -28,7 +28,7 @@ const active = ref<string | null>(null);
           <span class="next-title">{{ p.title }}</span>
           <span class="next-sub">{{ t(p.subtitle) }}</span>
           <span class="label next-year">{{ p.year }}</span>
-          <span class="next-arrow" aria-hidden="true">→</span>
+          <span class="next-arrow" aria-hidden="true"><HoverArrow class="hover-arrow--inline" /></span>
         </NuxtLink>
       </li>
     </ul>
@@ -88,7 +88,7 @@ const active = ref<string | null>(null);
   }
   .next-arrow {
     font-size: 1.4rem;
-    transform: translateX(-8px);
+    transform: translate(-6px, 6px);
     opacity: 0;
     transition: transform 0.4s var(--ease-fluid), opacity 0.3s var(--ease-fluid);
   }

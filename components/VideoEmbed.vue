@@ -18,6 +18,7 @@ const loaded = ref(false);
     />
     <button v-else type="button" class="video-poster" @click="loaded = true">
       <img :src="poster" alt="" loading="lazy" />
+      <HoverArrow />
       <span class="video-ui">
         <span class="video-play">▶&nbsp; {{ t(site.ui.videoLoad) }}</span>
         <span class="video-note">{{ t(site.ui.videoNote) }}</span>

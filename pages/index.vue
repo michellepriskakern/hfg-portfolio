@@ -183,6 +183,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
                   :alt="t(p.cover.alt)"
                   :loading="i === 0 ? 'eager' : 'lazy'"
                 />
+                <HoverArrow />
                 <!-- erscheint erst beim Hover: Name mittig, Buchstabe für Buchstabe, darunter kurz worum es geht -->
                 <div class="tile-cap">
                   <h3 class="tile-title" :aria-label="p.title">
