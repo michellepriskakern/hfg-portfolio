@@ -25,8 +25,9 @@ export const site = {
       en: "I'm Michelle, an interaction designer at HfG Schwäbisch Gmünd. I'm interested in why we use products the way we do – and how design changes that behaviour.",
     } as L,
     role: {
-      de: "Interaktionsgestalterin aus Schwäbisch Gmünd mit Fokus auf digitale Produkte und nutzerzentriertes Gestalten.",
-      en: "Interaction designer based in Schwäbisch Gmünd, focused on digital products and user-centred design.",
+      // \n = Zeilenumbruch auf großen Bildschirmen (auf dem Handy fließt der Text normal)
+      de: "Interaktionsgestalterin aus Schwäbisch Gmünd\nmit Fokus auf digitale Produkte und\nnutzerzentriertes Gestalten.",
+      en: "Interaction designer based in Schwäbisch Gmünd,\nfocused on digital products\nand user-centred design.",
     } as L,
     workTitle: { de: "Ausgewählte Arbeiten", en: "Selected work" } as L,
     scroll: { de: "Scrollen", en: "Scroll" } as L,

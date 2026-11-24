@@ -344,9 +344,12 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
     padding-bottom: 0;
   }
   .hero-role {
-    font-size: 1.39vw;
-    line-height: 1.21;
-    max-width: 23vw;
+    /* feste Umbrüche aus dem Text (\n), drei lange Zeilen */
+    white-space: pre-line;
+    text-wrap: wrap;
+    font-size: 1.6vw;
+    line-height: 1.3;
+    max-width: none;
   }
   /* „Always searching for […]“ sitzt darüber, damit der Text unten bündig bleibt */
   .hero-claim {
