@@ -39,7 +39,11 @@ export default defineNuxtConfig({
         { property: "og:image", content: "https://www.michellekern.de/img/cura/prototype.webp" },
         { name: "theme-color", content: "#ffffff" },
       ],
-      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+      link: [
+        { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico", sizes: "any" },
+        { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      ],
     },
   },
 
