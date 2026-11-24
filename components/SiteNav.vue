@@ -37,10 +37,8 @@ const isActive = (to: string) =>
   inset: 0 0 auto 0;
   z-index: 50;
   height: var(--nav-h);
-  background: color-mix(in srgb, var(--color-paper) 82%, transparent);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-line) 70%, transparent);
+  /* gleicher Grund wie die Seite, ohne Linie oder Schatten – keine sichtbare Kante */
+  background: var(--color-paper);
 }
 .nav-inner {
   height: 100%;
