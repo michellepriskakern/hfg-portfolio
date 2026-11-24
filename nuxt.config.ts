@@ -14,9 +14,7 @@ export default defineNuxtConfig({
     inject: true,
     display: "swap",
     families: {
-      "Atkinson+Hyperlegible+Next": [300, 400, 500, 600, 700],
-      "Atkinson+Hyperlegible": [400, 700],
-      "Instrument+Serif": { wght: [400], ital: [400] },
+      "Atkinson+Hyperlegible+Next": { wght: [300, 400, 500, 600, 700], ital: [300, 400, 500] },
     },
   },
 

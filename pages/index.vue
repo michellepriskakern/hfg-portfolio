@@ -273,8 +273,8 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
 .hero-word {
   display: block;
   color: var(--color-accent);
-  font-size: 1.3em;
-  line-height: 1.2;
+  font-size: 1.1em;
+  line-height: 1.25;
   white-space: nowrap;
 }
 .intro.is-back .hero-word {
