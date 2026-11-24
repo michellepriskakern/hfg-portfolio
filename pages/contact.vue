@@ -18,7 +18,7 @@ useSeoMeta({
     <ul class="contact-list">
       <li>
         <span class="label bracket">E-Mail</span>
-        <a :href="'mailto:' + site.email" class="contact-link link-u">{{ site.email }}</a>
+        <a :href="'mailto:' + site.email" class="contact-link link-u">{{ site.email }} <HoverArrow class="hover-arrow--inline hover-arrow--text" /></a>
       </li>
       <li>
         <span class="label bracket">LinkedIn</span>

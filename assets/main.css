@@ -177,17 +177,13 @@ html.has-cursor * {
   color: var(--color-paper);
 }
 
+/* Textlinks: ohne Unterstrich, beim Hover etwas heller */
 .link-u {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-size: 100% 1px;
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size 0.35s var(--ease-fluid);
-  padding-bottom: 2px;
+  transition: opacity 0.3s var(--ease-fluid);
 }
-.link-u:hover {
-  background-size: 0% 1px;
-  background-position: 100% 100%;
+.link-u:hover,
+.link-u:focus-visible {
+  opacity: 0.55;
 }
 
 /* Bilder: in Übersichten schwarzweiß, bei Hover farbig */

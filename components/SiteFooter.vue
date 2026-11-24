@@ -13,7 +13,7 @@ const year = new Date().getFullYear();
         <span class="h-xl">{{ t(site.contact.cta) }}</span>
       </a>
       <div class="footer-links">
-        <a :href="'mailto:' + site.email" class="link-u">{{ site.email }}</a>
+        <a :href="'mailto:' + site.email" class="link-u">{{ site.email }} <HoverArrow class="hover-arrow--inline hover-arrow--text" /></a>
         <a :href="site.linkedin" target="_blank" rel="noopener" class="link-u">LinkedIn <HoverArrow class="hover-arrow--inline hover-arrow--text" /></a>
       </div>
     </div>

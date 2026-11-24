@@ -76,7 +76,7 @@ onBeforeUnmount(() => {
           <dt class="label bracket">{{ t(site.ui.team) }}</dt>
           <dd>
             <template v-for="(m, i) in project.team" :key="m.name">
-              <a v-if="m.url" :href="m.url" target="_blank" rel="noopener" class="link-u">{{ m.name }}</a>
+              <a v-if="m.url" :href="m.url" target="_blank" rel="noopener" class="link-u">{{ m.name }} <HoverArrow class="hover-arrow--inline hover-arrow--text" /></a>
               <span v-else>{{ m.name }}</span><span v-if="i < project.team.length - 1">, </span>
             </template>
           </dd>
