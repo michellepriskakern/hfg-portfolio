@@ -220,7 +220,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
         <p class="label bracket">{{ t(site.about.title) }}</p>
         <div v-reveal>
           <p class="h-lg teaser-text">{{ t(site.home.aboutTeaser) }}</p>
-          <NuxtLink to="/about" class="btn teaser-btn">{{ t(site.home.aboutLink) }} <span aria-hidden="true">→</span></NuxtLink>
+          <NuxtLink to="/about" class="btn teaser-btn">{{ t(site.home.aboutLink) }} <HoverArrow class="hover-arrow--inline hover-arrow--text" /></NuxtLink>
         </div>
       </div>
     </section>

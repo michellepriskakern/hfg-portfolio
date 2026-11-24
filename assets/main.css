@@ -308,6 +308,13 @@ button:focus-visible .hover-arrow {
 .hover-arrow--inline path {
   stroke: currentColor;
 }
+/* im Fließtext neben Links (z. B. LinkedIn): Größe passt sich der Schrift an */
+.hover-arrow--text {
+  width: 0.78em;
+  height: 0.78em;
+  margin-left: 0.2em;
+  vertical-align: 0.02em;
+}
 @media (hover: none) {
   .hover-arrow:not(.hover-arrow--inline) {
     display: none;

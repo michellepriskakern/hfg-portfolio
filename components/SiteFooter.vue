@@ -14,7 +14,7 @@ const year = new Date().getFullYear();
       </a>
       <div class="footer-links">
         <a :href="'mailto:' + site.email" class="link-u">{{ site.email }}</a>
-        <a :href="site.linkedin" target="_blank" rel="noopener" class="link-u">LinkedIn ↗</a>
+        <a :href="site.linkedin" target="_blank" rel="noopener" class="link-u">LinkedIn <HoverArrow class="hover-arrow--inline hover-arrow--text" /></a>
       </div>
     </div>
     <div class="footer-bottom label">

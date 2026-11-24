@@ -22,7 +22,7 @@ useSeoMeta({
       </li>
       <li>
         <span class="label bracket">LinkedIn</span>
-        <a :href="site.linkedin" target="_blank" rel="noopener" class="contact-link link-u">Michelle Kern ↗</a>
+        <a :href="site.linkedin" target="_blank" rel="noopener" class="contact-link link-u">Michelle Kern <HoverArrow class="hover-arrow--inline hover-arrow--text" /></a>
       </li>
       <li>
         <span class="label bracket">{{ lang === "de" ? "Ort" : "Location" }}</span>
@@ -30,7 +30,7 @@ useSeoMeta({
       </li>
     </ul>
 
-    <a :href="'mailto:' + site.email" class="btn contact-btn">{{ t(site.contact.mail) }} <span aria-hidden="true">→</span></a>
+    <a :href="'mailto:' + site.email" class="btn contact-btn">{{ t(site.contact.mail) }} <HoverArrow class="hover-arrow--inline hover-arrow--text" /></a>
   </section>
 </template>
 
