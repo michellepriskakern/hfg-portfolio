@@ -236,6 +236,7 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
   bottom: clamp(1.5rem, 3.2vw, 3rem);
   z-index: 0;
   pointer-events: none; /* enthält keine Links – darunterliegendes bleibt klickbar */
+  color: #292b34; /* dunkles Grau wie in der Referenz */
   display: grid;
   gap: 1.1rem;
   align-items: end;
@@ -325,17 +326,33 @@ const chars = (s: string) => [...s].map((c) => (c === " " ? "\u00A0" : c));
   }
 }
 @media (min-width: 1024px) {
-  /* großer Name; der Text rechts reicht genau von der Oberkante bis zur Grundlinie von „priska kern“ */
+  /* Name in derselben Größe wie die Referenz (mirkoromanelli.com);
+     der Text rechts reicht von der Oberkante bis zur Grundlinie von „priska kern“ */
   .intro {
     grid-template-columns: auto 1fr;
-    column-gap: clamp(3rem, 8vw, 9rem);
+    column-gap: 6vw;
   }
   .hero-name {
-    font-size: 12.2vw;
-    line-height: 0.82;
+    font-size: 9.85vw;
+    line-height: 0.74;
   }
   .hero-side {
-    padding-bottom: 0.8vw;
+    position: relative;
+    display: block;
+    max-width: none;
+    padding-bottom: 0;
+  }
+  .hero-role {
+    font-size: 1.39vw;
+    line-height: 1.21;
+    max-width: 23vw;
+  }
+  /* „Always searching for […]“ sitzt darüber, damit der Text unten bündig bleibt */
+  .hero-claim {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 1.2rem;
   }
 }
 
